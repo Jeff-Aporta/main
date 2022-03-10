@@ -1,0 +1,362 @@
+<!DOCTYPE html><html lang="en"><head>
+    <meta charset="UTF-8">
+    <title>Cubo</title>
+  
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.3/css/all.min.css">
+  <script src="sweetalert2.all.min.js"></script>
+</head>
+
+<body>
+    <style>
+        * {
+            transition: all 0.5s;
+        }
+
+        body {
+            margin:0;
+            padding: 0;
+            background: cadetblue;
+            overflow: hidden;
+            -webkit-perspective: 600;
+        }
+
+        .contenedor {
+            width: 100vw;
+            height: 100vh;
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            align-items: center;
+        }
+
+        .dado {
+            transform-style: preserve-3d;
+            transform-origin: 100px 100px 0;
+            position: relative;
+            width: 200px;
+            height: 200px;
+        }
+
+        .cara {
+            position: absolute;
+            width: 200px;
+            height: 200px;
+            background: linear-gradient(red, darkred);
+            border: 2px solid black;
+            backface-visibility: hidden;
+        }
+
+        .cara1 {
+            transform: translateZ(100px);
+        }
+
+        .cara2 {
+            transform: rotateY(90deg) translateZ(100px);
+        }
+
+        .cara3 {
+            transform: rotateY(90deg) rotateX(90deg) translateZ(100px);
+        }
+
+        .cara4 {
+            transform: rotateY(180deg) rotateZ(90deg) translateZ(100px);
+        }
+
+        .cara5 {
+            transform: rotateY(-90deg) rotateZ(90deg) translateZ(100px);
+        }
+
+        .cara6 {
+            transform: rotateX(-90deg) translateZ(100px);
+        }
+
+        .separador {
+            width: 100px;
+            height: 100px;
+        }
+
+        .btn {
+            font-size: 300%;
+            font-family: calibri;
+            background: white;
+            padding: 10px 30px;
+            border: 3px solid black;
+            border-radius: 30px;
+        }
+
+        @keyframes dado-cara-1 {
+            40% {
+                transform: rotateX(762deg) rotateY(721deg) rotateZ(539deg)
+            }
+
+            80% {
+                transform: rotateX(788deg) rotateY(527deg) rotateZ(860deg)
+            }
+
+            100% {
+                transform: none
+            }
+        }
+
+        @keyframes dado-cara-2 {
+            40% {
+                transform: rotateX(762deg) rotateY(721deg) rotateZ(539deg)
+            }
+
+            80% {
+                transform: rotateX(788deg) rotateY(527deg) rotateZ(860deg)
+            }
+
+            100% {
+                transform: rotateY(-90deg);
+            }
+        }
+
+        @keyframes dado-cara-3 {
+            40% {
+                transform: rotateX(762deg) rotateY(721deg) rotateZ(539deg)
+            }
+
+            80% {
+                transform: rotateX(788deg) rotateY(527deg) rotateZ(860deg)
+            }
+
+            100% {
+                transform: rotateY(-90deg) rotateZ(90deg);
+            }
+        }
+
+        @keyframes dado-cara-4 {
+            40% {
+                transform: rotateX(762deg) rotateY(721deg) rotateZ(539deg)
+            }
+
+            80% {
+                transform: rotateX(788deg) rotateY(527deg) rotateZ(860deg)
+            }
+
+            100% {
+                transform: rotateY(-180deg) rotateZ(90deg);
+            }
+        }
+
+        @keyframes dado-cara-5 {
+            40% {
+                transform: rotateX(762deg) rotateY(721deg) rotateZ(539deg)
+            }
+
+            80% {
+                transform: rotateX(788deg) rotateY(527deg) rotateZ(860deg)
+            }
+
+            100% {
+                transform: rotateY(-270deg) rotateX(90deg);
+            }
+        }
+
+        @keyframes dado-cara-6 {
+            40% {
+                transform: rotateX(762deg) rotateY(721deg) rotateZ(539deg)
+            }
+
+            80% {
+                transform: rotateX(788deg) rotateY(527deg) rotateZ(860deg)
+            }
+
+            100% {
+                transform: rotateX(90deg);
+            }
+        }
+
+        .dados{
+            display: flex;
+        }
+
+        @media only screen and (max-width: 768px) {
+            .dados {
+                flex-direction: column;
+                transform: scale(0.8);
+                -webkit-perspective: 600;
+            }
+        }
+      
+      @media only screen and (orientation: landscape) {
+        .dados {
+                flex-direction: row;
+                transform: scale(0.8);
+                -webkit-perspective: 600;
+        }
+      }
+    </style>
+    <div class="contenedor">
+      
+      <i class="fas fa-palette" style="position:absolute;top:10px;left:10px;font-size:200%;color:white" onclick="escogerColor()"></i>
+      
+        
+
+        <div class="dados" id="dados">
+            <div class="dado" id="dado1" onclick="jugar()">
+                <div class="cara cara1">
+                    <svg style="width: 100%;height: 100%;">
+                        <circle cx="50%" cy="50%" r="15" stroke-width="4" fill="white" stroke="black"></circle>
+                    </svg>
+                </div>
+                <div class="cara cara2">
+                    <svg style="width: 100%;height: 100%;">
+                        <circle cx="25%" cy="25%" r="15" stroke-width="4" fill="white" stroke="black"></circle>
+                        <circle cx="75%" cy="75%" r="15" stroke-width="4" fill="white" stroke="black"></circle>
+                    </svg>
+                </div>
+                <div class="cara cara3">
+                    <svg style="width: 100%;height: 100%;">
+                        <circle cx="150" cy="150" r="15" stroke-width="4" fill="white" stroke="black"></circle>
+                        <circle cx="100" cy="100" r="15" stroke-width="4" fill="white" stroke="black"></circle>
+                        <circle cx="50" cy="50" r="15" stroke-width="4" fill="white" stroke="black"></circle>
+                    </svg>
+                </div>
+                <div class="cara cara4">
+                    <svg style="width: 100%;height: 100%;">
+                        <circle cx="150" cy="150" r="15" stroke-width="4" fill="white" stroke="black"></circle>
+                        <circle cx="150" cy="50" r="15" stroke-width="4" fill="white" stroke="black"></circle>
+                        <circle cx="50" cy="150" r="15" stroke-width="4" fill="white" stroke="black"></circle>
+                        <circle cx="50" cy="50" r="15" stroke-width="4" fill="white" stroke="black"></circle>
+                    </svg>
+                </div>
+                <div class="cara cara5">
+                    <svg style="width: 100%;height: 100%;">
+                        <circle cx="150" cy="150" r="15" stroke-width="4" fill="white" stroke="black"></circle>
+                        <circle cx="100" cy="100" r="15" stroke-width="4" fill="white" stroke="black"></circle>
+                        <circle cx="150" cy="50" r="15" stroke-width="4" fill="white" stroke="black"></circle>
+                        <circle cx="50" cy="150" r="15" stroke-width="4" fill="white" stroke="black"></circle>
+                        <circle cx="50" cy="50" r="15" stroke-width="4" fill="white" stroke="black"></circle>
+                    </svg>
+                </div>
+                <div class="cara cara6">
+                    <svg style="width: 100%;height: 100%;">
+                        <circle cx="150" cy="150" r="15" stroke-width="4" fill="white" stroke="black"></circle>
+                        <circle cx="50" cy="100" r="15" stroke-width="4" fill="white" stroke="black"></circle>
+                        <circle cx="150" cy="50" r="15" stroke-width="4" fill="white" stroke="black"></circle>
+                        <circle cx="150" cy="100" r="15" stroke-width="4" fill="white" stroke="black"></circle>
+                        <circle cx="50" cy="150" r="15" stroke-width="4" fill="white" stroke="black"></circle>
+                        <circle cx="50" cy="50" r="15" stroke-width="4" fill="white" stroke="black"></circle>
+                    </svg>
+                </div>
+            </div>
+
+            <div class="separador"></div>
+
+            <div class="dado" id="dado2" onclick="jugar()">
+                <script>
+                    document.getElementById("dado2").innerHTML = document.getElementById("dado1").innerHTML
+                </script>
+            </div>
+        </div>
+    </div>
+  
+    <style>
+      .swal2-range,.swal2-actions{
+        margin:0;
+        padding:0;
+      }
+    </style>
+
+    <script>
+      
+      if(!cookie("color")){
+        createCookie("color",0)
+      }
+      
+      asignarColorDados()      
+      
+      async function escogerColor(){
+        const { value: color } = await Swal.fire({
+          html:"Escoge un valor para el tono",
+          input: 'range',
+          inputAttributes: {
+            min: 0,
+            max: 360,
+            step: 1
+          },
+          inputValue: cookie("color")
+        })
+        if(!color){
+          return
+        }
+        createCookie("color",color)
+        asignarColorDados()
+      }
+        
+        function asignarColorDados(){
+          let dados = document.getElementById("dados") 
+          dados.style.filter=`hue-rotate(${cookie("color")}deg) saturate(120%)`
+        }
+
+        function jugar() {
+            let dado
+            for (let i = 1; i <= 2; i++) {
+                if (i == 1) {
+                    dado = document.getElementById("dado1")
+                }
+                if (i == 2) {
+                    dado = document.getElementById("dado2")
+                }
+                let anim = `dado-cara-${Math.floor(Math.random() * 6 + 1)} 1.5s 0s ease forwards`
+                dado.style.animation = anim
+            }
+        }
+
+
+        function detener(i) {
+            let dado
+            if (i == 1) {
+                dado = document.getElementById("dado1")
+                dado.style.animation = ""
+            }
+            if (i == 2) {
+                dado = document.getElementById("dado2")
+                dado.style.animation = ""
+            }
+        }
+      
+      function createCookie(nombre, valor = "", días = 30) {
+          valor = escape(valor)
+          var ahora = new Date();
+          let ms = ahora.getTime() + días * 24 * 3600 * 1000;
+          ahora.setTime(ms);
+          let creación = nombre + "=" + valor + "; ";
+          let expiración = "expires=" + ahora.toUTCString();
+          document.cookie = creación + expiración + ";" + "path=/";
+          return unescape(valor)
+      }
+
+      function cookie(nombre) {
+          let cookies = document.cookie
+          let cookieArr = cookies.split("; ")
+          for (let i in cookieArr) {
+              elemento = cookieArr[i].split("=")
+              if (elemento[0] == nombre) {
+                  let v = elemento[1]
+                  switch (v) {
+                      case "null":
+                          return null
+                      case "undefined":
+                          return undefined
+                      case "true":
+                          return true
+                      case "false":
+                          return false
+                  }
+                  n = Number(v)
+                  if (!isNaN(n)) {
+                      return n
+                  }
+                  v = unescape(v)
+                  return v
+              }
+          }
+          return null
+      }
+    </script>
+
+
+</body></html>

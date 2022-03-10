@@ -1,0 +1,29 @@
+<table id="flechas-vertical" class="control ocultar" cellspacing="0" cellpadding="0">
+    <tbody>
+      <tr>
+        <td style="width: 33px; text-align: center;" onclick="usarReserva()">
+      <img src="https://docs.google.com/drawings/d/e/2PACX-1vSenh-qtdOcfQKrqEJOej-Vd1I3xc4WcEUv8oaYpcE9pF6-rfbzRdPM9vv1DS_iclyYXtWxVg6nE6G2/pub?w=100"> 
+        </td>
+        <td style="width: 34px; text-align: center;" onclick="girar()">
+        <img class="flip-horizontal" src="https://docs.google.com/drawings/d/e/2PACX-1vTESlUjzMMKlzyi0fiRMknP4Xm-jjhgkRQDBmPy6sQ5ZI8d6TeYGbGxHz5-3OWm16tflHZ3A-QVALLr/pub?w=100"> 
+        </td>
+        <td style="width: 34px; text-align: center;" <td style="width: 34px; text-align: center;" onmousedown="tactil[DOWN_ARROW] = true"        ontouchstart="tactil[DOWN_ARROW] = true" onmouseup="tactil[DOWN_ARROW] = false"
+ontouchend="tactil[DOWN_ARROW] = false">
+         <img src="https://docs.google.com/drawings/d/e/2PACX-1vTbVC39ZoAKrn3V40g5F6LHIz3BbTNZlOva5XCyUbBDo2T3PsqJQF1CzHbHfBkb8hd_YIbCLhTub6u5/pub?w=100"> 
+        </td>
+        </td>
+      </tr>
+      <tr>
+        <td style="width: 34px; text-align: center;" onmousedown="tactil[LEFT_ARROW] = true"        ontouchstart="tactil[LEFT_ARROW] = true" onmouseup="tactil[LEFT_ARROW] = false"
+ontouchend="tactil[LEFT_ARROW] = false">
+      <img src="https://docs.google.com/drawings/d/e/2PACX-1vQGYN6LHySf44uHJuEiHWonZsDjJa90DIGqvzzlN98CKnDpo15HR1leqhR8Iuin1DZjB78gJ5jFWz2B/pub?w=100"> 
+        </td>
+        <td style="width: 34px; text-align: center;" onclick="tetrimino.caidaInmediata()">
+        <img src="https://docs.google.com/drawings/d/e/2PACX-1vQjhue7D-5sszHxayhF4-FSFdxfqd7bAFoARJxCTj0bb1jxSbFiBCMaQaqAWoaCdLVR_NdtdALNjwVu/pub?w=100">
+        <td style="width: 34px; text-align: center;" onmousedown="tactil[RIGHT_ARROW] = true"        ontouchstart="tactil[RIGHT_ARROW] = true" onmouseup="tactil[RIGHT_ARROW] = false"
+ontouchend="tactil[RIGHT_ARROW] = false">
+        <img src="https://docs.google.com/drawings/d/e/2PACX-1vQ3FYpgcxvaq_kP-KDzk-h672X1dzgJcT8rcwJYWHFwOTLdojUVf21pAWvwjNwMTC7DGVVjPIZ91xtn/pub?w=100">
+        </td>
+      </tr>
+    </tbody>
+  </table>

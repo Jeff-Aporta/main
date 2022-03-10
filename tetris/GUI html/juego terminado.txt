@@ -1,0 +1,20 @@
+<div style="font-size:180%" id="juegoTerminado" class="centrar ocultar degb" >
+    <table cellspacing="0" cellpadding="0">
+      <tbody>
+        <tr>
+          <td>
+            <div class="boton" onclick="nuevoJuego()">
+              Reiniciar
+            </div>
+          </td>
+        </tr>
+        <tr>
+          <td>
+            <div style="transform:scale(0.6)" class="boton" onclick="menu()">
+              Menú
+            </div>
+          </td>
+        </tr>
+      </tbody>
+    </table>
+  </div>

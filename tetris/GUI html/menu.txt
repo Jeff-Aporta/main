@@ -1,0 +1,53 @@
+<div id="menu" class="centrar ocultar">
+    <table cellpadding="0">
+      <tbody>
+        <tr>
+          <td>
+            <div>
+              <img 
+              id="banner"
+src="https://docs.google.com/drawings/d/e/2PACX-1vSUXoKF09JP9x5VyitdqrJDb8_2DPpFBrmIpbmoX3uvQwLOkg_6Y6LnDfkLho-Yo2bAPkz0YA0mAtUM/pub?w=996">
+            </div>
+          </td>
+        </tr>
+        <tr>
+          <td>
+            <div class="boton" onclick="modo()">
+              Nuevo Juego
+            </div>
+          </td>
+        </tr>
+        <tr>
+          <td>
+            <div class="boton" onclick="creditos()">
+              Créditos
+            </div>
+          </td>
+        </tr>
+        <tr>
+          <td>
+            <input type="checkbox" checked="true" id="tactil">
+            <label for="tactil">Táctil visible</label>
+            <input type="checkbox" checked="true" id="auto">
+            <label for="auto">
+            Móvil-rotación
+            </label>
+          </td>
+        </tr>
+        </tr>
+        <tr>
+          <td>
+            <input type="checkbox" checked="true" id="fondo">
+            <label for="fondo">🎵 Fondo</label>
+            <input type="checkbox" checked="true" id="efectos">
+            <label for="efectos">🎵 Efectos</label>
+          </td>
+        </tr>
+        <tr>
+          <td id="puntaje" style="color:#ff0">
+            ⭐ 9999
+          </td>
+        </tr>
+      </tbody>
+    </table>
+  </div>

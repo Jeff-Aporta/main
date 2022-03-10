@@ -1,0 +1,82 @@
+<div style="font-size:150%" id="creditos" class="ocultar" >
+    
+    
+<table cellspacing="10" cellpadding="0">
+<tbody>
+<tr>
+<td>
+  <a href="https://www.youtube.com/channel/UC1zgh-6xm_a-PI49zb6e5HA" target="_blank" rel="noopener"> <img  src="https://docs.google.com/drawings/d/e/2PACX-1vTHUOcEkSahBcNi5qXHT3LxTUr2v9HLP74h1-SFNBrwJwrv5nwbLkhE0vjtFQnYUF21xsObbRAD0J4O/pub?w=700" style="width:200px;"> </a>  
+  </td>
+</tr>
+
+<tr>
+  <td>
+  <a href="https://www.paypal.com/paypalme/JeffAporta/2" target="_blank"> 
+      <img  src="https://docs.google.com/drawings/d/e/2PACX-1vTKBscs1Dq-nkZ-Xo87FgdZJRWuUZFq5EPGrQB-9jxcCfoOj9mpjwfDeraEvi4Z-YvO9Z_JUr4AS935/pub?w=200">
+    </a>
+  </td>
+</tr>
+
+<tr><td></td></tr><tr><td></td></tr>
+<tr><td></td></tr><tr><td></td></tr>
+<tr><td></td></tr><tr><td></td></tr>
+
+<tr>
+<td>
+  <a href="https://www.youtube.com/c/PauFern%C3%A1ndez" target="_blank">
+  <div>Pau Fernández 👨‍💻</div>
+<img src="https://yt3.ggpht.com/a/AATXAJxG8576u8IB5fdbekpHzvuJJIw0DbEvh7GM_suj_ow=s88-c-k-c0x00ffffff-no-rj" alt=""/>
+    </a>
+</td>
+</tr>
+<tr>
+<td>
+    <a href="https://www.youtube.com/user/quajen" target="_blank">
+  <div>Quajen 🎵</div>
+<img src="https://yt3.ggpht.com/a/AATXAJwml9SWsJCC3lWmT5mq01m8mBLJ_OvySso1jAJSMw=s88-c-k-c0x00ffffff-no-rj" alt="" />
+    </a>
+  </td>
+</tr>
+<tr>
+<td>
+<a href="https://www.youtube.com/user/carnalhiphop" target="_blank">
+  <div>Diego Carnal 🎵</div>
+<img src="https://yt3.ggpht.com/a/AATXAJxQxIa5cB5CJmJN0gN5bXnEhk3bwgY5YHwGutTtIg=s88-c-k-c0x00ffffff-no-rj">
+    </a>
+</td>
+</tr>
+<tr>
+<td>
+<a href="https://www.youtube.com/irackoficial" target="_blank">
+  <div>Irackbeats 🎵</div>
+<img src="https://yt3.ggpht.com/a/AATXAJzqQg3fGHQOg2KyaUXTTZNkBf0hQ__0YdKWqaq1Jg=s88-c-k-c0x00ffffff-no-rj">
+    </a>
+</td>
+</tr>
+<tr>
+<td>
+<a href="https://www.youtube.com/channel/UCvQJIpqXNlX990v3jLrkchA" target="_blank">
+  <div>MC Dracko 🎵</div>
+<img src="https://yt3.ggpht.com/a/AATXAJzjzS7bgoLNK7KWCy2qz_3jVP1hq3KiD2yekgg_pA=s88-c-k-c0x00ffffff-no-rj">
+    </a>
+</td>
+</tr>
+
+<tr><td></td></tr><tr><td></td></tr>
+<tr><td></td></tr><tr><td></td></tr>
+<tr><td></td></tr><tr><td></td></tr>
+
+<tr>
+<td>
+<div class="boton" onclick="menu()">
+Menú
+</div>
+</td>
+</tr>
+
+
+</tbody>
+</table>
+    
+    
+</div>

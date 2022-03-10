@@ -1,0 +1,122 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Cubo de imagenes</title>
+</head>
+<body>
+
+    <style>
+        body{
+            margin:0;
+            padding:0;
+            background: cadetblue;
+            -webkit-perspective: 300;
+        }
+
+        .contenedor{
+            width: 100vw;
+            height: 100vh;
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            align-items: center;
+        }
+
+        .caja{
+            position: relative;
+            width: 200px;
+            height: 200px;
+            transform-style: preserve-3d;
+            transform-origin: 100px 100px 0;
+            animation: girar 15s ease-in-out alternate infinite;
+        }
+
+        .cara{
+            position: absolute;
+            width: 200px;
+            height: 200px;
+            backface-visibility: hidden;
+        }
+
+        .cara img{
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+        }
+
+        .cara1{
+            transform: translateZ(100px);
+        }
+
+        .cara2{
+            transform: rotateY(90deg) translateZ(100px);
+        }
+
+        .cara3{
+            transform: rotateY(90deg) rotateX(90deg) translateZ(100px)
+        }
+
+        .cara4{
+            transform: rotateX(180deg) rotateZ(-90deg) translateZ(100px);
+        }
+
+        .cara5{
+            transform: rotateY(-90deg) rotateZ(90deg) translateZ(100px);
+        }
+
+        .cara6{
+            transform: rotateX(-90deg) translateZ(100px) rotateZ(-90deg);
+        }
+
+
+        @keyframes girar {
+            0%{
+                transform: none;
+            }
+            13%,16.6%{
+                transform: rotateY(-90deg);
+            }
+            301%,33.33%{
+                transform: rotateY(-90deg) rotateZ(90deg);
+            }
+            46%,49.999%{
+                transform: rotateY(-270deg) rotateZ(90deg);
+            }
+            63%,66%{
+                transform: rotateY(90deg);
+            }
+            80%,83%{
+                transform: rotateY(-180deg) rotateZ(90deg);
+            }
+            97%,100%{
+                transform: none;
+            }
+        }
+    </style>
+
+    <div class="contenedor">
+        <div class="caja">
+            <div class="cara cara1">
+                <img src="https://i.ibb.co/64JJ378/1.jpg">
+            </div>
+            <div class="cara cara2">
+                <img src="https://i.ibb.co/jRydgdr/2.jpg">
+            </div>
+            <div class="cara cara3">
+                <img src="https://i.ibb.co/89RWhdW/3.jpg">
+            </div>
+            <div class="cara cara4">
+                <img src="https://i.ibb.co/YfPmjn5/4.webp">
+            </div>
+            <div class="cara cara5">
+                <img src="https://i.ibb.co/ZHqdpZ4/5.jpg">
+            </div>
+            <div class="cara cara6">
+                <img src="https://i.ibb.co/tPZNH9n/6.png">
+            </div>
+        </div>
+    </div>
+    
+</body>
+</html>

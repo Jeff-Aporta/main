@@ -1,0 +1,137 @@
+html,
+body {
+  margin: 0;
+  padding: 0;
+  font-family: calibri;
+  font-size:20px;
+  user-select: none;
+  background: black;
+  overflow: hidden
+}
+
+canvas {
+  margin: 0;
+  padding: 0;
+}
+
+input {
+  width: 20px;
+  height: 20px;
+}
+
+label{
+  font-size:80%;
+}
+
+#p5_loading {
+  width: 100%;
+  height: 100%;
+  position: absolute;
+  top: 0px; left: 0px;
+}
+
+#p5_loading iframe{
+  border: none;
+  width: 100%;
+  height: 100%;
+}
+
+.control {
+  mix-blend-mode: luminosity;
+  border: 1px solid rgba(0, 0, 0, 0.2);
+}
+
+.control td {
+  mix-blend-mode: luminosity;
+  filter:
+    grayscale(100%) opacity(60%);
+  border: 1px solid rgba(0, 0, 0, 0.1);
+  height:50px;
+}
+
+.control img {
+  position: fixed;
+  
+  transform: 
+    scale(0.5) translate(-100px,-100px);
+}
+
+.flip-horizontal{
+  transform: scaleX(-1)
+}
+
+.ocultar {
+  visibility: hidden;
+}
+
+#menu {
+  background:
+    linear-gradient(to top, darkcyan, cyan);
+}
+
+#banner{
+  width:300px;
+}
+
+.degb {
+  background:
+    linear-gradient(0deg, black 0%, transparent 50%, black 100%);
+}
+
+.centrar {
+  margin: 0;
+  padding: 0;
+  overflow: auto;
+  display: flex;
+  text-align: center;
+  justify-content: center;
+  align-items: center;
+}
+
+.boton {
+  background: rgba(255, 255, 255, 0.7);
+  padding: 5px 30px;
+  border: 4px solid white;
+  border-radius: 50px;
+  transform: scale(0.9);
+  transition: 0.1s;
+}
+
+.boton:hover {
+  background: #8ff;
+  transform: scale(1);
+  transition: 0.1s;
+}
+
+@keyframes desvanecer {
+  0% {
+    filter: opacity(100%) brightness(100%);
+  }
+  100% {
+    filter: opacity(0%) brightness(600%);
+  }
+}
+
+@keyframes aparecer {
+  0% {
+    filter: opacity(0%) brightness(600%);
+  }
+  100% {
+    filter: opacity(100%) brightness(100%);
+  }
+}
+
+@keyframes juegoTerminado {
+  100% {
+    filter: grayscale(90%) brightness(150%);
+  }
+}
+
+@keyframes nuevoJuego {
+  0% {
+    filter: grayscale(90%) brightness(400%);
+  }
+  100% {
+    filter: grayscale(0%) brightness(100%);
+  }
+}

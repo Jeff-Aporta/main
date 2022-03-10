@@ -1,0 +1,327 @@
+<!DOCTYPE html><html lang="en"><head>
+    <meta charset="UTF-8">
+    <title>Juego de la vida (Conway)</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.3/css/all.min.css">
+</head>
+
+<body>
+
+    <!-- CSS (Estilos) -->
+    <style>
+        * {
+            transition: all 0s;
+        }
+
+        html {
+            scroll-behavior: smooth;
+        }
+
+        body {
+            background: #f0f0ff;
+        }
+
+        td {
+            border: rgba(0, 0, 0, 0.2) solid 1px;
+        }
+
+        .contenedor-botones {
+            position: fixed;
+            top: 10px;
+            left: 10px;
+        }
+
+        .btn {
+            cursor: pointer;
+            background: skyblue;
+            display: inline block;
+            width: 30px;
+            height: 30px;
+            display: inline-flex;
+            justify-content: center;
+            align-items: center;
+        }
+
+        .btn:hover {
+            background: black;
+            color: white;
+        }
+    </style>
+
+    <!-- HTML (Estructura) -->
+
+    <div id="contenedor-tablero">
+    </div>
+
+    <div class="contenedor-botones">
+
+        <div class="btn" id="btn1" onclick=" intercambiarReproducción()">
+            <i class="fas fa-play" title="Iniciar cambio de estados"></i>
+        </div>
+
+        <div class="btn" id="btn2">
+            <i class="fas fa-step-forward" onclick="siguienteEstado()" title="Siguiente estado"></i>
+        </div>
+
+        <br>
+        <br>
+
+        <div class="btn" id="btn4" onclick="randomizar()" title="Aleatorio">
+            <i class="fas fa-random"></i>
+        </div>
+
+        <div class="btn" id="btn3" onclick="limpiar()" title="Limpiar">
+            <i class="fas fa-eraser"></i>
+        </div>
+
+        <br>
+        <br>
+
+        <div class="btn" id="btn5" onclick="minus()" title="Alejarse">
+            <i class="fas fa-minus"></i>
+        </div>
+
+        <div class="btn" id="btn6" onclick="plus()" title="Acercarse">
+            <i class="fas fa-plus"></i>
+        </div>
+
+        <br><br>
+
+        <div class="btn" id="btn7" onclick="centrar()" title="centrar">
+<!--            -->
+            <svg aria-hidden="true" focusable="false" data-prefix="fal" data-icon="location" role="img" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 512 512" class="svg-inline--fa fa-location fa-w-16 fa-2x"><path fill="currentColor" d="M504 240h-56.81C439.48 146.76 365.24 72.52 272 64.81V8c0-4.42-3.58-8-8-8h-16c-4.42 0-8 3.58-8 8v56.81C146.76 72.52 72.52 146.76 64.81 240H8c-4.42 0-8 3.58-8 8v16c0 4.42 3.58 8 8 8h56.81c7.71 93.24 81.95 167.48 175.19 175.19V504c0 4.42 3.58 8 8 8h16c4.42 0 8-3.58 8-8v-56.81c93.24-7.71 167.48-81.95 175.19-175.19H504c4.42 0 8-3.58 8-8v-16c0-4.42-3.58-8-8-8zM256 416c-88.22 0-160-71.78-160-160S167.78 96 256 96s160 71.78 160 160-71.78 160-160 160zm0-256c-53.02 0-96 42.98-96 96s42.98 96 96 96 96-42.98 96-96-42.98-96-96-96zm0 160c-35.29 0-64-28.71-64-64s28.71-64 64-64 64 28.71 64 64-28.71 64-64 64z" class=""></path></svg>
+        </div>
+
+    </div>
+
+    <!-- JS (Lógica) -->
+    <script>
+        let filas = 150
+        let columnas = 150
+        let lado = 15
+
+        let reproducir = false
+
+        let fotografia = []
+
+        document.addEventListener("keydown", (e) => { //Para tener un control con el teclado
+            e.preventDefault() //Para evitar el movimiento del scroll
+            switch (e.keyCode) {
+                case 39:
+                    siguienteEstado()
+                    break;
+                case 32:
+                    intercambiarReproducción()
+                    break;
+                case 8:
+                    limpiar()
+                    break;
+                default:
+                    break;
+            }
+        })
+
+        setInterval(() => {
+            if (reproducir) {
+                siguienteEstado()
+            }
+        }, 1000 / 60);
+
+        function centrar() {
+            window.scrollTo(
+                (lado * columnas - window.innerWidth) / 2,
+                (lado * filas - window.innerHeight) / 2
+            )
+        }
+
+        function minus() {
+            lado--
+            if (lado <= 7) {
+                lado = 7
+                return
+            }
+            let tablero = document.getElementById("tablero")
+            tablero.style.width = lado * columnas + "px"
+            tablero.style.height = lado * filas + "px"
+        }
+
+        function plus() {
+            lado++
+            let tablero = document.getElementById("tablero")
+            tablero.style.width = lado * columnas + "px"
+            tablero.style.height = lado * filas + "px"
+        }
+
+        function randomizar() {
+            mapa_complejidad = []
+            for (let x = 0; x < columnas; x++) {
+                for (let y = 0; y < filas; y++) {
+                    if (Math.random() < 0.2) {
+                        cambiarEstado(x, y)
+                    }
+                }
+            }
+        }
+
+        function intercambiarReproducción() {
+            mapa_complejidad = []
+            reproducir = !reproducir
+            if (reproducir) {
+                document.body.style.background = "white"
+                document.getElementById("btn1").innerHTML = `<i class="fas fa-pause"></i>`
+            } else {
+                document.body.style.background = "#f0f0ff"
+                document.getElementById("btn1").innerHTML = `<i class="fas fa-play"></i>`
+            }
+        }
+
+        generarTablero()
+
+        function generarTablero() {
+            let html = "<table cellpadding=0 cellspacing=0 id='tablero'>"
+            for (let y = 0; y < filas; y++) {
+                html += "<tr>"
+                for (let x = 0; x < columnas; x++) {
+                    html += `<td id="celula-${x + "-" + y}" onmouseup="cambiarEstado(${x}, ${y});mapa_complejidad = []">`
+                    html += "</td>"
+                }
+                html += "</tr>"
+            }
+            html += "</table>"
+            let contenedor = document.getElementById("contenedor-tablero")
+            contenedor.innerHTML = html
+            let tablero = document.getElementById("tablero")
+            tablero.style.width = lado * columnas + "px"
+            tablero.style.height = lado * filas + "px"
+            centrar()
+        }
+
+        function cambiarEstado(x, y) {
+            let celula = document.getElementById(`celula-${x + "-" + y}`)
+            if (celula.style.background != "black") {
+                celula.style.background = "black"
+            } else {
+                celula.style.background = ""
+            }
+        }
+
+        function limpiar() {
+            mapa_complejidad = []
+            for (let x = 0; x < columnas; x++) {
+                for (let y = 0; y < filas; y++) {
+                    let celula = document.getElementById(`celula-${x + "-" + y}`)
+                    celula.style.background = ""
+                }
+            }
+            if (reproducir) {
+                intercambiarReproducción()
+            }
+        }
+
+        let mapa_complejidad = []
+        let p_mapa_complejidad = []
+        let mapa_verificados = []
+
+        function fotografiar() {
+            p_mapa_complejidad = JSON.parse(JSON.stringify(mapa_complejidad));
+            mapa_complejidad = []
+            mapa_verificados = []
+            fotografia = []
+            if (!p_mapa_complejidad.length) {
+                primeraFoto()
+            } else {
+                demasFotos()
+            }
+        }
+
+
+        function demasFotos() {
+            for (let x in p_mapa_complejidad) {
+                for (let y in p_mapa_complejidad[x]) {
+                    try {
+                        let celula = document.getElementById(`celula-${x + "-" + y}`)
+                        if (!fotografia[x]) {
+                            fotografia[x] = []
+                            mapa_verificados[x] = []
+                        }
+                        fotografia[x][y] = celula.style.background == "black"
+                        calcularMapaComplejidad(Number(x), Number(y))
+                    } catch (e) { }
+                }
+            }
+            p_mapa_complejidad = []
+        }
+
+        function primeraFoto() {
+            for (let x = 0; x < columnas; x++) {
+                fotografia.push([])
+                mapa_verificados.push([])
+                for (let y = 0; y < filas; y++) {
+                    let celula = document.getElementById(`celula-${x + "-" + y}`)
+                    fotografia[x][y] = celula.style.background == "black"
+                    calcularMapaComplejidad(x, y)
+                }
+            }
+        }
+
+        function calcularMapaComplejidad(x, y) {
+            if (fotografia[x][y]) {
+                for (let i = -1; i <= 1; i++) {
+                    for (let j = -1; j <= 1; j++) {
+                        if (!mapa_complejidad[x + i]) {
+                            mapa_complejidad[x + i] = []
+                        }
+                        mapa_complejidad[x + i][y + j] = true
+                    }
+                }
+            }
+        }
+
+        function contarVivas(x, y) {
+            let vivas = 0
+            for (let i = -1; i <= 1; i++) {
+                for (let j = -1; j <= 1; j++) {
+                    if (i == 0 && j == 0) {
+                        continue
+                    }
+                    try {
+                        if (fotografia[x + i][y + j]) {
+                            vivas++
+                        }
+                    } catch (e) { }
+                    if (vivas > 3) {
+                        return vivas
+                    }
+                }
+            }
+            return vivas
+        }
+
+        function siguienteEstado() {
+            fotografiar()
+            for (const x in mapa_complejidad) {
+                for (const y in mapa_complejidad[x]) {
+                    try {
+                        if (mapa_verificados[x][y]) {
+                            continue
+                        }
+                        mapa_verificados[x][y] = true
+
+                        let vivas = contarVivas(Number(x), Number(y))
+                        let celula = document.getElementById(`celula-${x + "-" + y}`)
+                        if (fotografia[x][y]) { //celula está viva
+                            if (vivas < 2 || vivas > 3) {
+                                celula.style.background = "" // Muere por sobrepoblación o soledad
+                            }
+                        } else { //celula está muerta
+                            if (vivas == 3)
+                                celula.style.background = "black"
+                        }
+                    } catch (e) { }
+                }
+            }
+        }
+    </script>
+
+
+
+</body></html>

@@ -29,7 +29,7 @@
                animation-duration: 2s;
                border: 2px solid black;
                width: 98%;
-               height: 90vh;
+               height: 85vh;
           }
 
           body,
@@ -94,6 +94,15 @@
                border-radius: 0;
           }
 
+          .img-LaTeX {
+               padding: 5px;
+          }
+
+          .img-LaTeX:hover {
+               background-color: white;
+               transform: scale(1.2);
+          }
+
           a {
                text-decoration: none;
           }
@@ -134,11 +143,11 @@
                          ["Ciudad", "Tuluá (Valle del Cauca)"],
                          ["Celular", "(+57) 310 225 7814"],
                          ['<i class="fab fa-telegram"></i> Telegram', `<a href="https://t.me/jeffAporta">https://t.me/jeffAporta</a>`],
-                         ['<i class="fab fa-youtube"></i> YouTube', `<a href="https://t.me/jeffAporta">https://t.me/jeffAporta</a>`],
+                         ['<i class="fab fa-youtube"></i> YouTube', `<a href="https://www.youtube.com/c/JeffAportaa">https://www.youtube.com/c/JeffAportaa</a>`],
                          ["Correo", "jeffaporta@gmail.com"],
                          ["Documento de identidad", "CC: 1094955981"],
                          ["Nacimiento", "18 Mayo 1996"],
-                         ["Edad", calcularEdad()]
+                         ["Edad", calcularEdad()],
                     ]
                     for (const d of datos) {
                          document.write(`
@@ -179,7 +188,7 @@
           tengo un Canal de YouTube donde explico algoritmos y
           hablo también de matemáticas aplicadas para lograr desarrollar programas.
           <br>
-          <br> 
+          <br>
           <div style="text-align: center;">
                <a href="https://www.youtube.com/c/JeffAportaa"
                     style="font-size: 40px;text-decoration: none;color: inherit;">
@@ -253,14 +262,49 @@
           varias de sus técnologias, sobretodo lo que más me gustó fue la comunicación directa entre cliente y servidor
           por medio de Sockets.
 
+          <br>
+          <br>
+
+          <h5 style="text-align: center;">
+               Lenguajes que uso
+          </h5>
+
+          <style>
+               .icon {
+                    width: 100px;
+                    height: 100px;
+                    object-fit: contain;
+                    padding: 5px;
+                    margin: 5px;
+                    border-radius: 10px;
+               box-shadow: 5px 5px 5px rgba(0, 0, 0, 0.3);
+               }
+          </style>
+
+          <div style="text-align: center;">
+               <img class="icon" style="background: #006600;" src="https://i.ibb.co/12CmRtX/vba.png" title="VBA EXCEL">
+               <img class="icon" src="https://i.postimg.cc/1Rvz6TV4/JAVA.png" title="Java">
+               <img class="icon" style="background: #444;" src="https://i.postimg.cc/mgHZvgXF/PY.webp" title="Python">
+               <img class="icon" style="background: rgb(247,224,24);" src="https://i.postimg.cc/8PszbHL4/JS.png"  title="JavaScript">
+               <img class="icon" src="https://i.postimg.cc/X7h71C8b/html.png"  title="HTML">
+               <img class="icon" src="https://i.postimg.cc/SR1Nh2bc/Css.png"  title="CSS">
+               <img class="icon"  src="https://i.postimg.cc/P5WsbpVK/Node.png"  title="Node.js">
+          </div>
+
+          <br>
+          <br>
           <h3>
                <i class="fas fa-robot"></i> CIENCIAS DE LA COMPUTACIÓN
           </h3>
+          <br>
 
           Tengo buenos conocimientos aplicando la matemática y algoritmos a la computación. Este es un tema que me
           apasiona, ya que abarca diversos temas y habla acerca de lo que es el modelamiento lógico de cómo se puede
           representar el mundo de forma óptima para una computadora, me llama la atención sobretodo el tratamiento de
           gráficos por computadora, los principales temas que domino los voy a exponer a continuación.
+
+          <br>
+          <br>
 
           <script>
                let i_app = 0
@@ -301,7 +345,7 @@
                               this.style.display = 'none';
                               document.getElementById('mostrar-app-${i_app}').style.display='';
                               ">
-                                   Ocultar Aplicación <i class="fa-solid fa-eye-slash"></i>
+                                   Ocultar <i class="fa-solid fa-eye-slash"></i>
                               </span>
 
                               <br>
@@ -311,6 +355,10 @@
                          <div>
                          `)
                     i_app++
+               }
+
+               function LaTeX(latex) {
+                    return `<img class="img-LaTeX" src="https://latex.codecogs.com/png.image?\\dpi{100}&space;${escape(latex)}">`
                }
 
                mapa = [
@@ -340,16 +388,174 @@
                          CHILDS: [
                               {
                                    LABEL: "Arboles Binarios",
-                                   HTML: "",
-                                   URL: "Árboles Binarios/Árboles binarios - recorridos/index.html"
+                                   HTML: `
+                                   Entiendo y manejo el concepto de árbol binario y además dominó sus 3 tipos de 
+                                   recorridos preorden,  inorden y postorden. He modelado aplicaciones basadas en este concepto con el fin de poder practicar 
+                                   y afinar mis destrezas como desarrollador.
+                                   `,
+                                   URL: "estructura-de-datos/arboles-binarios-recorridos/index.html"
                               },
                               {
                                    LABEL: "Torres de Hanói",
-                                   HTML: "",
-                                   URL: "Árboles Binarios/Torres de hanói/index.html"
+                                   HTML: "Generación automática del camino a seguir para solucionar las torres de Hanói",
+                                   URL: "estructura-de-datos/arboles-binarios-Torres-de-hanoi/index.html"
                               }
                          ]
-                    }
+                    },
+                    {
+                         LABEL: "Algebra Lineal",
+                         HTML: `
+                         Manejo bien el concepto de vectores, matrices, transformaciones lineales e inversas
+                         `,
+                         CHILDS: [
+                              {
+                                   LABEL: "Proyección ortogonal",
+                                   HTML: ``,
+                                   URL: "https://editor.p5js.org/Jeff-Aporta/sketches/ksKMrBxek"
+                              },
+                              {
+                                   LABEL: "Recta Vectorial",
+                                   HTML: "Dados dos puntos en el espacio, se puede determinar una ecuación " + LaTeX(`
+                                   \\vec{r}(t)=(\\vec{b}-\\vec{a})t+\\vec{a}
+                                   `) + " que representa la unión entre estos dos puntos por medio de una recta",
+                                   URL: "https://editor.p5js.org/Jeff-Aporta/sketches/kEuExklg8"
+                              },
+                              {
+                                   LABEL: "intersección recta-círculo",
+                                   HTML: "Algoritmo que en determina de forma exacta las intersecciones entre una recta y un circulo",
+                                   URL: "https://editor.p5js.org/Jeff-Aporta/sketches/ecBurGM3N"
+                              },
+                         ]
+                    },
+                    {
+                         LABEL: "Algoritmos",
+                         HTML: "",
+                         CHILDS: [
+                              {
+                                   LABEL: "Liquidos con Ley de Hooke",
+                                   HTML: "",
+                                   URL: "liquido-ley-de-hooke/index.html"
+                              },
+                              {
+                                   LABEL: "Juego de la Vida de Conway",
+                                   HTML: "",
+                                   URL: "juego-de-la-vida-conway/index.html"
+                              },
+                              {
+                                   LABEL: "Árbol recursivo",
+                                   HTML: "",
+                                   URL: "Arbol-recursivo/index.html"
+                              },
+                              {
+                                   LABEL: "Starfield",
+                                   HTML: "",
+                                   URL: "Starfield/index.html"
+                              },
+                              {
+                                   LABEL: "Conjunto de Mandelbrot",
+                                   HTML: "",
+                                   URL: "Mandelbrot-Set/index.html"
+                              },
+                              {
+                                   LABEL: "Estanque de peces",
+                                   HTML: "",
+                                   URL: "Estanque-de-peces/index.html"
+                              },
+                              {
+                                   LABEL: "Espiral de Ulam",
+                                   HTML: "",
+                                   URL: ""
+                              },
+                         ]
+                    },
+                    {
+                         LABEL: "Utilidades",
+                         HTML: "",
+                         CHILDS: [
+                              {
+                                   LABEL: "Simulación de dados",
+                                   HTML: "",
+                                   URL: "simulador-de-dados/index.html"
+                              },
+                              {
+                                   LABEL: "Temporizador (tipo moneda en 3D)",
+                                   HTML: "",
+                                   URL: "temporizador-tipo-moneda/index.html"
+                              },
+                              {
+                                   LABEL: "Cubo de imágenes",
+                                   HTML: "",
+                                   URL: "cubo-de-imagenes/index.html"
+                              },
+                         ]
+                    },
+                    {
+                         LABEL: "Juegos",
+                         HTML: "",
+                         CHILDS: [
+                              {
+                                   LABEL: "Pong solitario",
+                                   HTML: `
+                                   Desarrollé un versionamiento de Pong (1972), y además hice un video explicando el proceso 
+                                   completo para llegar al resultado.
+                                   <br><br>
+                                   <div style="text-align:center;">
+                                        <iframe style="width:300px;height:200px;" src="https://www.youtube.com/embed/MCEl05ZbZ80" title="YouTube video player" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe>
+                                   </div>
+                                   `,
+                                   URL: "pong-solitario/index.html"
+                              },
+                              {
+                                   LABEL: "Tetris",
+                                   HTML: `
+                                   Desarrollé un versionamiento de Tetris (1984), y además hice un video explicando el proceso 
+                                   completo para llegar al resultado.
+                                   <br><br>
+                                   <div style="text-align:center;">
+                                        <iframe style="width:300px;height:200px;" src="https://www.youtube.com/embed/y_rnUOHUoQ4" title="YouTube video player" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe>
+                                   </div>
+                                   `,
+                                   URL: "tetris/index.html"
+                              },
+                              {
+                                   LABEL: "Juego de preguntas v1",
+                                   HTML: `
+                                   Desarrollé un juego de preguntas y respuestas inspirado en pregunta2 que tiene la 
+                                   posibilidad de mostrar imagenes de apoyo a la pregunta, cuenta con una base de datos 
+                                   de al rededor de más de 1100 preguntas.
+                                   <br><br>
+                                   <div style="text-align:center;">
+                                        <iframe style="width:300px;height:200px;" src="https://www.youtube.com/embed/HHDCktzuUCk" title="YouTube video player" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe>
+                                   </div>
+                                   `,
+                                   URL: "juego-de-preguntas/juego-de-preguntas-v1/index.html"
+                              },
+                              {
+                                   LABEL: "Buscaminas",
+                                   HTML: `
+                                   Desarrollé un versionamiento de Buscaminas (1989), y además hice un video explicando el proceso 
+                                   completo para llegar al resultado.
+                                   <br><br>
+                                   <div style="text-align:center;">
+                                        <iframe style="width:300px;height:200px;" src="https://www.youtube.com/embed/xwapo6FFhnQ" title="YouTube video player" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe>
+                                   </div>
+                                   `,
+                                   URL: "buscaminas/index.html"
+                              },
+                              {
+                                   LABEL: "Flappy Bird",
+                                   HTML: `
+                                   Desarrollé un versionamiento de Flappy bird (2013), y además hice un video explicando el proceso 
+                                   completo para llegar al resultado.
+                                   <br><br>
+                                   <div style="text-align:center;">
+                                        <iframe style="width:300px;height:200px;" src="https://www.youtube.com/embed/nfNe-SPlumY" title="YouTube video player" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe>
+                                   </div>
+                                   `,
+                                   URL: "flappy-bird/index.html"
+                              },
+                         ]
+                    },
                ]
 
                document.write(`<ul>`)

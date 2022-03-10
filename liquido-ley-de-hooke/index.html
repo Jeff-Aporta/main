@@ -1,0 +1,151 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <link rel="stylesheet" type="text/css" href="style.css">
+  <meta charset="utf-8">
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/p5.js/1.4.1/p5.min.js"></script>
+</head>
+
+<body>
+  <script>
+    //Variables de control
+
+    let fp = 0.0025 //propagación
+    let k = 0.005 //Constante de elasticidad
+    let freno = 0.0009 //frenado de movimiento
+    let nodos = 200
+    let degradado = nodos / 4
+
+    let roca = {
+      x: 300,
+      y: 0,
+      enAgua: false,
+      caer: function () {
+        if (this.y < height) {
+          this.y += 7
+        }
+        if (this.y > height / 2 && !this.enAgua) {
+          splash(this.x, 50)
+          this.enAgua = true
+        }
+      },
+      dibujar: function () {
+        fill(255)
+        circle(this.x, this.y, 40)
+        this.caer()
+      }
+    }
+
+    let nube
+
+    function preload() {
+      nube = loadImage("nube.png")
+    }
+
+    function setup() {
+      createCanvas(windowWidth, windowHeight);
+      alturaAgua = height / 2
+      propagación = 0.1
+      nodosAgua = []
+      for (let n = 0; n < nodos; n++) {
+        nodosAgua[n] = new NodoAgua(
+          width * n / (nodos - 1),
+          alturaAgua
+        );
+      }
+    }
+
+    function windowResized() {
+      resizeCanvas(windowWidth, windowHeight)
+    }
+
+    function draw() {
+      background('skyblue');
+      if (nube) {
+        image(nube, frameCount / 20, 0, 300, 200)
+        image(nube, frameCount / 10 + 200, 0, 150, 100)
+        image(nube, frameCount / 15 - 200, 0, 150, 100)
+        image(nube, frameCount / 40 - 400, 50, 150, 100)
+      }
+      roca.dibujar()
+      pintarAgua()
+      leyHook()
+      for (let i = 0; i < degradado; i++) {
+        propagacion()
+      }
+    }
+
+
+    function pintarAgua() {
+      fill(color(0, 128, 255, 128))
+      beginShape();
+      vertex(0, height)
+      for (let n of nodosAgua) {
+        vertex(n.x, n.y)
+      }
+      vertex(width, height)
+      endShape(CLOSE);
+    }
+
+    function mouseReleased() {
+      roca.x = mouseX
+      roca.y = mouseY
+      roca.enAgua = mouseY > height / 2
+    }
+
+    function splash(x, presion) {
+      for (let n of nodosAgua) {
+        distancia = n.x - x;
+        if (distancia > 0) {
+          n.dy += presion;
+          break
+        }
+      }
+    }
+
+    function leyHook() {
+      for (let n of nodosAgua) {
+        n.leyDeHook()
+      }
+    }
+
+    function propagacion() {
+      for (let i = 1; i < nodos - 1; i++) {
+        let actual = nodosAgua[i]
+        let derecha = nodosAgua[i + 1]
+        let p_derecha = fp * (actual.y - derecha.y)
+        derecha.dy += p_derecha
+        derecha.y += p_derecha
+
+        let izquierda = nodosAgua[i - 1]
+        let p_izquierda = fp * (actual.y - izquierda.y)
+        izquierda.dy += p_izquierda
+        izquierda.y += p_izquierda
+      }
+    }
+
+
+
+    class NodoAgua {
+      constructor(x, y) {
+        this.x = x
+        this.y = y
+        this.y_0 = y
+        this.dy = 0
+      }
+
+      leyDeHook() {
+        let F = (this.y_0 - this.y) * k;
+        let sentidoOpuesto = (this.dy > 0 ? -1 : 1);
+        F += freno * sentidoOpuesto;
+        this.dy += F;
+        this.y += this.dy;
+      }
+    }
+  </script>
+
+
+</body>
+
+</html>

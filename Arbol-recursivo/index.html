@@ -1,0 +1,56 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8">
+  <title>Arbol fractal</title>
+  <script src="p5.min.js"></script>
+</head>
+
+<body>
+  <style>
+    body,
+    html {
+      margin: 0;
+      padding: 0;
+    }
+  </style>
+
+  <script>
+    function setup() {
+      createCanvas(800, 600)
+    }
+
+    function draw() {
+      background("lightgray")
+      dibujarArbol(width / 2, height, 0, 100)
+    }
+
+    function dibujarArbol(x, y, angulo, radio) {
+      if (radio < 1) {
+        return
+      }
+      if (radio < 5) {
+        stroke("darkgreen")
+      } else {
+        stroke("black")
+      }
+      let x2 = x + radio * cos(angulo - PI / 2)
+      let y2 = y + radio * sin(angulo - PI / 2)
+      strokeWeight(radio / 10)
+      line(x, y, x2, y2)
+      for (let i = 0; i < 3; i++) {
+        dibujarArbol(
+          x2,
+          y2,
+          angulo + random(-PI / 4, PI / 4),
+          radio * random(0.2, 1)
+        )
+      }
+    }
+  </script>
+
+
+</body>
+
+</html>

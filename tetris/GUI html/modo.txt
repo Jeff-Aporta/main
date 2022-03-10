@@ -1,0 +1,27 @@
+<div id="modo" style="font-size:180%" class="centrar degb ocultar" >
+    <table cellspacing="0" cellpadding="0">
+      <tbody>
+        <tr>
+          <td>
+            <div class="boton" onclick="Normal()">
+              Normal 💪🏻
+            </div>
+          </td>
+        </tr>
+        <tr>
+          <td>
+            <div style="transform:scale(0.8)" class="boton" onclick="entrenamiento()">
+              Entreno 🏋️
+            </div>
+          </td>
+        </tr>
+        <tr>
+          <td>
+            <div style="transform:scale(0.5)" class="boton" onclick="menu()">
+              Volver
+            </div>
+          </td>
+        </tr>
+      </tbody>
+    </table>
+  </div>

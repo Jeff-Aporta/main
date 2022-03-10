@@ -1,0 +1,161 @@
+<!DOCTYPE html><html lang="en"><head>
+    <meta charset="UTF-8">
+    <title>Temporizador</title>
+
+    <script src="sweetalert2.all.min.js"></script>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.3/css/all.min.css">
+</head>
+
+<body>
+    <style>
+        :root {
+            --lado: 300px;
+        }
+
+        * {
+            transition: all 1s;
+            box-sizing: border-box;
+        }
+
+        body {
+            background: lightseagreen;
+            padding: 0;
+            margin: 0;
+            overflow: hidden;
+            -webkit-perspective: 300;
+        }
+      
+        input{
+          text-align: center;
+          font-size: 200%;
+        }
+
+        .contenedor {
+            width: 100vw;
+            height: 100vh;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+        }
+
+        .moneda,
+        .lado{
+            width: var(--lado);
+            height: var(--lado);
+        }
+
+        .moneda {
+            position: relative;
+            transform-style: preserve-3d;
+            cursor: pointer;
+        }
+
+        .lado {
+            backface-visibility: hidden;
+            position: absolute;
+            border-radius: 50%;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            flex-direction: column;
+            font-size: 800%;
+        }
+
+        .frente {
+            background: white;
+        }
+
+        .atras {
+            background: black;
+            color: white;
+            transform: rotateY(180deg);
+        }
+
+        .frente i{
+            color: crimson;
+        }
+
+        .atras i{
+            color: orange;
+        }
+    </style>
+
+    <div class="contenedor">
+        <div class="moneda" id="moneda" onclick="tomarTiempo()">
+            <div class="lado frente" id="frente"></div>
+            <div class="lado atras" id="atras"></div>
+        </div>
+    </div>
+
+    <script>
+        let tiempo = 10
+        let contador = 0
+        let contando = false
+
+        var suspender_sonido = new Audio('sonido Start Boxing.ogg');
+        var clic1 = new Audio('sonido click 002.ogg')
+        var clic2 = new Audio('sonido click 004.ogg')
+        suspender()
+
+        function temporizar() {
+            let t = tiempo - contador
+            contando = t > 0
+            if (contador % 2 == 0) {
+                select_id("frente").innerHTML = t
+                clic1.play()
+            } else {
+                select_id("atras").innerHTML = t
+                clic2.play()
+            }
+            style("moneda").transform = `rotateY(${180 * contador}deg)`
+            if (contando) {
+                contador++
+                setTimeout(() => {
+                    temporizar()
+                }, 1000);
+            }else{
+                suspender()
+                suspender_sonido.play()
+            }
+        }
+
+        function suspender() {
+            contador = 0
+            select_id("frente").innerHTML =`
+          <i class="fas fa-stopwatch"></i>
+          <span style="font-size:20%;opacity:0.5">Empezar</span>
+`
+            select_id("atras").innerHTML = `
+          <i class="fas fa-stopwatch"></i>
+          <span style="font-size:20%;opacity:0.5">Empezar</span>
+`
+        }
+
+        async function tomarTiempo() {
+            const {value: tiempo_input} = await swal.fire({
+                title:"Temporizador",
+                input: "number",
+                inputValue:10,
+                showCancelButton:true
+            })
+            if(!tiempo_input){
+                return
+            }
+            tiempo = tiempo_input
+            contador = 0
+            if(!contando){
+                temporizar()
+            }
+        }
+
+        function style(id) {
+            return select_id(id).style
+        }
+
+        function select_id(id) {
+            return document.getElementById(id)
+        }
+    </script>
+
+
+</body></html>
