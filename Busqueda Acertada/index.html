@@ -1,0 +1,166 @@
+<!DOCTYPE html><html lang="en"><head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <title>Busqueda Acertada</title>
+
+    <link rel="stylesheet" href="style.css">
+    <link rel="stylesheet" href="libs/animate.css">
+    <script src="libs/jquery.js"></script>
+    <script src="libs/SweetAlert2.js"></script>
+    <script src="stringTools.js"></script>
+    <script src="stringComparacion.js"></script>
+</head>
+
+<body>
+
+    <div style="position: fixed;z-index: 9999; background: rgba(255, 255, 255, 0.7);padding: 10px;box-shadow: 5px 5px 5px rgba(0, 0, 0, 0.2);backdrop-filter: blur(3px);width: 90%;text-align: center;border-radius: 20px;">
+        <div style="font-weight: bolder;font-size: 120%;">
+            Escriba su busqueda:
+        </div>
+        Presione ENTER cuando haya terminado de escribir
+        <br>
+        <br>
+        <input type="text" style="width: 300px;" id="textoBusqueda" onchange="mostrarLista()">
+        <br>
+        Más acertado:
+        <div id="seleccionado">
+            &nbsp;
+        </div>
+    </div>
+
+    <div style="height: 200px;">
+        &nbsp;
+    </div>
+    <table>
+        <tbody id="tablebody">
+        </tbody>
+    </table>
+
+    <script>
+
+        let urlBaseDeDatos = "https://docs.google.com/spreadsheets/d/e/2PACX-1vQrgTePZuWpbJA7r5Xgi2Ub2S69ND-aP753MghAxImCfEKLM_5RwjEHu3DgRCSYfy7tWL4dGLVLdhX2/pub?gid=0&single=true&output=tsv";
+
+        let texto = localStorage.getItem(urlBaseDeDatos)
+
+        lista = []
+
+        if (texto != null) {
+            interprete(texto)
+        }
+
+        try {
+            if (!window.navigator.onLine) {
+                swal.fire("Cuidado", "EL navegador no está en linea, la base de datos no se podrá descargar de Google sheets", "warning")
+            }
+            actualizarBaseDeDatos()
+        } catch (e) {
+        }
+
+        function actualizarBaseDeDatos() {
+            $.ajax({
+                url: urlBaseDeDatos,
+                success: function (data) {
+                    localStorage.setItem(urlBaseDeDatos, data);
+                    interprete(data)
+                }
+            });
+        }
+
+        function interprete(data) {
+            let renglones = data.split("\n");
+            while (lista.length) {
+                lista.pop()
+            }
+            for (const renglon of renglones) {
+                let arr = renglon.split("\t");
+                if (!arr[0]) {
+                    break
+                }
+                if (arr[0] == "Producto") {
+                    continue
+                }
+                lista.push([arr[0], 0])
+            }
+            mostrarLista()
+        }
+
+        function mostrarLista() {
+            let input = document.getElementById("textoBusqueda")
+            let textoBusqueda = input.value
+            if (textoBusqueda) {
+                for (const element of lista) {
+                    element[1] = BusquedaAcertada(textoBusqueda, element[0]);
+                }
+                lista.sort(function (a, b) {
+                    return b[1] - a[1];
+                })
+                document.getElementById("seleccionado").innerHTML = lista[0][0];
+            } else {
+                for (const element of lista) {
+                    element[1] = 0;
+                }
+                lista.sort(function (a, b) {
+                    if (a[0] > b[0]) {
+                        return 1;
+                    }
+                    if (a[0] < b[0]) {
+                        return -1;
+                    }
+                    return 0;
+                });
+                document.getElementById("seleccionado").innerHTML = "No hay busqueda";
+                window.scrollY = 0
+            }
+
+
+            let html = ""
+            for (const element of lista) {
+                let t = element[1]
+                let color = ""
+                if (t <= 0.5) {
+                    t /= 0.5;
+                    if (t < 0) {
+                        t = 0;
+                    }
+                    if (t > 1) {
+                        t = 1;
+                    }
+                    color = `rgba(255,${(255 - 128) * t + 128},128,1)`
+                } else {
+                    t -= 0.5;
+                    t /= 0.5;
+                    if (t < 0) {
+                        t = 0;
+                    }
+                    if (t > 1) {
+                        t = 1;
+                    }
+                    color = `rgba(${(128 - 255) * t + 255},255,128,1)`
+                }
+                let medidaAncho = 500
+                let ancho = medidaAncho + "px"
+                html += `<tr><td>
+                    <div style="width: ${ancho};height:15px">
+                        <div style="position: absolute;width: ${ancho};background: rgba(0, 0, 0, 0.05);">
+                            &nbsp;
+                        </div>
+                        <div style="position: absolute;width: ${medidaAncho * element[1]}px;background: ${color};">
+                            &nbsp;
+                        </div>
+                        <div style="position: absolute;text-align: right; width: ${ancho};">
+                            ${(element[1] * 100).toFixed(2) + "%"}
+                        </div>
+                        <div style="position: absolute;">
+                            ${element[0]}
+                        </div>
+                    </div></td></tr>`
+            }
+            document.getElementById("tablebody").innerHTML = html
+            window.scroll(0,0)
+        }
+
+
+    </script>
+
+
+</body></html>

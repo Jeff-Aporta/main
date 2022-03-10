@@ -1,0 +1,125 @@
+        <!DOCTYPE html>
+        <html lang="en">
+        <!DOCTYPE html>
+        <html lang="en">
+
+        <head>
+            <meta charset="UTF-8">
+            <meta http-equiv="X-UA-Compatible" content="IE=edge">
+            <title>Busqueda Acertada</title>
+
+            <script src="stringComparacion.js"></script>
+        </head>
+
+        <body>
+
+            <style>
+                body {
+                    min-height: 100vh;
+                    display: flex;
+                    justify-content: center;
+                    align-items: center;
+                    color: white;
+                    font-family: calibri;
+                }
+
+                .contenedor {
+                    background: rgba(0, 0, 0, 0.356);
+                    padding: 15px;
+                    border-radius: 20px;
+                }
+
+                input[type="text"] {
+                    padding: 5px;
+                    width: 250px;
+                    margin-bottom: 10px;
+                    border-radius: 10px;
+                    background: white;
+                }
+            </style>
+
+            <script>
+                let anguloFondo = 0
+                setInterval(() => {
+                    anguloFondo += 1
+                    document.body.style.background = `linear-gradient(${anguloFondo}deg,#19046F, #93006F)`
+                }, 20);
+            </script>
+
+            <div class="contenedor">
+                Cadena de comparación general
+                <br>
+                <br>
+                <input type="text" id="cadena" onkeyup="calcularSimilitud()" value="trabajar">
+                <br>
+                Cadenas de comparación particular
+                <br>
+                <br>
+                <input type="text" id="cadena1" onkeyup="calcularSimilitud()" value="plasmar">
+                <div style="display: inline-block;" id="resultado1"></div>
+                <br>
+                <input type="text" id="cadena2" onkeyup="calcularSimilitud()" value="palabras">
+                <div style="display: inline-block;" id="resultado2"></div>
+                <br>
+                <input type="text" id="cadena3" onkeyup="calcularSimilitud()" value="atrapar">
+                <div style="display: inline-block;" id="resultado3"></div>
+                <br>
+                <input type="text" id="cadena4" onkeyup="calcularSimilitud()" value="trabajar">
+                <div style="display: inline-block;" id="resultado4"></div>
+
+                <br>
+                <br>
+                <div class="contenedor">
+                    Criterio
+                    <br>
+                    <input type="radio" id="primeroElMasCercano" name="criterio" onchange="calcularSimilitud()" checked>
+                    <label for="primeroElMasCercano">Primero el más cercano</label>
+                    <input type="radio" id="primeroEnCola" name="criterio" onchange="calcularSimilitud()">
+                    <label for="primeroEnCola">Primero en cola</label>
+                    <br>
+                    <br>
+                    Forma
+                    <br>
+                    <input type="radio" id="inyectiva" name="forma" onchange="calcularSimilitud()" checked>
+                    <label for="inyectiva">Inyectiva</label>
+                    <input type="radio" id="sobreyectiva" name="forma" onchange="calcularSimilitud()">
+                    <label for="sobreyectiva">Sobreyectiva</label>
+                </div>
+            </div>
+
+            <script>
+                calcularSimilitud()
+
+                function calcularSimilitud() {
+                    let cadena = document.getElementById("cadena").value
+                    let cadena1 = document.getElementById("cadena1").value
+                    let cadena2 = document.getElementById("cadena2").value
+                    let cadena3 = document.getElementById("cadena3").value
+                    let cadena4 = document.getElementById("cadena4").value
+                    let inyectiva = document.getElementById("inyectiva").checked
+                    let criterio = document.getElementById("primeroEnCola").checked
+                    if (criterio) {
+                        criterio = 0
+                    } else {
+                        criterio = 1
+                    }
+                    let s1 = similitud(cadena, cadena1, criterio, inyectiva)
+                    let result1 = document.getElementById("resultado1")
+                    result1.innerHTML = `Similitud: ${(100 * s1).toFixed(2)}%`
+
+                    let s2 = similitud(cadena, cadena2, criterio, inyectiva)
+                    let result2 = document.getElementById("resultado2")
+                    result2.innerHTML = `Similitud: ${(100 * s2).toFixed(2)}%`
+
+                    let s3 = similitud(cadena, cadena3, criterio, inyectiva)
+                    let result3 = document.getElementById("resultado3")
+                    result3.innerHTML = `Similitud: ${(100 * s3).toFixed(2)}%`
+
+                    let s4 = similitud(cadena, cadena4, criterio, inyectiva)
+                    let result4 = document.getElementById("resultado4")
+                    result4.innerHTML = `Similitud: ${(100 * s4).toFixed(2)}%`
+                }
+            </script>
+        </body>
+
+        </html>

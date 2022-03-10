@@ -1,0 +1,81 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+     <title>p5.js a mp4</title>
+     <script src="https://unpkg.com/h264-mp4-encoder/embuild/dist/h264-mp4-encoder.web.js"></script>
+     <script src="https://cdnjs.cloudflare.com/ajax/libs/p5.js/1.4.0/p5.min.js"></script>
+     <script src="https://cdn.jsdelivr.net/gh/Jeff-Aporta/lib-jeff-aporta@latest/p5.filters.js"></script>
+     <script src="p5.filter.js"></script>
+</head>
+
+<body>
+     <style>
+          body {
+               margin: 0;
+               padding: 0;
+          }
+     </style>
+     <script>
+
+          prueba = undefined
+
+          setInterval(() => {
+               rx = random(-0.5, 1.5)
+               gx = random(-0.5, 1.5)
+               bx = random(-0.5, 1.5)
+               ry = random(-0.5, 1.5)
+               gy = random(-0.5, 1.5)
+               by = random(-0.5, 1.5)
+               rz = random(-0.5, 1.5)
+               gz = random(-0.5, 1.5)
+               bz = random(-0.5, 1.5)
+          }, 2000);
+
+          function setup() {
+               canvas = createCanvas(windowWidth, windowHeight)
+               canvas.dragOver(() => {
+                    canvas.style("border", "3px solid red")
+               })
+               canvas.dragLeave(() => {
+                    canvas.style("border", "")
+               })
+               canvas.drop(function (file) {
+                    console.log(file)
+                    prueba = loadImage(file.data)
+               },
+                    () => {
+                         canvas.style("border", "")
+                    })
+               pixelDensity(1)
+               rx = random(-0.5, 1.5)
+               gx = random(-0.5, 1.5)
+               bx = random(-0.5, 1.5)
+               ry = random(-0.5, 1.5)
+               gy = random(-0.5, 1.5)
+               by = random(-0.5, 1.5)
+               rz = random(-0.5, 1.5)
+               gz = random(-0.5, 1.5)
+               bz = random(-0.5, 1.5)
+          }
+
+          function draw() {
+               background("lightgray")
+               textSize(50)
+               textAlign(CENTER, CENTER)
+               text("Arrastra y suelta una foto", width / 2, height / 2)
+               try {
+                    image(prueba, 0, 0)
+               } catch (error) {
+               }
+               TL(
+                    rx, gx, bx,
+                    ry, gy, by,
+                    rz, gz, bz
+               )
+          }
+
+     </script>
+</body>
+
+</html>

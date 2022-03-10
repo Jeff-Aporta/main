@@ -1,0 +1,65 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+     <title>p5.js a mp4</title>
+     <script src="https://unpkg.com/h264-mp4-encoder/embuild/dist/h264-mp4-encoder.web.js"></script>
+     <script src="https://cdnjs.cloudflare.com/ajax/libs/p5.js/1.4.0/p5.min.js"></script>
+     <script src="p5.filter.2DContext.js"></script>
+     <script src="matemática.js"></script>
+     <!-- <script src="p5.filter.js"></script> -->
+</head>
+
+<body>
+     <style>
+          body {
+               margin: 0;
+               padding: 0;
+          }
+     </style>
+     <script>
+
+          new p5((p5) => {
+               let prueba
+
+               let canvas
+               let ctx
+
+               p5.preload = function () {
+                    prueba = p5.loadImage("https://i.ibb.co/3Y1xNck/giphy-1.gif")
+               }
+
+               p5.setup = function () {
+                    canvas = p5.createCanvas(prueba.width, prueba.height)
+                    ctx = canvas.drawingContext
+                    p5.pixelDensity(1)
+               }
+
+               p5.draw = function () {
+                    p5.background("lightgray")
+                    p5.image(prueba, 0, 0)
+                    InvertirCanales(
+                         p5.drawingContext,
+                         p5.noise(p5.frameCount / 40),
+                         p5.noise(p5.frameCount / 40 + 100),
+                         p5.noise(p5.frameCount / 40 + 200)
+                    )
+               }
+          })
+
+          function drawer() {
+
+               /* desfaceDeCanales(
+                    map(noise(frameCount / 20), 0, 1, -15, 15),
+                    map(noise(frameCount / 20 + 100), 0, 1, -15, 15),
+                    map(noise(frameCount / 20 + 200), 0, 1, -15, 15),
+                    map(noise(frameCount / 20 + 300), 0, 1, -15, 15),
+                    map(noise(frameCount / 20 + 400), 0, 1, -15, 15),
+                    map(noise(frameCount / 20 + 500), 0, 1, -15, 15)
+               ) */
+          }
+
+     </script>
+</body>
+
+</html>

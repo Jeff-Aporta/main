@@ -1,0 +1,72 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+     <title>Matriz de escala</title>
+     <script src="https://cdnjs.cloudflare.com/ajax/libs/p5.js/1.4.0/p5.min.js"></script>
+</head>
+
+<body>
+     <style>
+          canvas {
+               border: 2px solid black;
+          }
+     </style>
+     <script>
+          function preload() {
+               prueba = loadImage("https://i.ibb.co/n3zJKDS/pixlr-bg-result.png")
+               bg = loadImage("https://i.ibb.co/qpcvcZB/DJI-0021-HDR.jpg")
+          }
+
+          function setup() {
+               createCanvas(800, 500)
+               carro = {
+                    posicion: createVector(width / 2, height / 2),
+                    direccion: createVector(0, -1),
+                    aceleración: 0,
+                    img: prueba,
+                    escala: 0.5
+               }
+               drawingContext.filter = "drop-shadow(5px 5px 5px black)"
+          }
+
+          function draw() {
+               image(bg, 0, 0, width, height)
+               translate(carro.posicion.x, carro.posicion.y)
+               rotate(carro.direccion.heading())
+               scale(carro.escala)
+               translate(-carro.img.width / 2, -carro.img.height / 2)
+               
+               image(carro.img, 0, 0)
+
+               if (keyIsDown(UP_ARROW)) {
+                    carro.aceleración += 0.1
+               } else if (keyIsDown(DOWN_ARROW)) {
+                    carro.aceleración -= 0.1
+               } else {
+                    carro.aceleración *= 0.9
+               }
+               carro.aceleración = constrain(carro.aceleración, -5, 5)
+               if (abs(carro.aceleración) > 0.1) {
+                    if (keyIsDown(RIGHT_ARROW)) {
+                         carro.direccion.rotate(
+                              (0.01 + carro.aceleración / 100) * carro.escala
+                         )
+                    }
+                    if (keyIsDown(LEFT_ARROW)) {
+                         carro.direccion.rotate(
+                              (-0.01 - carro.aceleración / 100) * carro.escala
+                         )
+                    }
+               }
+               carro.posicion.add(
+                    carro.direccion
+                         .copy()
+                         .normalize()
+                         .mult(carro.aceleración * carro.escala)
+               )
+          }
+     </script>
+</body>
+
+</html>

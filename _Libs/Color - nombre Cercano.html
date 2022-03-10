@@ -1,0 +1,63 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+     <title>Prueba</title>
+     <script src="Color.js"></script>
+     <script src="tools.js"></script>
+     <script src="matemática.js"></script>
+</head>
+
+<body>
+
+     <input type="text" id="color" onchange="escogerColor()">
+     <div id="muestras">
+     </div>
+     <script>
+
+          let c = Color.random()
+          document.getElementById("color").value = c.toStringRGB
+          escogerColor()
+
+          function escogerColor() {
+               let c = Color.fromStringRGB(document.getElementById("color").value)
+               let rgb = c.toStringRGB
+
+               document.getElementById("muestras").innerHTML = `
+               <div>Input</div>
+               <div style="
+               background:${rgb};
+               font-size:30px;
+               display:
+               flex;align-items:center;
+               justify-content:center;
+               color:white;
+               text-shadow:2px 2px black;
+               padding:20px;
+               ">
+               ${rgb}
+               </div>
+               `
+               let nombreCercano = c.nombreCercano
+
+               document.getElementById("muestras").innerHTML += `
+               <div>Output</div>
+               <div style="
+               background:${nombreCercano};
+               font-size:30px;
+               display:
+               flex;align-items:center;
+               justify-content:center;
+               color:white;
+               text-shadow:2px 2px black;
+               padding:20px;
+               ">
+               ${nombreCercano}
+               </div>
+               `
+          }
+
+     </script>
+</body>
+
+</html>

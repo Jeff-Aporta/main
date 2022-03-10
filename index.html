@@ -1,0 +1,251 @@
+<!DOCTYPE html>
+<html lang="es">
+
+<head>
+     <meta charset="UTF-8">
+     <meta http-equiv="X-UA-Compatible" content="IE=edge">
+     <title>Jeffrey Agudelo</title>
+
+     <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/css/bootstrap.min.css">
+     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
+
+     <link rel="stylesheet"
+          href="https://cdn.jsdelivr.net/gh/lokesh/lightbox2@56b06ac5914179d5ffd27d133333230e9b002317/dist/css/lightbox.min.css">
+
+     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/animate.css/4.1.1/animate.min.css">
+</head>
+
+<body>
+     <style>
+          * {
+               transition: all 0.25s;
+          }
+
+          body,
+          html {
+               padding: 0;
+               margin: 0;
+          }
+
+          img {
+               animation: fadeIn;
+               animation-duration: 2s;
+          }
+
+          .item-datos-personales {
+               display: inline-flex;
+               flex-direction: column;
+               text-align: center;
+               min-width: 150px;
+               margin-top: 10px;
+               border: 1px solid #112233;
+               animation: jackInTheBox;
+               animation-duration: 2s;
+          }
+
+          .item-datos-personales .encabezado {
+               background: #112233;
+               color: white;
+          }
+
+          .item-datos-personales .encabezado,
+          .item-datos-personales .cuerpo {
+               padding: 5px;
+          }
+
+          h1,
+          h3,
+          h5,
+          h6 {
+               margin: 20px 0 20px 0;
+               animation: fadeIn;
+               animation-duration: 2s;
+               font-weight: lighter;
+               color: rgb(0, 112, 150);
+               text-transform: uppercase;
+          }
+
+
+          .dibujo {
+               width: 150px;
+               height: 150px;
+               object-fit: cover;
+               cursor: pointer;
+               margin: 5px;
+               border-radius: 50%;
+          }
+
+          .dibujo:hover {
+               transform: scale(1.2);
+               border-radius: 0;
+          }
+
+          a {
+               text-decoration: none;
+          }
+     </style>
+
+     <div style="text-align: center;background: #112233;padding: 20px;">
+          <img src="https://i.ibb.co/Vp3zHSf/hdv.png" style="width: 90%;max-width: 700px;">
+     </div>
+
+     <div style="padding: 20px;">
+          <h1>
+               DATOS PERSONALES
+          </h1>
+          <div style="text-align: center;">
+               <script>
+                    datos = [
+                         ["País", "Colombia"],
+                         ["Ciudad", "Tuluá (Valle del Cauca)"],
+                         ["Celular", "(+57) 310 225 7814"],
+                         ["Telegram", `<a href="https://t.me/jeffAporta">https://t.me/jeffAporta</a>`],
+                         ["Correo", "jeffaporta@gmail.com"],
+                         ["Documento de identidad", "CC: 1094955981"]
+                    ]
+                    for (const d of datos) {
+                         document.write(`
+                         <div class="item-datos-personales">
+                              <div class="encabezado">
+                                   ${d[0]}
+                              </div>
+                              <div class="cuerpo">
+                                   ${d[1]}
+                              </div>
+                         </div>
+                         `)
+                    }
+               </script>
+          </div>
+
+          <hr>
+
+          <h1>
+               PERFIL GENERAL
+          </h1>
+          Soy una persona con capacidad de compromiso y liderazgo, con decisión e iniciativa, excelentes relaciones
+          interpersonales y trabajo en equipo, habilidad en la realización de actividades, planeación, organización y
+          rápido aprendizaje.
+          <br><br>
+          Soy honesto, comprometido y responsable en la ejecución de todas las tareas asignadas, creativo, respetuoso y
+          tolerante, con principios éticos y morales que me han permitido destacar en los ámbitos en los cuales me
+          desenvuelvo.
+          <br>
+
+          <hr>
+
+          <h1>
+               PERFIL EDUCATIVO
+          </h1>
+          Me gusta mucho la enseñanza, me va particularmente bien, aunque no tengo experiencia enseñando a grupos,
+          tengo un Canal de YouTube donde explico algoritmos y
+          hablo también de matemáticas aplicadas para lograr desarrollar programas.
+          <br>
+          <br>
+          <div style="text-align: center;">
+               <a href="https://www.youtube.com/c/JeffAportaa"
+                    style="font-size: 40px;text-decoration: none;color: inherit;">
+                    <i class="fab fa-youtube" style="color: red;"></i> Jeff Aporta
+               </a>
+          </div>
+          <br>
+          Soy muy bueno aprendiendo cosas nuevas, sobre todo relacionadas con la programación, estudio temas diversos
+          relacionados con software e intento apropiarme al máximo de los conceptos que puedo encontrar de forma
+          gratuita en plataformas como youtube o en buscadores como google.
+
+          <hr>
+
+          <h1>
+               PERFIL ARTÍSTICO
+          </h1>
+
+          Me gustan mucho las artes visuales, soy un aficionado, hice un curso en bellas artes de la universidad del
+          Quindío donde aprendí a manipular diferentes técnicas para ilustrar, he hecho dibujos a mano alzada, pinturas
+          al óleo, murales con acuarelas, y como diseñador me pulo para que mis obras queden impactantes, complejas,
+          frías, autsferas; mis obras más destacadas son las que a continuación adjuntare y que desarrolle apoyándome en
+          algoritmos descubiertos por mi propia cuenta, donde por medio de funciones matemáticas y relaciones
+          trigonométricas hago uso del espacio para distribuir armónicamente un conjunto de puntos que serán pintados en
+          patrón de ajedrez, inicialmente el algoritmo para pintar con el patrón de ajedrez lo desarrollé desde 0 por mi
+          cuenta para poder desarrollar los dibujos, sin embargo luego encontré herramientas en programación que me
+          permitian implementar lo mismo pero en menos líneas de código y más rápidos en tiempo de procesamiento.
+
+          <br>
+          <br>
+
+          <div style="text-align: center;">
+               <script>
+                    imagenes = [
+                         "https://i.ibb.co/V2bg296/Ecuaciones-001.jpg",
+                         "https://i.ibb.co/y5sgCM5/Ecuaciones-002.jpg",
+                         "https://i.ibb.co/jMhnPnL/Ecuaciones-003.jpg",
+                         "https://i.ibb.co/x6VKGDs/Ecuaciones-004.jpg",
+                         "https://i.ibb.co/wN21gGP/Ecuaciones-005.jpg",
+                         "https://i.ibb.co/99HBwRM/Ecuaciones-006.png"
+                    ]
+
+                    for (const img of imagenes) {
+                         document.write(`
+                         <a class="example-image-link" href="${img}" data-lightbox="grupo1">
+                              <img class="example-image dibujo" src="${img}">
+                         </a>
+                         `)
+                    }
+               </script>
+          </div>
+
+          <hr>
+
+          <h1>
+               PERFIL DE PROGRAMADOR
+          </h1>
+
+          Desde los 15 años empecé a programar, mi primer tutor fue mi padre; empezó enseñandome Racket, un lenguaje de
+          programación funciónal y con notación inorden, el cuál en su momento no entendí bien, a continuación empecé a
+          aprender a programar hojas de calculo en excel, mi padre me enseño a manejar los condicionales, la función SI,
+          el ENTONCES y el DE_LO_CONTRARIO, con esto aún no podia hacer mucho, pero fue un bien inicio, porque cuando
+          entre a ver programación en VBA para Excel, se me hizo más sencillo que a los demás para entender el
+          funcionamiento lógico de las estructuras básicas de programación, VBA lo estudie en System Plus, en la carrera
+          de Auxiliar en diseño gráfico más o menos a mis 16 años. Más adelante empecé a estudiar Java en la Universidad
+          del Quindió, luego en la Universidad Técnologica de pereira conocí lenguajes como C, Prolog y Python, por mi
+          cuenta en Youtube aprendi a manejar de forma avanzada JavaScript y de forma elemental NodeJS y aprendí a usar
+          varias de sus técnologias, sobretodo lo que más me gustó fue la comunicación directa entre cliente y servidor
+          por medio de Sockets.
+
+          <h3>
+               CIENCIAS DE LA COMPUTACIÓN
+          </h3>
+
+          Tengo buenos conocimientos aplicando la matemática y algoritmos a la computación. Este es un tema que me
+          apasiona, ya que abarca diversos temas y habla acerca de lo que es el modelamiento lógico de cómo se puede
+          representar el mundo de forma óptima para una computadora, me llama la atención sobretodo el tratamiento de
+          gráficos por computadora, los principales temas que domino los voy a exponer a continuación.
+
+          <h5>
+               Regresión Lineal
+          </h5>
+
+          
+
+          <div style="text-align: center;">
+               <iframe src="Regresión Lineal/index.html" frameborder="1" style="width: 90%;height: 100vh;">
+               </iframe>
+          </div>
+
+     </div>
+
+
+
+     <script
+          src="https://cdn.jsdelivr.net/gh/lokesh/lightbox2@56b06ac5914179d5ffd27d133333230e9b002317/dist/js/lightbox-plus-jquery.min.js"></script>
+     <script>
+          lightbox.option({
+               'resizeDuration': 0,
+               'wrapAround': false,
+               fadeDuration: 100,
+               imageFadeDuration: 100,
+               disableScrolling: true
+          })
+     </script>
+</body>
+
+</html>

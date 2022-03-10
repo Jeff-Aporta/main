@@ -1,0 +1,48 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+     <title>Computación gráfica</title>
+     <script src="https://cdnjs.cloudflare.com/ajax/libs/p5.js/1.4.0/p5.min.js"></script>
+</head>
+
+<body>
+     <script>
+
+          function setup() {
+               createCanvas(500, 400)
+               let x = width / 2
+               let y = height / 2
+               posición = createVector(x, y)
+               aceleración = createVector()
+               direcciones = {}
+               direcciones[UP_ARROW] = createVector(0, -5)
+               direcciones[DOWN_ARROW] = createVector(0, 5)
+               direcciones[LEFT_ARROW] = createVector(-5, 0)
+               direcciones[RIGHT_ARROW] = createVector(5, 0)
+          }
+
+          function draw() {
+               background("skyblue")
+               circle(posición.x, posición.y, 100)
+               posición.add(aceleración)
+          }
+
+          function keyPressed() {
+               keyCode+=""
+               if (Object.keys(direcciones).includes(keyCode)) {
+                    aceleración.add(direcciones[keyCode])
+               }
+          }
+
+          function keyReleased() {
+               keyCode+=""
+               if (Object.keys(direcciones).includes(keyCode)) {
+                    aceleración.sub(direcciones[keyCode])
+               }
+          }
+
+     </script>
+</body>
+
+</html>

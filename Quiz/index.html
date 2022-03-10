@@ -1,0 +1,208 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+     <title>Quiz</title>
+     <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/css/bootstrap.min.css">
+     <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11.3.5/dist/sweetalert2.all.min.js"></script>
+     <script src="preguntas-de-aritmética.js"></script>
+</head>
+
+<body>
+     <style>
+          * {
+               transition: all 0.25s;
+               box-sizing: border-box;
+          }
+
+          :root {
+               --ancho: 600px
+          }
+
+          body {
+               padding: 0;
+               margin: 0;
+               text-align: center;
+          }
+
+          .pregunta {
+               min-height: 150px;
+               font-size: 150%;
+               width: var(--ancho);
+               margin: 5px;
+               display: inline-flex;
+               justify-content: center;
+               align-items: center;
+               flex-direction: column;
+          }
+
+          .pregunta img {
+               object-fit: contain;
+               width: 100%;
+               height: 100px;
+               margin: 10px;
+          }
+
+          label {
+               padding: 5px;
+               margin: 5px;
+               width: var(--ancho);
+               background: lightgray;
+          }
+
+          label:hover {
+               background: lightblue;
+          }
+
+          input[type="radio"] {
+               visibility: hidden;
+          }
+
+          input[type="radio"]:checked+label {
+               background: dodgerblue;
+               color: white;
+          }
+     </style>
+
+     <br>
+
+     <h1>Quiz de Aritmética</h1>
+
+     <br>
+
+     <div id="quiz">
+          <div id="almecenadorPreguntas">
+          </div>
+
+          <div id="btn-finalizado" class="btn btn-success" onclick="HeFinalizado()">
+               He finalizado
+          </div>
+     </div>
+
+     <div id="nota-final" style="display: none;">
+          <h1><span id="nombre">Jeff Aporta</span> tu puntaje es <span id="puntuación">5</span></h1>
+     </div>
+
+     <hr class="my-5">
+
+     <script>
+          let desordenarPreguntas = false
+          let escala_calificación = 5
+
+          cargarPreguntas()
+
+          function cargarPreguntas() {
+               let html = ""
+               let n_pregunta = 0
+               input = 0
+               if (desordenarPreguntas) {
+                    preguntas.sort(() => Math.random() - 0.5)
+               }
+               for (const pregunta of preguntas) {
+                    let candidatos = [
+                         pregunta.respuesta,
+                         pregunta.distractor1,
+                         pregunta.distractor2,
+                         pregunta.distractor3
+                    ]
+                    for (let i = 0; i < 4; i++) {
+                         candidatos.sort(() => Math.random() - 0.5)
+                    }
+                    html += `
+                    <hr class="my-5">
+
+                    <div class="btn btn-primary" onclick="swal.fire('Ayuda','${pregunta.ayuda}')">Ayuda</div>
+                    <br>
+                    <div class="pregunta">
+                         <span id="pregunta${n_pregunta}">${pregunta.pregunta}</span>
+                         ${pregunta.imagen ? `<img src="${pregunta.imagen}">` : ""}
+                    </div>
+                    <div id="soporte${n_pregunta}" style="display:none;">
+                         <br>
+                              <span style="background:black;color:white;padding:5px;margin:5px;">${pregunta.soporte}</span>
+                         <br>
+                         <br>
+                    </div>
+                    <div id="btn${input}">
+                         <input type="radio" name="pregunta${n_pregunta}" id="radio${input}">
+                         <label id="lbl${input}" for="radio${input}" onclick="preguntas[${n_pregunta}].marcado = ${candidatos[0]};preguntas[${n_pregunta}].input = 'lbl${input++}'">${candidatos[0]}</label>
+                    </div>
+                    <div id="btn${input}">
+                         <input type="radio" name="pregunta${n_pregunta}" id="radio${input}">
+                         <label id="lbl${input}" for="radio${input}" onclick="preguntas[${n_pregunta}].marcado = ${candidatos[1]};preguntas[${n_pregunta}].input = 'lbl${input++}'">${candidatos[1]}</label>
+                    </div>
+                    <div id="btn${input}">
+                         <input type="radio" name="pregunta${n_pregunta}" id="radio${input}">
+                         <label id="lbl${input}" for="radio${input}" onclick="preguntas[${n_pregunta}].marcado = ${candidatos[2]};preguntas[${n_pregunta}].input = 'lbl${input++}'">${candidatos[2]}</label>
+                    </div>
+                    <div id="btn${input}">
+                         <input type="radio" name="pregunta${n_pregunta}" id="radio${input}">
+                         <label id="lbl${input}" for="radio${input}" onclick="preguntas[${n_pregunta}].marcado = ${candidatos[3]};preguntas[${n_pregunta}].input = 'lbl${input++}'">${candidatos[3]}</label>
+                    </div>
+                    `
+                    n_pregunta++
+               }
+               document.getElementById("almecenadorPreguntas").innerHTML = html + `<hr class="my-5">`
+          }
+
+          async function HeFinalizado() {
+               let puntuación = 0
+               for (const pregunta of preguntas) {
+                    if (pregunta.marcado == undefined) {
+                         await swal.fire("Faltan respuestas", "debes dar respuesta a cada punto")
+                         return
+                    }
+                    if (pregunta.marcado == pregunta.respuesta) {
+                         puntuación++
+                    }
+               }
+
+               puntuación = escala_calificación * puntuación / preguntas.length
+
+               let { value: identificación } = await swal.fire({
+                    title: "Identificate",
+                    input: "text"
+               })
+               let estudiantesEvaluados = JSON.parse(
+                    localStorage.getItem("estudiantesEvaluados")
+               ) || {};
+               estudiantesEvaluados[identificación] = { puntuación }
+               localStorage.setItem(
+                    "estudiantesEvaluados",
+                    JSON.stringify(estudiantesEvaluados)
+               )
+
+               mostrarNotas()
+
+               document.getElementById("nota-final").style.display = ""
+               document.getElementById("btn-finalizado").style.display = "none"
+               document.getElementById("nombre").innerHTML = identificación
+               document.getElementById("puntuación").innerHTML = puntuación.toFixed(2)
+
+               for (let i = 0; i < input; i++) {
+                    const element = document.getElementById("radio" + i);
+                    element.checked = false
+               }
+               let n_pregunta = 0
+               for (const pregunta of preguntas) {
+                    document.getElementById(`soporte${n_pregunta}`).style.display = ""
+                    if (pregunta.marcado == pregunta.respuesta) {
+                         document.getElementById(pregunta.input).style.background = "lightgreen"
+                    } else {
+                         document.getElementById(pregunta.input).style.background = "lightpink"
+                    }
+                    n_pregunta++
+               }
+          }
+
+          function mostrarNotas() {
+               let estudiantesEvaluados = JSON.parse(
+                    localStorage.getItem("estudiantesEvaluados")
+               ) || {};
+               console.table(estudiantesEvaluados)
+          }
+     </script>
+
+</body>
+
+</html>

@@ -1,0 +1,44 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+     <title>Computación gráfica</title>
+     <script src="https://cdnjs.cloudflare.com/ajax/libs/p5.js/1.4.0/p5.min.js"></script>
+</head>
+<body>
+     <script>
+          /* 
+          Esta función se ejecuta una única vez, antes de empezar con el 
+          looping de draw
+
+          esta función, sirve para inicializar nuestras variables y objetos
+          */
+          function setup() {
+               /* 
+               La función createCanvas() crea un objeto html en nuestra página
+               de tipo canvas y lo crea con las dimensiones que le especifiquemos
+               */
+               createCanvas(100,100)
+               /* 
+               La función resizeCanvas() redimensiona el tamaño del canvas cuando
+               nosotros lo requiramos
+               */
+               resizeCanvas(500,400)
+          }
+
+          /* 
+          Inicialmente esta función estará ejecutandose en bucle, cerca de
+          60 veces por segundo
+
+          esta función, sirve para dar instrucciones precisas de lo que es
+          dibujar
+          */
+          function draw(){
+               /* 
+               La función background, pinta de forma solida el fondo del canvas
+               con el color que le especifiquemos
+               */
+               background("black")
+          }
+     </script>
+</body>
+</html>

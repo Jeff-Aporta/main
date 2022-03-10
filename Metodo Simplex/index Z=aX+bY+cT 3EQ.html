@@ -1,0 +1,83 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <title>Simplex</title>
+    <link rel="stylesheet" href="style.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.4/css/all.min.css">
+</head>
+
+<body>
+    <div>
+        <table cellspacing="0" cellpadding="0" contenteditable="true" id="tabla">
+            <tbody>
+                <tr class="titulo">
+                    <td>&nbsp;</td>
+                    <td>Z</td>
+                    <td>X</td>
+                    <td>Y</td>
+                    <td>T</td>
+                    <td>S1</td>
+                    <td>S2</td>
+                    <td>S3</td>
+                    <td>R</td>
+                </tr>
+                <tr>
+                    <td class="titulo">F1</td>
+                    <td id="e11">1</td>
+                    <td id="e21">-5</td>
+                    <td id="e31">-4</td>
+                    <td id="e41">-3</td>
+                    <td id="e51">0</td>
+                    <td id="e61">0</td>
+                    <td id="e71">0</td>
+                    <td id="e81">0</td>
+                </tr>
+                <tr>
+                    <td class="titulo">F2</td>
+                    <td id="e12">0</td>
+                    <td id="e22">2</td>
+                    <td id="e32">3</td>
+                    <td id="e42">1</td>
+                    <td id="e52">1</td>
+                    <td id="e62">0</td>
+                    <td id="e72">0</td>
+                    <td id="e82">5</td>
+                </tr>
+                <tr>
+                    <td class="titulo">F3</td>
+                    <td id="e13">0</td>
+                    <td id="e23">4</td>
+                    <td id="e33">1</td>
+                    <td id="e43">2</td>
+                    <td id="e53">0</td>
+                    <td id="e63">1</td>
+                    <td id="e73">0</td>
+                    <td id="e83">11</td>
+                </tr>
+                <tr>
+                    <td class="titulo">F4</td>
+                    <td id="e14">0</td>
+                    <td id="e24">3</td>
+                    <td id="e34">4</td>
+                    <td id="e44">2</td>
+                    <td id="e54">0</td>
+                    <td id="e64">0</td>
+                    <td id="e74">1</td>
+                    <td id="e84">8</td>
+                </tr>
+            </tbody>
+        </table>
+        <div class="btn" onclick="siguiente()">Siguiente</div>
+        <br>
+        <a href="index.html">
+            <div class="btn" style="width: 60px;margin-top: -30px;">
+                <i class="fas fa-home"></i>
+            </div>
+        </a>
+    </div>
+    <script src="script.js"></script>
+</body>
+
+</html>

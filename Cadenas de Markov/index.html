@@ -1,0 +1,220 @@
+<!DOCTYPE html>
+<html lang="es">
+
+<head>
+     <meta charset="UTF-8">
+     <meta name="viewport" content="width=device-width, initial-scale=1.0">
+     <title>Cadenas de Markov</title>
+     <script src="https://cdn.jsdelivr.net/npm/sweetalert2@7.28.11/dist/sweetalert2.all.js"></script>
+     <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/css/bootstrap.min.css">
+
+     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/animate.css/4.1.1/animate.min.css">
+</head>
+
+<body>
+     <style>
+          body {
+               text-align: center;
+          }
+
+          #planteamiento img,
+          #planteamiento table {
+               animation: jackInTheBox;
+               animation-duration: 1s;
+          }
+
+          #planteamiento #x0 td,
+          #planteamiento #M td {
+               width: 50px;
+               height: 50px;
+               border: 1px solid black;
+          }
+
+          #planteamiento #x0 th,
+          #planteamiento #M th {
+               background: black;
+               color: white;
+               width: 50px;
+               border: 1px solid white;
+          }
+
+          #planteamiento #x0 table,
+          #planteamiento #M table,
+          .btn {
+               display: inline-block;
+               box-shadow: 5px 5px 5px rgba(0, 0, 0, 0.2);
+          }
+     </style>
+     <div
+          style="background-image: url(https://i.ibb.co/wYp0Dc9/banner.gif); background-position: center; background-repeat: no-repeat; background-size: cover;">
+
+          <div style="background: rgba(255, 255, 255, 0.8);">
+               <img src="https://i.ibb.co/g4Rq103/logo.png" style="position: relative;">
+          </div>
+
+          <div style="background: rgba(176, 224, 230, 0.9);">
+               <table style="display: inline-block;" cellpadding="5">
+                    <tbody>
+                         <tr>
+                              <th>
+                                   Variables
+                              </th>
+                              <td rowspan="2">
+                                   <span class="btn btn-primary" onclick="generar()">Generar</span>
+                              </td>
+                              <th>
+                                   Iteraciones
+                              </th>
+                         </tr>
+                         <tr>
+                              <td>
+                                   <input style="width: 100px;text-align: center;" type="number" min="2" step="1"
+                                        value="2" id="cantidad_variables">
+                              </td>
+                              <td>
+                                   <input style="width: 100px;text-align: center;" type="number" min="1" step="1"
+                                        value="1" id="cantidad_iteraciones">
+                              </td>
+                         </tr>
+                    </tbody>
+               </table>
+          </div>
+     </div>
+
+     <br>
+
+     <div id="planteamiento">
+
+          <table style="display: inline-block;" cellpadding="5">
+               <tbody>
+                    <tr>
+                         <td id="img_x0">
+                         </td>
+                         <td id="x0">
+                         </td>
+                         <td id="img_M">
+                         </td>
+                         <td id="M">
+                         </td>
+                    </tr>
+               </tbody>
+          </table>
+          <br>
+          <span class="btn btn-primary" style="display: none;" id="btn-calcular" onclick="calcular()">Calcular</span>
+          <br>
+          <br>
+          <div id="resultados">
+
+          </div>
+     </div>
+
+
+     <script>
+
+          let cantidad_variables = 0
+          let x0 = []
+          let M = []
+
+          function calcular() {
+               atrapar_matrices()
+               cantidad_iteraciones = Number(document.getElementById("cantidad_iteraciones").value)
+               xn = x0.slice()
+               html=``
+               for (let i = 0; i < cantidad_iteraciones; i++) {
+                    let resultado = []
+                    for (let x = 0; x < cantidad_variables; x++) {
+                         resultado.push(0)
+                         for (let y = 0; y < cantidad_variables; y++) {
+                              resultado[x] += xn[y] * M[x][y]
+                         }
+                    }
+                    html += `<img src="https://latex.codecogs.com/png.image?\\dpi{150}&space;X_{${i + 1}}&space;=\\begin{bmatrix}`
+                    for (let i = 0; i < cantidad_variables; i++) {
+                         html += (Math.floor(resultado[i] * 100) / 100) + (i == cantidad_variables - 1 ? "" : "&")
+                    }
+                    html += `\\end{bmatrix}&space;"/>`
+                    html += `<br>`
+                    html += `<br>`
+                    xn = resultado
+               }
+               document.getElementById("resultados").innerHTML = html
+          }
+
+          function atrapar_matrices() {
+               x0 = []
+               M = []
+               for (let x = 0; x < cantidad_variables; x++) {
+                    x0.push(Number(document.getElementById(`x0-${x}`).innerHTML))
+                    M.push([])
+               }
+               for (let x = 0; x < cantidad_variables; x++) {
+                    for (let y = 0; y < cantidad_variables; y++) {
+                         M[x][y] = Number(document.getElementById(`M-${x}-${y}`).innerHTML)
+                    }
+               }
+          }
+
+          function generar() {
+               cantidad_variables = Number(document.getElementById("cantidad_variables").value)
+
+               generar_x0(cantidad_variables)
+               generar_M(cantidad_variables)
+               document.getElementById("img_x0").innerHTML = `<img src="https://latex.codecogs.com/png.image?\\dpi{200}&space;X_0=">`
+               document.getElementById("img_M").innerHTML = `<img src="https://latex.codecogs.com/png.image?\\dpi{200}&space;M=">`
+               document.getElementById("btn-calcular").style.display = ``
+          }
+
+          function generar_x0(cantv) {
+               html = `<table>`
+               html += `<thead>`
+               for (let i = 0; i < cantv; i++) {
+                    html += `<th>`
+                    html += String.fromCharCode(i + 65)
+                    html += `</th>`
+               }
+               html += `</thead>`
+               html += `<tbody>`
+               html += `<tr>`
+               for (let i = 0; i < cantv; i++) {
+                    html += `<td contenteditable="true" id="x0-${i}">`
+                    html += `</td>`
+               }
+               html += `<tr>`
+               html += `</tbody>`
+               html += `</table>`
+               document.getElementById("x0").innerHTML = html
+          }
+
+          function generar_M(cantv) {
+               html = `<table>`
+               html += `<thead>`
+               html += `<th>`
+               html += `</th>`
+               for (let i = 0; i < cantv; i++) {
+                    html += `<th>`
+                    html += String.fromCharCode(i + 65)
+                    html += `</th>`
+               }
+               html += `</thead>`
+               html += `<tbody>`
+               for (let y = 0; y < cantv; y++) {
+                    html += `<tr>`
+                    html += `<th>`
+                    html += String.fromCharCode(y + 65)
+                    html += `</th>`
+                    for (let x = 0; x < cantv; x++) {
+                         html += `<td contenteditable="true" id="M-${x}-${y}">`
+                         html += `</td>`
+                    }
+                    html += `<tr>`
+               }
+
+               html += `</tbody>`
+               html += `</table>`
+               document.getElementById("M").innerHTML = html
+          }
+     </script>
+
+</body>
+
+</html>

@@ -1,0 +1,127 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+     <title>Computación gráfica</title>
+     <script src="https://cdnjs.cloudflare.com/ajax/libs/p5.js/1.4.0/p5.min.js"></script>
+</head>
+
+<body>
+     <script>
+
+          function setup() {
+               createCanvas(500, 500)
+               init()
+               tono_fondo = 0
+          }
+
+          function init(){
+               raqueta = new Rectángulo((width - 100) / 2, 30, 100, 20)
+               pelota = new Rectángulo(width / 2, height / 2, 30, 30)
+               pelota.aceleración = createVector(random(-1,1)*10,random()*10)
+          }
+
+          function draw() {
+               background(`hsl(${int(tono_fondo%360)},100%,10%)`)
+               tono_fondo+=random()
+               raqueta.dibujar()
+               raqueta.x = constrain(raqueta.x,0,width-raqueta.ancho)
+               pelota.dibujarElipse()
+               pelota.x+=pelota.aceleración.x
+               pelota.y+=pelota.aceleración.y
+               if (outside(pelota.x,0,width)) {
+                    pelota.aceleración.x*=-1
+               }
+               if (pelota.y>height) {
+                    pelota.aceleración.y*=-1
+               }
+               if (pelota.colisión_rect_rect(raqueta)) {
+                    pelota.aceleración.y*=-1
+                    pelota.y = raqueta.abajo+5
+               }
+               if (pelota.y<0) {
+                    alert("Haz perdido")
+                    init()
+               }
+               if (keyIsDown(LEFT_ARROW)) {
+                    raqueta.x-=10
+               }
+               if (keyIsDown(RIGHT_ARROW)) {
+                    raqueta.x+=10
+               }
+          }
+
+
+          function outside(v,vmin,vmax){
+               return v<vmin || v>vmax
+          }
+
+          class Rectángulo {
+               constructor(x, y, ancho, alto = ancho) {
+                    this.x = x
+                    this.y = y
+                    this.ancho = ancho
+                    this.alto = alto
+               }
+
+               colisión_punto_rect(x, y) {
+                    if (x <= this.derecha && x >= this.izquierda) {
+                         if (y >= this.arriba && y <= this.abajo) {
+                              return true
+                         }
+                    }
+                    return false
+               }
+
+               get izquierda() {
+                    return this.x
+               }
+
+               get derecha() {
+                    return this.x + this.ancho
+               }
+
+               get arriba() {
+                    return this.y
+               }
+
+               get abajo() {
+                    return this.y + this.alto
+               }
+
+               get vertices() {
+                    return [
+                         createVector(this.izquierda, this.arriba),
+                         createVector(this.derecha, this.arriba),
+                         createVector(this.izquierda, this.abajo),
+                         createVector(this.derecha, this.abajo),
+                    ]
+               }
+
+               colisión_rect_rect(rect) {
+                    for (const v of this.vertices) {
+                         if (rect.colisión_punto_rect(v.x, v.y)) {
+                              return true
+                         }
+                    }
+                    for (const v of rect.vertices) {
+                         if (this.colisión_punto_rect(v.x, v.y)) {
+                              return true
+                         }
+                    }
+                    return false
+               }
+
+               dibujar(){
+                    rect(this.x,this.y,this.ancho,this.alto)
+               }
+
+               dibujarElipse(){
+                    ellipse(this.x,this.y,this.ancho,this.alto)
+               }
+          }
+
+     </script>
+</body>
+
+</html>

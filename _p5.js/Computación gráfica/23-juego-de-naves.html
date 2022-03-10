@@ -1,0 +1,259 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+     <title>Computación gráfica</title>
+     <script src="https://cdnjs.cloudflare.com/ajax/libs/p5.js/1.4.0/p5.min.js"></script>
+</head>
+
+<body>
+     <script>
+
+          setInterval(() => {
+               enemigos.push(new Enemigo())
+          }, 1000);
+
+          setInterval(() => {
+               nave.balas.push(new Bala())
+          }, 200);
+
+          puntaje = 0
+
+          function preload() {
+               fondo = loadImage("https://i.ibb.co/mbFd9k5/universo-espacio-cielo-estrellas-noche-via-lactea-117930-55.jpg")
+               img_nave = loadImage("https://i.ibb.co/HT510RL/player.png")
+               img_disparo = loadImage("https://i.ibb.co/T8WMvPJ/laser-Red01.png")
+               img_virus = loadImage("https://i.ibb.co/N1RsXnY/corona-5206905-1280.png")
+          }
+
+          function setup() {
+               createCanvas(700, 500)
+               nave = new Nave()
+               nave.img = img_nave;
+               enemigos = []
+               explosiones = []
+          }
+
+
+          function draw() {
+               image(fondo, 0, 0, width, height)
+               noStroke()
+               fill("white")
+               textSize(40)
+               textAlign(LEFT,TOP)
+               text(puntaje,10,10)
+               nave.dibujar()
+               /* stroke("red")
+               push()
+               strokeWeight(5)
+               point(nave.posición.x, nave.posición.y)
+               point(mouseX, mouseY)
+               pop()
+               line(mouseX, mouseY, nave.posición.x, nave.posición.y) */
+               for (const enemigo of enemigos) {
+                    enemigo.dibujar()
+                    for (const bala of nave.balas) {
+                         if (enemigo.colitivo.colisión_rect_rect(bala.colitivo)) {
+                              enemigos.splice(enemigos.indexOf(enemigo), 1)
+                              puntaje++
+                              nave.balas.splice(nave.balas.indexOf(bala), 1)
+                              explosiones.push(
+                                   new Explosión(
+                                        enemigo.colitivo.x,
+                                        enemigo.colitivo.y
+                                   )
+                              )
+                              break
+                         }
+                    }
+               }
+               for (const explosión  of explosiones) {
+                    explosión.dibujar()
+               }
+          }
+
+          function keyPressed() {
+               if (keyIsDown(32)) {
+                    nave.balas.push(new Bala())
+               }
+          }
+
+          function outside(v, vmin, vmax) {
+               return v < vmin || v > vmax
+          }
+
+          class Explosión {
+               constructor(x, y) {
+                    this.posición = createVector(x, y)
+                    this.tiempo_inicio = millis()
+               }
+
+               dibujar() {
+                    noFill()
+                    stroke("white")
+                    let r = 50 * (millis() - this.tiempo_inicio) / 50
+                    circle(
+                         this.posición.x,
+                         this.posición.y,
+                         r
+                    )
+                    if (r>1000) {
+                         explosiones.splice(explosiones.indexOf(this),1)
+                    }
+
+               }
+          }
+
+          class Enemigo {
+               constructor() {
+                    this.posición = createVector(0, random(100, 200))
+                         .rotate(random() * 2 * PI)
+                    this.aceleración = this.posición.copy().normalize().div(4)
+                    this.posición.add(width / 2, height / 2)
+                    this.colitivo = new Rectángulo(0, 0, 1, 1)
+               }
+
+               dibujar() {
+                    this.colitivo = new Rectángulo(
+                         this.posición.x - this.colitivo.ancho / 2,
+                         this.posición.y - this.colitivo.alto / 2,
+                         20,
+                         20
+                    )
+                    /* rect(
+                         this.colitivo.x,
+                         this.colitivo.y,
+                         this.colitivo.ancho,
+                         this.colitivo.alto
+                    ) */
+                    push()
+                    translate(this.posición.x, this.posición.y)
+                    rotate(random() * 2 * PI)
+                    translate(-this.colitivo.ancho / 2, -this.colitivo.alto / 2)
+
+                    image(img_virus, 0, 0, this.colitivo.ancho, this.colitivo.alto)
+                    pop()
+                    this.posición.add(this.aceleración).add(random(-1, 1), random(-1, 1))
+               }
+          }
+
+          class Bala {
+               constructor() {
+                    this.posición = nave.posición.copy()
+                    this.dirección = nave.dirección.copy().normalize().mult(5)
+                    this.posición.add(this.dirección.copy().mult(7))
+                    this.colitivo = new Rectángulo(0, 0, 1, 1)
+               }
+
+               dibujar() {
+                    this.posición.add(this.dirección)
+                    this.colitivo = new Rectángulo(
+                         this.posición.x - 5,
+                         this.posición.y,
+                         10,
+                         10
+                    )
+                    push()
+                    translate(this.colitivo.x, this.colitivo.y)
+                    rotate(this.dirección.heading() + PI / 2)
+                    translate(-img_disparo.width / 2, 0)
+
+                    image(img_disparo, 0, 0)
+                    pop()
+                    /* rect(
+                         this.colitivo.x,
+                         this.colitivo.y,
+                         this.colitivo.ancho,
+                         this.colitivo.alto
+                    ) */
+                    if (outside(this.posición.x, -50, width + 50)) {
+                         nave.balas.splice(nave.balas.indexOf(this), 1)
+                    }
+               }
+          }
+
+          class Nave {
+               constructor() {
+                    this.posición = createVector(width, height).div(2)
+                    this.balas = []
+               }
+
+               dibujar() {
+                    for (const bala of this.balas) {
+                         bala.dibujar()
+                    }
+                    push()
+                    translate(this.posición.x, this.posición.y)
+                    this.dirección = createVector(mouseX, mouseY).sub(this.posición)
+                    rotate(
+                         Math.atan2(
+                              this.dirección.y,
+                              this.dirección.x
+                         ) + PI / 2
+                    )
+                    translate(-this.img.width / 2, -this.img.height / 2)
+                    image(this.img, 0, 0)
+                    pop()
+               }
+          }
+
+          class Rectángulo {
+               constructor(x, y, ancho, alto = ancho) {
+                    this.x = x
+                    this.y = y
+                    this.ancho = ancho
+                    this.alto = alto
+               }
+
+               colisión_punto_rect(x, y) {
+                    if (x <= this.derecha && x >= this.izquierda) {
+                         if (y >= this.arriba && y <= this.abajo) {
+                              return true
+                         }
+                    }
+                    return false
+               }
+
+               get izquierda() {
+                    return this.x
+               }
+
+               get derecha() {
+                    return this.x + this.ancho
+               }
+
+               get arriba() {
+                    return this.y
+               }
+
+               get abajo() {
+                    return this.y + this.alto
+               }
+
+               get vertices() {
+                    return [
+                         createVector(this.izquierda, this.arriba),
+                         createVector(this.derecha, this.arriba),
+                         createVector(this.izquierda, this.abajo),
+                         createVector(this.derecha, this.abajo),
+                    ]
+               }
+
+               colisión_rect_rect(rect) {
+                    for (const v of this.vertices) {
+                         if (rect.colisión_punto_rect(v.x, v.y)) {
+                              return true
+                         }
+                    }
+                    for (const v of rect.vertices) {
+                         if (this.colisión_punto_rect(v.x, v.y)) {
+                              return true
+                         }
+                    }
+                    return false
+               }
+          }
+     </script>
+</body>
+
+</html>

@@ -1,0 +1,32 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+     <title>Computación gráfica</title>
+     <script src="https://cdnjs.cloudflare.com/ajax/libs/p5.js/1.4.0/p5.min.js"></script>
+</head>
+<body>
+     <script>
+          function setup() {
+               createCanvas(500,400)
+               /* 
+               createCapture() crea una variable que está capturando 
+               la camara en todo momento, cómo una imágen, y le podemos dar 
+               todo el tratamiento de pixeles que le podemos dar a las imágenes
+               */
+               video = createCapture(VIDEO)
+               /* 
+               hide() es una función que oculta el elemento video, dentro del html
+               */
+               video.hide()
+          }
+
+          function draw(){
+               background("black")
+               /* 
+               Se encarga de dibujar el video en el canvas
+               */
+               image(video,0,0)
+          }
+     </script>
+</body>
+</html>

@@ -1,0 +1,165 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+     <script src="https://cdnjs.cloudflare.com/ajax/libs/p5.js/1.1.9/p5.js"></script>
+     <script src="https://cdnjs.cloudflare.com/ajax/libs/p5.js/1.1.9/addons/p5.sound.min.js"></script>
+     <script src="https://unpkg.com/h264-mp4-encoder/embuild/dist/h264-mp4-encoder.web.js"></script>
+     <meta charset="utf-8" />
+
+</head>
+
+<body>
+     <script>
+
+          let contadorFotogramas = 0
+          let parte = 0
+
+          let modo = 0
+
+          let dibujar = ""
+          let leyendo = false
+
+          let start = 0
+          let transcurrido = 0
+
+          let encoder
+
+          let tiempo_parte = 0
+
+          let duración_máxima_por_video = 12 * 60 * 60
+
+          let iniciar_desde_parte = 1
+
+          let letras_por_segundo = 17
+
+          let textos
+
+          function preload() {
+               textos = []
+               nombres = [
+                    "Crazy Taxi.jpg",
+                    "Dynasty Warriors 3 Xtreme Legends.jpg",
+                    "Dynasty Warriors 4 Empires.jpg",
+                    "Evolution Skateboarding.jpg",
+                    "Evolution snowboarding.jpg",
+                    "Fallout Brotherhood of Steel.jpg",
+                    "Ghosthunter.jpg",
+                    "Ice Age 2 The Meltdown.jpg",
+                    "Juego [PES 2021] Play Station 2.jpg",
+               ]
+               Imagenes = []
+               for (const n of nombres) {
+                    Imagenes.push(loadImage(n))
+               }
+               fuente = loadFont("ps.ttf")
+          }
+
+          function setup() {
+               pixelDensity(1)
+               createCanvas(1280, 720);
+               cont = 0
+               iniciarEncoder()
+               textAlign(CENTER, CENTER)
+               imageMode(CENTER);
+               textFont(fuente)
+               leyendo = false
+               contadorFotogramas = 0
+               parte = 0
+               start = 0
+               transcurrido = 0
+               textos.unshift(
+                    "Para jugar este juego en tu computador, es necesario que primero tengas instalado el emulador PCSX2.",
+                    `En la descripción encontrarás el link correspondiente para que lo instales, también estará el link correspondiente para que descargues la BIOS y lo ajustes cuando PCSX2 lo requiera justo después de finalizar la instalación.`,
+                    `dejaré el link de descarga de PCSX2 directamente desde la página oficial.`,
+                    `y las BIOS desde Mediafire o MEGA, para que uses el servidor que más te guste.`,
+                    `Los juegos estarán alojados en Telegram, ya que esta plataforma no pone problema para subir archivos de gran tamaño.`,
+                    `En promedio cada Juego de PS2 pesa 2GB.`,
+                    `Espero que te guste el aporte`,
+                    `No olvides suscribirte`,
+                    `Gracias`,
+               )
+          }
+
+          function iniciarEncoder() {
+               HME.createH264MP4Encoder().then(async enc => {
+                    encoder = enc
+                    encoder.outputFilename = nombres[cont++].replaceAll(".jpg", "").replaceAll("-", "—") + " — PlayStation 2 — ROM ISO — PCSX2"
+                    encoder.width = 1280;
+                    encoder.height = 720;
+                    encoder.frameRate = 1
+                    encoder.kbps = 3500
+                    encoder.speed = 10
+                    encoder.groupOfPictures = 10
+                    await encoder.initialize()
+               })
+          }
+
+          function draw() {
+               fill("white")
+               textSize(70)
+               generarVideo(0)
+               noLoop()
+          }
+
+          function generarVideo(i) {
+               console.log("generando video: " + i)
+               const img = Imagenes[i];
+               background("black")
+               if (img.height > img.width) {
+                    image(img, width / 2, height / 2, img.width * height / img.height, height)
+               } else {
+                    image(img, width / 2, height / 2, width, img.height * width / img.width)
+               }
+               console.log("Insertando imagen inicial")
+               for (let i = 0; i < 60; i++) {
+                    grabarFotograma();
+               }
+               console.log("imagen inicial insertada")
+               console.log("Insertando textos")
+               for (const t of textos) {
+                    background("black")
+                    text(
+                         t,
+                         15,
+                         0,
+                         width - 30,
+                         height
+                    )
+                    for (let i = 0; i < 7; i++) {
+                         grabarFotograma();
+                    }
+                    console.log(t)
+               }
+               for (let i = 0; i < 484; i++) {
+                    grabarFotograma();
+               }
+               finalizarGrabación()
+               console.log("grabación finalizada")
+               console.log("-----------------")
+               setTimeout(() => {
+                    generarVideo(i + 1)
+               }, 5000);
+          }
+
+          function grabarFotograma() {
+               try {
+                    encoder.addFrameRgba(drawingContext.getImageData(0, 0, encoder.width, encoder.height).data)
+               } catch (error) {
+               }
+          }
+
+          function finalizarGrabación() {
+               encoder.finalize()
+               const uint8Array = encoder.FS.readFile(encoder.outputFilename)
+               const descargador = document.createElement("a")
+               descargador.href = URL.createObjectURL(new Blob([uint8Array], { type: 'video/mp4' }))
+               descargador.download = encoder.outputFilename
+               descargador.click()
+               encoder.delete()
+               iniciarEncoder()
+          }
+     </script>
+</body>
+
+</html>

@@ -1,0 +1,89 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+     <title>Computación gráfica</title>
+     <script src="https://cdnjs.cloudflare.com/ajax/libs/p5.js/1.4.0/p5.min.js"></script>
+</head>
+
+<body>
+     <script>
+
+          function setup() {
+               createCanvas(500, 400)
+               prueba = new Rectángulo(width / 2, height / 2, 100)
+          }
+
+          function draw() {
+               background("skyblue")
+               cursor = new Rectángulo(mouseX, mouseY, 100)
+               if (prueba.colisión_rect_rect(cursor)) {
+                    fill(0,255,0,100)
+               } else {
+                    fill(255,0,0,100)
+               }
+               rect(prueba.x, prueba.y, prueba.ancho, prueba.alto)
+               rect(cursor.x, cursor.y, cursor.ancho, cursor.alto)
+          }
+
+          class Rectángulo {
+               constructor(x, y, ancho, alto=ancho) {
+                    this.x = x
+                    this.y = y
+                    this.ancho = ancho
+                    this.alto = alto
+               }
+
+               colisión_punto_rect(x, y) {
+                    if (x <= this.derecha && x >= this.izquierda) {
+                         if (y >= this.arriba && y <= this.abajo) {
+                              return true
+                         }
+                    }
+                    return false
+               }
+
+               get izquierda() {
+                    return this.x
+               }
+
+               get derecha() {
+                    return this.x + this.ancho
+               }
+
+               get arriba() {
+                    return this.y
+               }
+
+               get abajo() {
+                    return this.y + this.alto
+               }
+
+               get vertices() {
+                    return [
+                         createVector(this.izquierda, this.arriba),
+                         createVector(this.derecha, this.arriba),
+                         createVector(this.izquierda, this.abajo),
+                         createVector(this.derecha, this.abajo),
+                    ]
+               }
+
+               colisión_rect_rect(rect) {
+                    for (const v of this.vertices) {
+                         if (rect.colisión_punto_rect(v.x, v.y)) {
+                              return true
+                         }
+                    }
+                    for (const v of rect.vertices) {
+                         if (this.colisión_punto_rect(v.x, v.y)) {
+                              return true
+                         }
+                    }
+                    return false
+               }
+          }
+
+     </script>
+</body>
+
+</html>

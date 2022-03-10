@@ -1,0 +1,68 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+     <title>p5.js a mp4</title>
+     <script src="https://unpkg.com/h264-mp4-encoder/embuild/dist/h264-mp4-encoder.web.js"></script>
+     <script src="https://cdnjs.cloudflare.com/ajax/libs/p5.js/1.4.0/p5.min.js"></script>
+     <script src="p5.filter.2DContext.js"></script>
+     <!-- <script src="p5.filter.js"></script> -->
+</head>
+
+<body>
+     <style>
+          body {
+               margin: 0;
+               padding: 0;
+          }
+     </style>
+     <script>
+
+          prueba = undefined
+
+          function setup() {
+               canvas = createCanvas(windowWidth, windowHeight)
+               ctx = canvas.drawingContext
+
+               canvas.dragOver(() => {
+                    canvas.style("border", "3px solid red")
+               })
+               canvas.dragLeave(() => {
+                    canvas.style("border", "")
+               })
+               canvas.drop(function (file) {
+                    console.log(file)
+                    prueba = loadImage(file.data, () => {
+                         resizeCanvas(prueba.width, prueba.height)
+                    })
+               },
+                    () => {
+                         canvas.style("border", "")
+                    })
+               pixelDensity(1)
+          }
+
+          function draw() {
+               background("lightgray")
+               textSize(50)
+               textAlign(CENTER, CENTER)
+               text("Arrastra y suelta una foto", width / 2, height / 2)
+               try {
+                    image(prueba, 0, 0)
+               } catch (error) {
+               }
+               InvertirCanales(noise(frameCount / 40), noise(frameCount / 40 + 100), noise(frameCount / 40 + 200))
+               /* desfaceDeCanales(
+                    map(noise(frameCount / 20), 0, 1, -15, 15),
+                    map(noise(frameCount / 20 + 100), 0, 1, -15, 15),
+                    map(noise(frameCount / 20 + 200), 0, 1, -15, 15),
+                    map(noise(frameCount / 20 + 300), 0, 1, -15, 15),
+                    map(noise(frameCount / 20 + 400), 0, 1, -15, 15),
+                    map(noise(frameCount / 20 + 500), 0, 1, -15, 15)
+               ) */
+          }
+
+     </script>
+</body>
+
+</html>

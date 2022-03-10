@@ -1,0 +1,52 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+     <title>Computación gráfica</title>
+     <script src="https://cdnjs.cloudflare.com/ajax/libs/p5.js/1.4.0/p5.min.js"></script>
+</head>
+
+<body>
+     <script>
+
+          function setup() {
+               createCanvas(500, 400)
+               prueba = new Rectángulo(0,0,100,100)
+          }
+
+          function draw() {
+               background("skyblue")
+               if (prueba.colisión_punto_rect(mouseX,mouseY)) {
+                    fill("lime")
+               }else{
+                    fill("red")
+               }
+               rect(prueba.x,prueba.y,prueba.ancho,prueba.alto)
+          }
+
+          class Rectángulo{
+               constructor(x,y,ancho,alto){
+                    this.x = x
+                    this.y = y
+                    this.ancho = ancho
+                    this.alto = alto
+               }
+
+               colisión_punto_rect(x,y){
+                    if (x<=this.x+this.ancho) {
+                         if (x>=this.x) {
+                              if (y>=this.y) {
+                                   if (y<=this.y+this.alto) {
+                                        return true
+                                   }
+                              }
+                         }
+                    }
+                    return false
+               }
+          }
+
+     </script>
+</body>
+
+</html>

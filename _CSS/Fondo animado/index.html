@@ -1,0 +1,27 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Fondo animado</title>
+</head>
+
+
+<body>
+    <style>
+        body{
+            min-height: 100vh;
+        }
+    </style>
+    <script>
+        anguloFondo = 0
+        setInterval(() => {
+            anguloFondo += 1
+            document.body.style.background = `linear-gradient(${anguloFondo}deg,#19046F, #93006F)`
+        }, 20);
+    </script>
+</body>
+
+</html>

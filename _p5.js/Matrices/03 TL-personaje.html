@@ -1,0 +1,62 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+     <title>Matriz de escala</title>
+     <script src="https://cdnjs.cloudflare.com/ajax/libs/p5.js/1.4.0/p5.min.js"></script>
+</head>
+
+<body>
+     <script>
+          function preload() {
+               prueba = loadImage("https://i.ibb.co/4Y8JnQd/6327eb0369c27eb48fbbeabc1906528c.gif")
+               frameRate(20)
+          }
+
+          function setup() {
+               createCanvas(800, 500)
+               prueba.actualFrame = 0
+               personaje = {
+                    x: 400,
+                    y: 250,
+                    sprite: prueba,
+                    escala: 0.2,
+                    corriendo: false,
+                    dirección: 1
+               }
+          }
+
+          function draw() {
+               background("lightgray")
+               translate(personaje.x, personaje.y)
+               if (personaje.dirección < 0) {
+                    scale(-personaje.escala, personaje.escala)
+               } else {
+                    scale(personaje.escala, personaje.escala)
+               }
+               translate(-personaje.sprite.width / 2, -personaje.sprite.height / 2)
+
+               if (!personaje.corriendo) {
+                    personaje.sprite.actualFrame = 0
+               } else {
+                    personaje.sprite.actualFrame += 0.5
+               }
+               personaje.sprite.setFrame(int(prueba.actualFrame))
+               image(personaje.sprite, 0, 0)
+
+               if (keyIsDown(LEFT_ARROW)) {
+                    personaje.corriendo = true
+                    personaje.dirección = -1
+                    personaje.x -= 10
+               } else if (keyIsDown(RIGHT_ARROW)) {
+                    personaje.corriendo = true
+                    personaje.dirección = 1
+                    personaje.x += 10
+               } else {
+                    personaje.corriendo = false
+               }
+          }
+     </script>
+</body>
+
+</html>

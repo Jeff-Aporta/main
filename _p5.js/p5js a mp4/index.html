@@ -1,0 +1,76 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+     <title>p5.js a mp4</title>
+     <script src="https://unpkg.com/h264-mp4-encoder/embuild/dist/h264-mp4-encoder.web.js"></script>
+     <script src="https://cdnjs.cloudflare.com/ajax/libs/p5.js/1.4.0/p5.min.js"></script>
+</head>
+
+<body>
+     <script>
+          const ancho = 640
+          const alto = 360
+
+          let recording = false
+          let encoder
+
+          function preload() {
+               HME.createH264MP4Encoder().then(enc => {
+                    encoder = enc
+                    encoder.outputFilename = (random() + "").replace("0.", "JeffAporta")
+                    encoder.width = ancho;
+                    encoder.height = alto;
+                    encoder.frameRate = 60
+                    encoder.kbps = 50000
+                    encoder.groupOfPictures = 10
+                    encoder.initialize()
+               })
+          }
+
+          function setup() {
+               createCanvas(ancho, alto)
+               textSize(128)
+               textAlign(CENTER, CENTER)
+               pixelDensity(1)
+
+               botón = createButton("Grabar")
+               botón.mousePressed(() => {
+                    recording = botón.html() == "Grabar"
+                    if (recording) {
+                         botón.html("Detener")
+                    } else {
+                         botón.html("Grabar")
+                         finalizarGrabación()
+                    }
+               })
+          }
+
+          function draw() {
+               background("lightgray")
+               text(frameCount, width / 2, height / 2)
+               grabarFotograma()
+          }
+
+          function grabarFotograma() {
+               if (recording) {
+                    encoder.addFrameRgba(drawingContext.getImageData(0, 0, encoder.width, encoder.height).data)
+               }
+          }
+
+          function finalizarGrabación() {
+               recording = false
+               encoder.finalize()
+               const uint8Array = encoder.FS.readFile(encoder.outputFilename)
+               const descargador = document.createElement("a")
+               descargador.href = URL.createObjectURL(new Blob([uint8Array], { type: 'video/mp4' }))
+               descargador.download = encoder.outputFilename
+               descargador.click()
+               encoder.delete()
+
+               preload()
+          }
+     </script>
+</body>
+
+</html>

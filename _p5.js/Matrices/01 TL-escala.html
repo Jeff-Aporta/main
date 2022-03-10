@@ -1,0 +1,24 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+     <title>Matriz de escala</title>
+     <script src="https://cdnjs.cloudflare.com/ajax/libs/p5.js/1.4.0/p5.min.js"></script>
+</head>
+<body>
+     <script>
+          function preload() {
+               prueba = loadImage("https://i.ibb.co/HXBs2Zz/giphy-2.gif")
+          }
+
+          function setup(){
+               createCanvas(800,500)
+          }
+
+          function draw(){
+               background("lightgray")
+               scale(1+abs(sin(frameCount/100)))
+               image(prueba,0,0)
+          }
+     </script>
+</body>
+</html>

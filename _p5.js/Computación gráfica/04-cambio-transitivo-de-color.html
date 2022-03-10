@@ -1,0 +1,30 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+     <title>Computación gráfica</title>
+     <script src="https://cdnjs.cloudflare.com/ajax/libs/p5.js/1.4.0/p5.min.js"></script>
+</head>
+<body>
+     <script>
+          function setup() {
+               createCanvas(500,400)
+               vector = createVector(0,0,0)
+               aceleraciónColor = createVector(3*random(),3*random(),3*random())
+          }
+
+          function draw(){
+               vector.add(aceleraciónColor)
+               if (vector.x<0||vector.x>255) {
+                    aceleraciónColor.x*=-1
+               }
+               if (vector.y<0||vector.y>255) {
+                    aceleraciónColor.y*=-1
+               }
+               if (vector.z<0||vector.z>255) {
+                    aceleraciónColor.z*=-1
+               }
+               background(vector.x,vector.y,vector.z)
+          }
+     </script>
+</body>
+</html>

@@ -1,0 +1,33 @@
+* {
+     user-select: none;
+ }
+
+ body {
+     margin: 0;
+     padding: 0;
+ }
+
+ .btn {
+     margin: 3px;
+ }
+
+ #interno {
+     position: absolute;
+     z-index: 1;
+     line-height: 95%;
+     padding: 2px;
+     font-size: 40%;
+     color: white;
+     text-shadow: 0.5px 0.5px 0 black;
+ }
+
+ #menu-pausa {
+     position: absolute;
+     z-index: 2;
+     background: rgba(0, 0, 0, 0.3);
+     backdrop-filter: blur(2px);
+     display: none;
+     justify-content: center;
+     align-items: center;
+     flex-direction: column;
+ }

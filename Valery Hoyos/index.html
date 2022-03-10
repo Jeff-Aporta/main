@@ -1,0 +1,88 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Juego de preguntas (Valery Hoyos)</title>
+    <link rel="stylesheet" href="style.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/animate.css/4.1.1/animate.min.css">
+    <script src="https://code.jquery.com/jquery-3.6.0.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11.2.1/dist/sweetalert2.all.min.js"></script>
+</head>
+
+
+<body>
+    <!-- Este es el script que hace que el fondo sea animado, y con los colores morados -->
+    <script>
+        anguloFondo = 0
+        setInterval(() => {
+            anguloFondo += 1
+            document.body.style.background = `linear-gradient(${anguloFondo}deg,#19046F, #93006F)`
+        }, 20);
+    </script>
+
+    <div id="Contenedor" >
+        <!-- presentación del juego, con el texto inicial -->
+        <div id="Presentación">
+            Trabajo desarrollado por
+            <br>
+            Valery Hoyos
+        </div>
+
+        <!-- Tablero de historial de las últimas partidas jugadas -->
+        <div id="ranking">
+            Historial de partidas
+            <table cellspacing="0" cellpadding="0">
+                <tbody id="tablaRanking">
+                </tbody>
+            </table>
+            <div class="btn" onclick="iniciarJuego();_controlHTML.cambiarPantalla('juego')">
+                Juego
+            </div>
+        </div>
+
+        <!-- Pantalla de juego, donde aparecen las preguntas, el puntaje, los botones y las imágenes  -->
+        <div id="Juego" style="display: none;">
+            <div id="cronometro">
+                00:00:00
+            </div>
+            <div id="contenedorPreguntas">
+                <div id="categoria">La base de datos no se cargó</div>
+                <div id="pregunta">La base de datos no se cargó</div>
+                <div style="text-align: center;">
+                    <img src="" id="imagen">
+                </div>
+                <div class="btn" id="btn1" onclick="validarRespuesta(0)">La base de datos no se cargó</div>
+                <div class="btn" id="btn2" onclick="validarRespuesta(1)">La base de datos no se cargó</div>
+                <div class="btn" id="btn3" onclick="validarRespuesta(2)">La base de datos no se cargó</div>
+                <div class="btn" id="btn4" onclick="validarRespuesta(3)">La base de datos no se cargó</div>
+                <!-- <div class="btnRojo" onclick="terminarJuegoVoluntario()">
+                    Fin de juego voluntario
+                </div> -->
+                <!-- <div class="btnAmarillo" onclick="_controlHTML.cambiarPantalla('ranking')">
+                    Historial
+                </div> -->
+            </div>
+            <div id="_puntaje">
+                0
+            </div>
+            <div style="width: 400px;text-align: right;padding: 0;">
+                <div class="btn" style="width: 100px;display: none;padding: 5px;" onclick="borrarSaldo()">
+                    Borrar saldo
+                </div>
+            </div>
+        </div>
+
+    </div>
+
+    <!-- Una vez creado el HTML se importan las librerias JS -->
+    <script src="controlHTML.js"></script>
+    <script src="tratamiento de base de datos.js"></script>
+    <script src="cronometro.js"></script>
+    <script src="puntaje e historial.js"></script>
+    <script src="juego.js"></script>
+</body>
+
+</html>

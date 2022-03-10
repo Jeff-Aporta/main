@@ -1,0 +1,152 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+     <title>Sprites</title>
+     <script src="https://cdnjs.cloudflare.com/ajax/libs/p5.js/1.4.0/p5.min.js"></script>
+     <script src="https://cdn.jsdelivr.net/gh/antiboredom/p5.patgrad/p5.patgrad.js"></script>
+</head>
+
+<body>
+     <script>
+          function preload() {
+               sprites = {
+                    //dead: loadImage(`https://i.ibb.co/kcjMq5C/dead.gif`),
+                    //hurt: loadImage(`https://i.ibb.co/10FZ0Lt/hurt.gif`),
+                    idle: loadImage(`https://i.ibb.co/Z612Q1t/idle.gif`),
+                    jump: loadImage(`https://i.ibb.co/X2x8Js4/jump.gif`),
+                    back1: loadImage(`https://i.ibb.co/CvvrMWv/BG.png`),
+                    //slide: loadImage(`https://i.ibb.co/mDn3F1c/slide.gif`),
+                    run: loadImage(`https://i.ibb.co/h2ccHGH/run.gif`),
+                    suelo: loadImage(`https://i.ibb.co/RQWSnwP/2.png`)
+               }
+               p5.Image.prototype.actualFrame = 0
+          }
+
+          function setup() {
+               createCanvas(800, 500)
+               jugador = {
+                    posicion: createVector(width / 2, height * 0.8),
+                    aceleracion: createVector(),
+                    escala: 0.25,
+                    caer: false,
+               }
+               sprite = sprites.idle
+               for (const k in sprites) {
+                    let s = sprites[k]
+                    for (let i = 0; i < s.numFrames(); i++) {
+                         s.setFrame(i)
+                         for (let j = 0; j < 2; j++) {
+                              //comerBorde(s)
+                         }
+                    }
+               }
+               let f = height / sprites.back1.height
+               sprites.back1.resize(sprites.back1.width * f, sprites.back1.height * f)
+               pattern = createPattern(sprites.back1);
+               pattern2 = createPattern(sprites.suelo);
+          }
+
+          function comerBorde(img) {
+               img.loadPixels();
+               pixeles = [...img.pixels]
+               for (let x = 0; x < img.width; x++) {
+                    for (let y = 0; y < img.height; y++) {
+                         let index = (x + y * img.width) * 4;
+                         if (img.pixels[index + 3] > 0) {
+                              for (let c = -1; c <= 1; c++) {
+                                   for (let f = -1; f <= 1; f++) {
+                                        if (c == 0 && f == 0) {
+                                             continue
+                                        }
+                                        let dx = constrain(x + c, 0, img.width)
+                                        let dy = constrain(y + f, 0, img.height)
+                                        let di = (dx + dy * img.width) * 4;
+                                        if (img.pixels[di + 3] < 255) {
+                                             pixeles[index + 3] = 0
+                                        }
+                                   }
+                              }
+                         }
+                    }
+               }
+               for (let i = 0; i < pixeles.length; i++) {
+                    img.pixels[i] = pixeles[i];
+               }
+               img.updatePixels();
+          }
+
+
+          function draw() {
+               background("skyblue")
+               translate(width / 2 - 100 - jugador.posicion.x, 0)
+               push()
+               noStroke()
+               fillPattern(pattern)
+               if (jugador.posicion.x > width / 2) {
+                    translate(-(width / 2 - jugador.posicion.x) / 10, 0)
+               }
+               rect(0, 0, width * 20, height)
+               pop()
+               push()
+               fillPattern(pattern2)
+               translate(-jugador.posicion.x, height * 0.8 + sprite.height * 0.1)
+               rect(0, 0, width * 20, 100)
+               pop()
+               translate(jugador.posicion.x, jugador.posicion.y)
+               scale(jugador.escala)
+               if (keyIsDown(RIGHT_ARROW)) {
+                    jugador.aceleracion.add(1, 0)
+               } else if (keyIsDown(LEFT_ARROW)) {
+                    jugador.aceleracion.add(-1, 0)
+               } else {
+                    jugador.aceleracion.x /= 2
+               }
+               if (jugador.aceleracion.x < 0) {
+                    scale(-1, 1)
+               }
+               if (jugador.caer) {
+                    if (sprite != sprites.jump) {
+                         sprites.jump.actualFrame = 0
+                    }
+                    sprite = sprites.jump
+               } else if (jugador.aceleracion.x < -1 || jugador.aceleracion.x > 1) {
+                    sprite = sprites.run
+               } else {
+                    sprite = sprites.idle
+               }
+               jugador.aceleracion.x = constrain(jugador.aceleracion.x, -3, 3)
+               jugador.posicion.add(jugador.aceleracion)
+               sprite.setFrame(int(sprite.actualFrame % sprite.numFrames()))
+               if (sprite == sprites.jump) {
+                    sprite.actualFrame += 0.15
+               } else {
+                    sprite.actualFrame += 0.25
+               }
+               translate(-sprite.width / 2, -sprite.height / 2)
+               image(sprite, 0, 0)
+               gravedad()
+          }
+
+          function gravedad() {
+               if (jugador.caer) {
+                    jugador.aceleracion.y += 0.2
+               }
+               if (jugador.posicion.y >= height * 0.8) {
+                    jugador.caer = false
+                    jugador.aceleracion.y = 0
+               }
+          }
+
+
+
+          function keyPressed() {
+               if (keyCode == UP_ARROW) {
+                    jugador.aceleracion.y = -7
+                    jugador.caer = true
+               }
+          }
+     </script>
+</body>
+
+</html>

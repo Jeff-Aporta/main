@@ -1,0 +1,60 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+     <title>Computación gráfica</title>
+     <script src="https://cdnjs.cloudflare.com/ajax/libs/p5.js/1.4.0/p5.min.js"></script>
+</head>
+
+<body>
+     <script>
+          function setup() {
+               createCanvas(500, 400)
+               textSize(20)
+               textAlign(CENTER,CENTER)
+          }
+
+          function draw() {
+               background("skyblue")
+               stroke("white")
+               push()
+               fill(255, 255, 255, 100)
+               strokeWeight(5)
+               circle(width / 2, height / 2, 250)
+               pop()
+               {
+                    let vector = createVector(0, -100)
+                    vector.rotate(2 * PI * second() / 60)
+                    vector.add(width / 2, height / 2)
+                    line(width / 2, height / 2, vector.x, vector.y)
+               }
+               push()
+               strokeWeight(3)
+               {
+                    let vector = createVector(0, -100)
+                    vector.rotate(2 * PI * minute() / 60)
+                    vector.add(width / 2, height / 2)
+                    line(width / 2, height / 2, vector.x, vector.y)
+               }
+               pop()
+               push()
+               strokeWeight(5)
+               stroke("black")
+               {
+                    let vector = createVector(0, -80)
+                    vector.rotate(2 * PI * (hour() % 12) / 12)
+                    vector.add(width / 2, height / 2)
+                    line(width / 2, height / 2, vector.x, vector.y)
+               }
+               pop()
+               for (let i = 0; i < 12; i++) {
+                    let vector = createVector(0, -110)
+                    vector.rotate(i * 2 * PI / 12)
+                    vector.add(width / 2, height / 2)
+                    text(i == 0 ? 12 : i, vector.x, vector.y)
+               }
+          }
+     </script>
+</body>
+
+</html>

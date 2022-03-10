@@ -1,0 +1,59 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+     <title>Intersección poligono</title>
+     <script src="https://cdnjs.cloudflare.com/ajax/libs/p5.js/1.4.0/p5.min.js"></script>
+</head>
+
+<body>
+     <script>
+          polygon = [{ x: 30, y: 30 }, { x: 30, y: 60 }, { x: 60, y: 60 }, { x: 60, y: 30 }]
+
+          function setup() {
+               createCanvas(800, 800)
+               for (let i = 0; i < polygon.length; i++) {
+                    polygon[i] = createVector(polygon[i].x, polygon[i].y);
+               }
+          }
+
+          function draw() {
+               background("lightgray")
+               translate(width / 2, height / 2)
+               noStroke()
+               for (let i = 0; i < polygon.length; i++) {
+                    polygon[i].rotate(0.01);
+               }
+               let mx = mouseX - width / 2
+               let my = mouseY - height / 2
+               if (inside([mx, my], polygon)) {
+                    fill("lime")
+               } else {
+                    fill("red")
+               }
+               beginShape()
+               for (const p of polygon) {
+                    vertex(p.x, p.y)
+               }
+               endShape(CLOSE)
+          }
+
+          function inside(point, vs) {
+               var x = point[0], y = point[1];
+               var inside = false;
+               for (var i = 0, j = vs.length - 1; i < vs.length; j = i++) {
+                    var xi = vs[i].x, yi = vs[i].y;
+                    var xj = vs[j].x, yj = vs[j].y;
+
+                    var intersect = ((yi > y) != (yj > y))
+                         && (x < (xj - xi) * (y - yi) / (yj - yi) + xi);
+                    if (intersect) {
+                         inside = !inside;
+                    }
+               }
+               return inside;
+          };
+     </script>
+</body>
+
+</html>

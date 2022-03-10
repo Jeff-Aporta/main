@@ -1,0 +1,78 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+     <meta charset="UTF-8">
+     <meta http-equiv="X-UA-Compatible" content="IE=edge">
+     <meta name="viewport" content="width=device-width, initial-scale=1.0">
+     <title>Espiral de Ulam</title>
+
+     <script src="https://cdnjs.cloudflare.com/ajax/libs/p5.js/1.4.1/p5.min.js"></script>
+
+</head>
+
+<body>
+     <script>
+          let LADO = 2
+          let LATERALIDAD_CELDAS = 1001
+
+          function setup() {
+               createCanvas(
+                    (LATERALIDAD_CELDAS + 1) * LADO,
+                    (LATERALIDAD_CELDAS + 1) * LADO
+               )
+               rectMode(CENTER)
+               textAlign(CENTER, CENTER)
+               textSize(LADO / 2)
+               noStroke()
+          }
+
+          function esPrimo(num) {
+               let fin = sqrt(num)
+               for (let i = 2; i <= fin; i++) {
+                    if (num % i == 0) {
+                         return false
+                    }
+                    if (i > 2) {
+                         i++
+                    }
+               }
+               return num > 1
+          }
+
+          function draw() {
+               background("black")
+               let posición = createVector()
+               let dirección = createVector(LADO, 0)
+
+               let envergadura = 1
+               let contador_envergadura = 0
+               let contador_repeticiones_envergadura = 0
+
+               translate(width / 2, height / 2)
+               for (let i = 1; i <= LATERALIDAD_CELDAS ** 2; i++) {
+                    if (esPrimo(i)) {
+                         fill("black")
+                    } else {
+                         fill("white")
+                    }
+                    rect(posición.x, posición.y, LADO, LADO)
+                    fill("black")
+                    //text(i, posición.x, posición.y)
+                    posición.add(dirección)
+                    contador_envergadura++
+                    if (contador_envergadura == envergadura) {
+                         dirección.rotate(-PI / 2)
+                         contador_envergadura = 0
+                         if (contador_repeticiones_envergadura % 2 == 1) {
+                              envergadura++
+                         }
+                         contador_repeticiones_envergadura++
+                    }
+               }
+               noLoop()
+          }
+     </script>
+</body>
+
+</html>

@@ -1,0 +1,147 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+     <title>p5.js a mp4</title>
+     <script src="https://unpkg.com/h264-mp4-encoder/embuild/dist/h264-mp4-encoder.web.js"></script>
+     <script src="https://cdnjs.cloudflare.com/ajax/libs/p5.js/1.4.0/p5.min.js"></script>
+</head>
+
+<body>
+     <script>
+          const ancho = 1280
+          const alto = 720
+
+          let recording = false
+          let encoder
+
+          let minutos_trabajo = 25
+          let minutos_descanso = 5
+
+          let segundos_transcurridos = 0
+          let estado_trabajar = true
+
+          function preload() {
+               HME.createH264MP4Encoder().then(enc => {
+                    encoder = enc
+                    encoder.outputFilename = (random() + "").replace("0.", "JeffAporta")
+                    encoder.width = ancho;
+                    encoder.height = alto;
+                    encoder.frameRate = 1
+                    encoder.kbps = 50000
+                    encoder.groupOfPictures = 10
+                    encoder.initialize()
+               })
+          }
+
+          function setup() {
+               createCanvas(ancho, alto)
+               textAlign(CENTER, CENTER)
+               pixelDensity(1)
+
+               botón = createButton("Grabar")
+               botón.mousePressed(() => {
+                    recording = botón.html() == "Grabar"
+                    if (recording) {
+                         botón.html("Detener")
+                         loop()
+                    } else {
+                         botón.html("Grabar")
+                         noLoop()
+                    }
+               })
+
+               noLoop()
+          }
+
+          let ciclos = 1
+
+          function draw() {
+               background("lightgray")
+               if (estado_trabajar) {
+                    escena_trabajar()
+               } else {
+                    escena_descansar()
+               }
+               grabarFotograma()
+               if (ciclos > 4) {
+                    finalizarGrabación()
+                    noLoop()
+               }
+          }
+
+          function escena_descansar() {
+               push()
+               var gradient = drawingContext.createRadialGradient(
+                    width / 2, height / 2, 0,
+                    width / 2, height / 2, width
+               );
+               gradient.addColorStop(0, 'green');
+               gradient.addColorStop(1, '#030');
+               drawingContext.fillStyle = gradient;
+               rect(0, 0, width, height)
+               pop()
+               fill("white")
+               textSize(500)
+               text(tiempo(5 * 60 - segundos_transcurridos), width / 2, height / 2)
+               textSize(100)
+               text("Descansa", width / 2, height / 2 + 250)
+               segundos_transcurridos++
+               if (segundos_transcurridos > 5 * 60) {
+                    segundos_transcurridos = 0
+                    estado_trabajar = true
+                    ciclos++
+               }
+          }
+
+          function escena_trabajar() {
+               push()
+               var gradient = drawingContext.createRadialGradient(
+                    width / 2, height / 2, 0,
+                    width / 2, height / 2, width
+               );
+               gradient.addColorStop(0, '#a00');
+               gradient.addColorStop(1, '#300');
+               drawingContext.fillStyle = gradient;
+               rect(0, 0, width, height)
+               pop()
+               fill("white")
+               textSize(500)
+               text(tiempo(25 * 60 - segundos_transcurridos), width / 2, height / 2)
+               textSize(100)
+               text("En marcha", width / 2, height / 2 + 250)
+               segundos_transcurridos++
+               if (segundos_transcurridos > 25 * 60) {
+                    segundos_transcurridos = 0
+                    estado_trabajar = false
+               }
+          }
+
+          function tiempo(segundos) {
+               let s = segundos % 60
+               let m = int(segundos / 60)
+               return (m + "").padStart(2, 0) + ":" + (s + "").padStart(2, 0)
+          }
+
+          function grabarFotograma() {
+               if (recording) {
+                    encoder.addFrameRgba(drawingContext.getImageData(0, 0, encoder.width, encoder.height).data)
+               }
+          }
+
+          function finalizarGrabación() {
+               recording = false
+               encoder.finalize()
+               const uint8Array = encoder.FS.readFile(encoder.outputFilename)
+               const descargador = document.createElement("a")
+               descargador.href = URL.createObjectURL(new Blob([uint8Array], { type: 'video/mp4' }))
+               descargador.download = encoder.outputFilename
+               descargador.click()
+               encoder.delete()
+
+               preload()
+          }
+     </script>
+</body>
+
+</html>

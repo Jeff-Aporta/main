@@ -1,0 +1,64 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <title>Simplex</title>
+    <link rel="stylesheet" href="style.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.4/css/all.min.css">
+</head>
+
+<body>
+    <div>
+        <table cellspacing="0" cellpadding="0" contenteditable="true" id="tabla">
+            <tbody>
+                <tr class="titulo">
+                    <td>&nbsp;</td>
+                    <td>Z</td>
+                    <td>X</td>
+                    <td>Y</td>
+                    <td>S1</td>
+                    <td>S2</td>
+                    <td>R</td>
+                </tr>
+                <tr>
+                    <td class="titulo">F1</td>
+                    <td id="e11">1</td>
+                    <td id="e21">-50</td>
+                    <td id="e31">-80</td>
+                    <td id="e41">0</td>
+                    <td id="e51">0</td>
+                    <td id="e61">0</td>
+                </tr>
+                <tr>
+                    <td class="titulo">F2</td>
+                    <td id="e12">0</td>
+                    <td id="e22">1</td>
+                    <td id="e32">2</td>
+                    <td id="e42">1</td>
+                    <td id="e52">0</td>
+                    <td id="e62">120</td>
+                </tr>
+                <tr>
+                    <td class="titulo">F3</td>
+                    <td id="e13">0</td>
+                    <td id="e23">1</td>
+                    <td id="e33">1</td>
+                    <td id="e43">0</td>
+                    <td id="e53">1</td>
+                    <td id="e63">90</td>
+                </tr>
+            </tbody>
+        </table>
+        <div class="btn" onclick="siguiente()">Siguiente</div>
+        <br>
+        <a href="index.html">
+            <div class="btn" style="width: 60px;margin-top: -30px;">
+                <i class="fas fa-home"></i>
+            </div>
+        </a>
+    </div>
+    <script src="script.js"></script>
+</body>
+
+</html>

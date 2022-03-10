@@ -1,0 +1,372 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+     <script src="https://cdnjs.cloudflare.com/ajax/libs/p5.js/1.1.9/p5.js"></script>
+     <script src="https://cdnjs.cloudflare.com/ajax/libs/p5.js/1.1.9/addons/p5.sound.min.js"></script>
+     <script src="https://unpkg.com/h264-mp4-encoder/embuild/dist/h264-mp4-encoder.web.js"></script>
+     <meta charset="utf-8" />
+
+</head>
+
+<body>
+     <script src="romanos.js"></script>
+     <script>
+
+          let contadorFotogramas = 0
+          let parte = 0
+
+          let modo = 0
+
+          let archivo = [
+               "Los manuscritos rojos de la magia - Cassandra Clare.txt",
+               "Mujeres del alma mia - Isabel Allende.txt",
+               "Nuestro GG en La Habana - Pedro Juan Gutierrez.txt",
+               "Un corazon entre tu y yo - Megan Maxwell.txt",
+               "Decir no no basta - Naomi Klein.txt",
+               "El apagon - Arthur Hailey.txt",
+               "El cientifico rebelde - Freeman Dyson.txt",
+               "El fenotipo extendido - Richard Dawkins.txt",
+               "El futuro profundo - Curt Stager.txt",
+               "El sapiens asesino y el ocaso de los neandertales - Bienvenido Martinez Navarro.txt",
+               "En frio - Bjorn Lomborg.txt",
+               "Estado contra mercado - Carlos Rodriguez Braun.txt",
+               "Historia de las abejas - Maja Lunde.txt",
+               "La Biblia Satanica - Anton Szandor LaVey.txt",
+               "La esposa del prisionero - Maggie Brookes.txt",
+               "La extorsion - Matt Kennard.txt",
+               "La guerra de los metales raros - Guillaume Pitron.txt",
+               "Marfil - Mike Resnick.txt",
+               "Maze Runner La cura mortal - James Dashner.txt",
+               "Planeta azul no verde - Vaclav Klaus.txt",
+               "Por el territorio del Ussuri - Vladimir Arseniev.txt",
+               "Por que las mujeres salvaran el planeta - AA VV.txt",
+               "Querida Mathilda - Susanna Tamaro.txt",
+               "Schopenhauer Nietzsche Freud - Thomas Mann.txt",
+               "Seamos tan inteligentes como la naturaleza - Gunter Pauli.txt",
+               "Senderos de libertad - Javier Moro.txt",
+               "Tiempos recios - Mario Vargas Llosa.txt",
+          ]
+
+          let dibujar = ""
+          let leyendo = false
+
+          let start = 0
+          let transcurrido = 0
+
+          let encoder
+
+          let tiempo_parte = 0
+
+          let duración_máxima_por_video = 12 * 60 * 60
+
+          let iniciar_desde_parte = 1
+
+          let letras_por_segundo = 17
+
+          let textos
+
+          let documento = parseInt(localStorage.getItem("documento")) || 0
+
+          function preload() {
+               textos = []
+               for (let i = 0; i < archivo.length; i++) {
+                    const a = archivo[i];
+                    textos.push(loadStrings(a))
+
+               }
+               fuente = loadFont("https://cdn.jsdelivr.net/gh/Jeff-Aporta/recursos@b7cbfd3d2c2ac87ef2661c9bfa76e1d65f1778d3/lmroman.otf")
+               papel = loadImage("https://i.ibb.co/Dk7rp41/k.jpg")
+          }
+
+          function cargarDocumento() {
+               i = -1
+               leyendo = false
+               contadorFotogramas = 0
+               parte = 0
+               start = 0
+               transcurrido = 0
+               let texto = textos[documento];
+               texto.unshift(
+                    archivo[documento].replaceAll("-", "~").replace(".txt", "") + ".",
+                    archivo[documento].replaceAll("-", "~").replace(".txt", "") + ".",
+                    archivo[documento].replaceAll("-", "~").replace(".txt", "") + ".",
+                    archivo[documento].replaceAll("-", "~").replace(".txt", "") + ".",
+                    archivo[documento].replaceAll("-", "~").replace(".txt", "") + ".",
+                    archivo[documento].replaceAll("-", "~").replace(".txt", "") + ".",
+                    "Hola amigo o amiga, espero que te encuentres bien.",
+                    "Antes de empezar con esta lectura, te invito a que te suscribas, esto ayudaría mucho al canal.",
+                    "recuerda que en la configuración podrás relentizar o acelerar la velocidad de reproducción del video, esto con el fin de que puedas adaptar la velocidad de lectura a tu ritmo.",
+                    "Sin más que decir, empecemos.",
+                    "3.",
+                    "2.",
+                    "1.",
+                    "-."
+               )
+               for (let i in texto) {
+                    texto[i] = texto[i].trim() + " "
+                    if (texto[i].startsWith("Página ")) {
+                         texto[i] = ""
+                    }
+                    if (texto[i].includes("lectulandia")) {
+                         texto[i] = ""
+                    }
+                    if (texto[i].includes("processtext")) {
+                         texto[i] = ""
+                    }
+               }
+               let t = texto.join(" ")
+
+               t = t.replaceAll(
+                    "H. P. Lovecraft",
+                    "Howard Phillips Lovecraft"
+               )
+                    .replaceAll(
+                         "cacahuetes", "cacahuates"
+                    )
+                    .replaceAll("Sr.", "señor")
+                    .replaceAll("Sra.", "señora")
+                    .replaceAll("St.", "San")
+                    .replaceAll(" P. ", " P ")
+                    .replaceAll("Dr.", "doctor")
+                    .replaceAll("a.m.", "a m")
+                    .replaceAll("p.m.", "p.m")
+                    .replaceAll("etc.", "Etcétera")
+               for (let i = 0; i < 100; i++) {
+                    t = t.replaceAll("[" + i + "]", "")
+               }
+               t = t
+                    .replaceAll("...", "…")
+                    .replaceAll("…,", "…")
+                    .replaceAll("  ", " ")
+                    .replaceAll("  ", ". ")
+                    .replaceAll(". . ", ". ")
+                    .replaceAll("..", ". ")
+                    .replaceAll("?", "?. ")
+                    .replaceAll(" -", " —")
+                    .replaceAll("- ", "— ")
+                    .replaceAll(" —", " . —")
+                    .replaceAll(".—", "—")
+                    .replaceAll("— ", "—. ")
+                    .replaceAll("¿", ". ¿")
+                    .replaceAll("—.¿", "—¿")
+                    .replaceAll("—. ¿", "—¿")
+                    .replaceAll("«.¿", "«¿")
+                    .replaceAll("«. ¿", "«¿")
+                    .replaceAll("—, ", "—. ")
+                    .replaceAll(" ¡", ". ¡")
+                    .replaceAll("! ", "!. ")
+                    .replaceAll("(", ". (")
+                    .replaceAll(")", "). ")
+                    .replaceAll(",.", ",")
+                    .replaceAll(". »", "». ")
+                    .replaceAll(".»", "». ")
+                    .replaceAll("»", "». ")
+                    .replaceAll("«", ". «")
+               oracion = t.split(". ")
+               let s_aprox = 0
+
+               for (const o of oracion) {
+                    s_aprox += ceil(o.length / letras_por_segundo) + 1
+               }
+               total_partes = ceil(s_aprox / duración_máxima_por_video)
+               tiempo_parte = int(s_aprox / total_partes)
+               duración_total = s_aprox
+
+               if (s_aprox > 24 * 60 * 60) {
+                    ancho = 800
+                    alto = 450
+               } else {
+                    ancho = 1280
+                    alto = 720
+               }
+
+               iniciarEncoder()
+
+               console.log(`renglones: ${texto.length}`)
+               console.log(`ancho: ${ancho}`)
+               console.log(`alto: ${alto}`)
+               console.log(`Duración/Parte: ${ms2s(tiempo_parte * 1000)}`)
+               console.log(`Partes total: ${total_partes}`)
+               console.log(`Duración total: ${ms2s(s_aprox * 1000)}`)
+
+               s_aprox = 0
+
+               console.log(`Iniciar desde la parte: ${iniciar_desde_parte}`)
+               for (const o of oracion) {
+                    i++
+                    s_aprox += ceil(o.length / letras_por_segundo) + 1
+                    parte = ceil(s_aprox / tiempo_parte)
+                    if (parte == iniciar_desde_parte) {
+                         console.log(`Oración: ${i}`)
+                         console.log(`Parte: ${parte}`)
+                         break
+                    }
+               }
+
+               delete t
+               resizeCanvas(ancho, alto)
+               delete texto
+          }
+
+          function setup() {
+               pixelDensity(1)
+               createCanvas(1280, 720);
+               textAlign(CENTER, CENTER)
+               textFont(fuente)
+               noLoop()
+               cargarDocumento()
+               setTimeout(() => {
+                    iniciar()
+               }, 2000);
+          }
+
+          function iniciarEncoder() {
+               HME.createH264MP4Encoder().then(enc => {
+                    encoder = enc
+                    encoder.outputFilename = archivo[documento].replace(".txt", "").replace(".TXT", "").replace("-", "—") + " — Libro Completo" + (total_partes > 1 ? ` — Parte ${parte} de ${total_partes}` : "")
+                    encoder.width = ancho;
+                    encoder.height = alto;
+                    encoder.frameRate = 1
+                    encoder.kbps = 3500
+                    encoder.speed = 10
+                    encoder.groupOfPictures = 10
+                    encoder.initialize()
+               })
+               parte++
+          }
+
+          function draw() {
+               image(papel, 0, 0, width, height)
+               fill("black")
+               textSize(70 * width / 1280)
+               if (dibujar.length >= 100) {
+                    textSize(60 * width / 1280)
+               }
+               if (dibujar.length >= 200) {
+                    textSize(50 * width / 1280)
+               }
+               if (dibujar.length >= 300) {
+                    textSize(40 * width / 1280)
+               }
+               if (!finalizado()) {
+                    text(
+                         dibujar,
+                         15,
+                         0,
+                         width - 30,
+                         height
+                    )
+               }
+          }
+
+          function grabarFotograma() {
+               try {
+                    encoder.addFrameRgba(drawingContext.getImageData(0, 0, encoder.width, encoder.height).data)
+               } catch (error) {
+               }
+          }
+
+          function finalizarGrabación() {
+               encoder.finalize()
+               const uint8Array = encoder.FS.readFile(encoder.outputFilename)
+               const descargador = document.createElement("a")
+               descargador.href = URL.createObjectURL(new Blob([uint8Array], { type: 'video/mp4' }))
+               descargador.download = encoder.outputFilename
+               descargador.click()
+               encoder.delete()
+               iniciarEncoder()
+          }
+
+          function finalizado() {
+               let b = i >= oracion.length
+               return b
+          }
+
+          function iniciar() {
+               if (!leyendo) {
+                    start = millis()
+               }
+               leyendo = true
+               if (finalizado()) {
+                    documento++
+                    localStorage.setItem("documento", documento)
+                    print("Finalizado")
+                    finalizarGrabación()
+                    if (documento < archivo.length) {
+                         setTimeout(() => {
+                              window.location.reload()
+                         }, 120000);
+                    } else {
+                         localStorage.setItem("documento", 0)
+                    }
+                    return
+               }
+
+               leerVersos()
+
+               transcurrido = millis() - start
+               p = (i + 1) / oracion.length
+               faltante = transcurrido * (1 / p - 1)
+               console.clear()
+               console.log("----------")
+               console.log(encoder.outputFilename)
+               console.log("Porcentaje: ", (100 * p).toFixed(2))
+               console.log("Transcurrido: ", ms2s(transcurrido))
+               console.log("Faltante: ", ms2s(faltante))
+               console.log("Procesado: ", `${ms2s(contadorFotogramas * 1000)}/${ms2s(duración_total * 1000)}`)
+               console.log(`Parte: ${parte}/${total_partes}`)
+
+               function leerVersos() {
+                    leer(oracion[i])
+                    let s = ceil(oracion[i].length / letras_por_segundo) + 1
+                    for (let k = 0; k < s; k++) {
+                         if (!encoder) {
+                              setTimeout(leerVersos, 10)
+                              return;
+                         }
+                         grabarFotograma()
+                         if (parte < total_partes && contadorFotogramas > 0 && contadorFotogramas % (tiempo_parte) == 0) {
+                              finalizarGrabación()
+                         }
+                         contadorFotogramas++
+                    }
+                    i++
+                    setTimeout(iniciar, 1)
+               }
+          }
+
+          function ms2s(ms) {
+               let s = ms / 1000
+               let m = ((s / 60) % 60)
+               let h = (s / 3600)
+               s %= 60
+               return (floor(h) + "").padStart(2, 0) + ":" +
+                    (floor(m) + "").padStart(2, 0) + ":" +
+                    (floor(s) + "").padStart(2, 0)
+          }
+
+
+          function leer(texto) {
+               if (!texto) {
+                    return
+               }
+               if (texto == "(" || texto == ")") {
+                    return
+               }
+               texto = texto.trim()
+
+               if (texto.startsWith(", ")) {
+                    texto = texto.replace(", ", "")
+               }
+               if (texto.startsWith("; ")) {
+                    texto = texto.replace("; ", "")
+               }
+               dibujar = texto
+
+               draw()
+          }
+     </script>
+</body>
+
+</html>

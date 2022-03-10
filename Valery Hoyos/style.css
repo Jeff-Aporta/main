@@ -1,0 +1,125 @@
+@import url("https://fonts.googleapis.com/css2?family=Poppins:wght@100;300&display=swap");
+* {
+  animation: backInDown;
+  animation-duration: 1s;
+  transition: all 0.25s;
+}
+
+body {
+  margin: 0;
+  padding: 0;
+  min-width: 100vw;
+  min-height: 100vh;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  color: white;
+  font-family: "Poppins", sans-serif;
+}
+
+table {
+  width: 400px;
+  border: 1px solid rgba(255, 255, 255, 0.1);
+  overflow: hidden;
+  text-align: center;
+}
+
+td {
+  border: 1px solid rgba(255, 255, 255, 0.1);
+  background-color: rgba(255, 255, 255, 0.1);
+}
+
+#Contenedor {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+#ranking {
+  height: 400px;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+}
+
+#Presentación {
+  margin: 30px;
+  font-size: 150%;
+  text-align: center;
+  padding-left: 20px;
+  padding-right: 20px;
+  padding-top: 200px;
+  padding-bottom: 200px;
+  background: rgba(245, 219, 219, 0.1);
+}
+
+#contenedorPreguntas {
+  background: rgba(245, 219, 219, 0.1);
+  padding: 10px;
+  border-radius: 20px;
+  width: 700px;
+}
+
+#_puntaje {
+  width: 700px;
+  text-align: right;
+  font-size: 30px;
+  margin: 10px;
+  color: #ffffff;
+  mix-blend-mode: screen;
+  text-shadow: 0 0 5px magenta, 0 0 10px magenta, 0 0 15px magenta,
+    0 0 20px magenta, 0 0 30px magenta, 0 0 40px magenta, 0 0 55px magenta;
+}
+
+#categoria {
+  text-align: right;
+  color: rgba(255, 255, 0, 1);
+  margin: 10px;
+}
+
+#imagen{
+  background: rgba(0, 0, 0, 0.1);
+}
+
+#imagen:hover{
+  transform: scale(1.5);
+}
+
+.btnRojo,
+.btnAmarillo,
+.btn {
+  margin: 10px;
+  min-width: 300px;
+  cursor: pointer;
+  user-select: none;
+  font-weight: bolder;
+}
+
+.btnRojo {
+  background: rgba(255, 0, 0, 0.5);
+  text-align: center;
+}
+
+.btnRojo:hover {
+  background: rgba(0, 0, 0, 0.3);
+}
+
+.btnAmarillo {
+  background: rgba(255, 200, 0, 0.5);
+  text-align: center;
+}
+
+.btnAmarillo:hover {
+  background: rgba(0, 0, 0, 0.3);
+}
+
+.btn {
+  padding: 10px;
+  border-radius: 5px;
+  background: rgba(255, 255, 255, 0.3);
+}
+
+.btn:hover {
+  background: rgba(0, 0, 0, 0.3);
+}

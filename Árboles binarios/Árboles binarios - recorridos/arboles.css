@@ -1,0 +1,128 @@
+:root {
+  --color-lineas: black;
+  --color-fondo-operador: rgba(255, 153, 0, 0.8);
+  --color-fondo-variable-literal: rgba(255, 255, 255, 1);
+  --color-fondo-nodo-mouse-over: #90c4f4;
+  --color-borde-nodo-mouse-over: #0058aa;
+  --color-fuente-nodo-mouse-over: #fff;
+}
+
+.tree {
+  animation: zoomIn;
+  animation-duration: 1s;
+}
+
+.tree ul {
+  position: relative;
+  padding: 1em 0;
+  white-space: nowrap;
+  text-align: center;
+  margin: 0 auto;
+}
+
+.tree ul::after {
+  content: "";
+  display: table;
+  clear: both;
+}
+
+.tree li {
+  display: inline-block;
+  vertical-align: top;
+  text-align: center;
+  list-style-type: none;
+  position: relative;
+  padding: 1em 0.5em 0 0.5em;
+}
+
+.tree li::before,
+.tree li::after {
+  content: "";
+  position: absolute;
+  top: 0;
+  right: 50%;
+  border-top: 3px solid var(--color-lineas);
+  width: 50%;
+  height: 1em;
+}
+
+.tree li::after {
+  right: auto;
+  left: 50%;
+  border-left: 3px solid var(--color-lineas);
+}
+
+.tree li:only-child::after,
+.tree li:only-child::before {
+  display: none;
+}
+
+.tree li:only-child {
+  padding-top: 0;
+}
+
+.tree li:first-child::before,
+.tree li:last-child::after {
+  border: 0 none;
+}
+
+.tree li:last-child::before {
+  border-right: 3px solid var(--color-lineas);
+}
+
+.tree li:first-child::after {
+}
+
+.tree ul ul::before {
+  content: "";
+  position: absolute;
+  top: 0;
+  left: 50%;
+  border-left: 3px solid var(--color-lineas);
+  width: 0;
+  height: 1em;
+}
+
+.tree li div {
+  border: 3px solid var(--color-lineas);
+  padding: 10px 10px;
+  text-decoration: none;
+  display: inline-block;
+  position: relative;
+  top: 1px;
+}
+
+.tree li div:hover,
+.tree li div:hover + ul li div {
+  background: var(--color-fondo-nodo-mouse-over);
+  color: var(--color-fuente-nodo-mouse-over);
+  border: 3px solid var(--color-borde-nodo-mouse-over);
+}
+
+.tree li div:hover + ul li::after,
+.tree li div:hover + ul li::before,
+.tree li div:hover + ul::before,
+.tree li div:hover + ul ul::before {
+  border-color: var(--color-borde-nodo-mouse-over);
+}
+
+.tree div span {
+  display: inline-block;
+  min-width: 30px;
+  animation: rotateIn;
+  animation-duration: 1.5s;
+  font-size: 120%;
+}
+
+.variable_or_literal {
+  background: var(--color-fondo-variable-literal);
+}
+
+.operator {
+  background: var(--color-fondo-operador);
+}
+
+.function {
+  background: black;
+  color: #fff !important;
+}

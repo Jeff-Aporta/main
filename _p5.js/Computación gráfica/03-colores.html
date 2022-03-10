@@ -1,0 +1,27 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+     <title>Computación gráfica</title>
+     <script src="https://cdnjs.cloudflare.com/ajax/libs/p5.js/1.4.0/p5.min.js"></script>
+</head>
+<body>
+     <a href="https://htmlcolorcodes.com/es/nombres-de-los-colores/">
+          Mira el nombre natural, código Hex o coordenada de cada color HTML
+     </a>
+     <script>
+          function setup() {
+               createCanvas(500,400)
+          }
+
+          function draw(){
+               background("hotpink") //Nombre natural
+               background("#ff0000") //Código Hex
+               background("rgb(255,128,128)") //Coordenada RGB
+               background("hsl(30,100%,50%)") //Coordenada HSL
+               background(255,0,255) //forma vectorial
+               let vector = createVector(0,0,0)
+               background(vector.x,vector.y,vector.z)
+          }
+     </script>
+</body>
+</html>

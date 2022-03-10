@@ -1,0 +1,35 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+     <title>Computación gráfica</title>
+     <script src="https://cdnjs.cloudflare.com/ajax/libs/p5.js/1.4.0/p5.min.js"></script>
+</head>
+
+<body>
+     <script>
+
+          function setup() {
+               createCanvas(500, 400)
+               x = width/2
+               y = height/2
+          }
+
+          function draw() {
+               background("skyblue")
+               circle(x,y,100)
+          }
+
+          /* 
+          mouseDragged() es una función nativa de p5.js
+          donde su función es ser un evento, que detecta cuando el mouse
+          está moviendose con un botón presionado
+          */
+          function mouseDragged(){
+               x+=(mouseX-pmouseX)
+               y+=(mouseY-pmouseY)
+          }
+     </script>
+</body>
+
+</html>
