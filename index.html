@@ -8,17 +8,28 @@
 
      <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/css/bootstrap.min.css">
      <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
+     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/animate.css/4.1.1/animate.min.css">
 
+     <!-- Estilos CSS del lightbox, al final del body se implementa el JS -->
      <link rel="stylesheet"
           href="https://cdn.jsdelivr.net/gh/lokesh/lightbox2@56b06ac5914179d5ffd27d133333230e9b002317/dist/css/lightbox.min.css">
 
-     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/animate.css/4.1.1/animate.min.css">
+
 </head>
 
 <body>
      <style>
           * {
                transition: all 0.25s;
+
+          }
+
+          iframe {
+               animation: zoomIn;
+               animation-duration: 2s;
+               border: 2px solid black;
+               width: 98%;
+               height: 90vh;
           }
 
           body,
@@ -27,37 +38,32 @@
                margin: 0;
           }
 
-          img {
-               animation: fadeIn;
-               animation-duration: 2s;
-          }
-
           .item-datos-personales {
                display: inline-flex;
                flex-direction: column;
                text-align: center;
                min-width: 150px;
                margin-top: 10px;
-               border: 1px solid #112233;
-               animation: jackInTheBox;
-               animation-duration: 2s;
+               background: rgba(255, 255, 255, 0.8);
+               border-radius: 10px;
+               overflow: hidden;
           }
 
+
           .item-datos-personales .encabezado {
-               background: #112233;
+               background: rgba(0, 0, 0, 0.13);
                color: white;
           }
 
           .item-datos-personales .encabezado,
           .item-datos-personales .cuerpo {
-               padding: 5px;
+               padding: 10px;
           }
 
           h1,
           h3,
-          h5,
-          h6 {
-               margin: 20px 0 20px 0;
+          h5 {
+               padding: 10px;
                animation: fadeIn;
                animation-duration: 2s;
                font-weight: lighter;
@@ -65,6 +71,14 @@
                text-transform: uppercase;
           }
 
+          ul,
+          li {
+               list-style-type: none;
+               font-weight: lighter;
+               padding: 5px;
+               margin: 5px;
+               background: rgba(0, 200, 248, 0.1);
+          }
 
           .dibujo {
                width: 150px;
@@ -83,43 +97,67 @@
           a {
                text-decoration: none;
           }
+
+          @media only screen and (max-width: 500px) {
+               body {
+                    font-size: 80%;
+               }
+          }
      </style>
 
-     <div style="text-align: center;background: #112233;padding: 20px;">
-          <img src="https://i.ibb.co/Vp3zHSf/hdv.png" style="width: 90%;max-width: 700px;">
+     <div
+          style="text-align: center;background: #03045E;padding: 20px;background-image: url(https://i.ibb.co/3yg64H5/banner.gif);background-position: 50%;background-size: cover;">
+          <div style="backdrop-filter: blur(3px);">
+               <img src="https://i.ibb.co/Vp3zHSf/hdv.png" style="width: 90%;max-width: 700px;">
+          </div>
      </div>
 
-     <div style="padding: 20px;">
-          <h1>
+     <div style="background-color: #2FA4FF;padding: 20px;">
+          <h1 style="color: white;font-weight: 400;text-align: center;">
                DATOS PERSONALES
           </h1>
           <div style="text-align: center;">
                <script>
+                    function calcularEdad() {
+                         var hoy = new Date();
+                         var cumpleanos = new Date(1996, 05, 18);
+                         var edad = hoy.getFullYear() - cumpleanos.getFullYear();
+                         var m = hoy.getMonth() - cumpleanos.getMonth();
+                         if (m < 0 || (m === 0 && hoy.getDate() < cumpleanos.getDate())) {
+                              edad--;
+                         }
+                         return edad;
+                    }
+
                     datos = [
                          ["País", "Colombia"],
                          ["Ciudad", "Tuluá (Valle del Cauca)"],
                          ["Celular", "(+57) 310 225 7814"],
-                         ["Telegram", `<a href="https://t.me/jeffAporta">https://t.me/jeffAporta</a>`],
+                         ['<i class="fab fa-telegram"></i> Telegram', `<a href="https://t.me/jeffAporta">https://t.me/jeffAporta</a>`],
+                         ['<i class="fab fa-youtube"></i> YouTube', `<a href="https://t.me/jeffAporta">https://t.me/jeffAporta</a>`],
                          ["Correo", "jeffaporta@gmail.com"],
-                         ["Documento de identidad", "CC: 1094955981"]
+                         ["Documento de identidad", "CC: 1094955981"],
+                         ["Nacimiento", "18 Mayo 1996"],
+                         ["Edad", calcularEdad()]
                     ]
                     for (const d of datos) {
                          document.write(`
-                         <div class="item-datos-personales">
-                              <div class="encabezado">
-                                   ${d[0]}
+                              <div class="item-datos-personales">
+                                   <div class="encabezado">
+                                        ${d[0]}
+                                   </div>
+                                   <div class="cuerpo">
+                                        ${d[1]}
+                                   </div>
                               </div>
-                              <div class="cuerpo">
-                                   ${d[1]}
-                              </div>
-                         </div>
-                         `)
+                              `)
                     }
                </script>
           </div>
 
-          <hr>
+     </div>
 
+     <div style="padding: 20px;background: #90E0EF;">
           <h1>
                PERFIL GENERAL
           </h1>
@@ -130,10 +168,10 @@
           Soy honesto, comprometido y responsable en la ejecución de todas las tareas asignadas, creativo, respetuoso y
           tolerante, con principios éticos y morales que me han permitido destacar en los ámbitos en los cuales me
           desenvuelvo.
-          <br>
+     </div>
 
-          <hr>
 
+     <div style="padding: 20px;background: #CAF0F8;">
           <h1>
                PERFIL EDUCATIVO
           </h1>
@@ -152,8 +190,9 @@
           Soy muy bueno aprendiendo cosas nuevas, sobre todo relacionadas con la programación, estudio temas diversos
           relacionados con software e intento apropiarme al máximo de los conceptos que puedo encontrar de forma
           gratuita en plataformas como youtube o en buscadores como google.
+     </div>
 
-          <hr>
+     <div style="padding: 20px;background: #eafcff;">
 
           <h1>
                PERFIL ARTÍSTICO
@@ -185,26 +224,29 @@
 
                     for (const img of imagenes) {
                          document.write(`
-                         <a class="example-image-link" href="${img}" data-lightbox="grupo1">
-                              <img class="example-image dibujo" src="${img}">
-                         </a>
-                         `)
+                              <a class="example-image-link" href="${img}" data-lightbox="grupo1">
+                                   <img class="example-image dibujo" src="${img}">
+                              </a>
+                              `)
                     }
                </script>
           </div>
 
-          <hr>
+     </div>
+
+     <div style="padding: 20px;">
 
           <h1>
                PERFIL DE PROGRAMADOR
           </h1>
 
           Desde los 15 años empecé a programar, mi primer tutor fue mi padre; empezó enseñandome Racket, un lenguaje de
-          programación funciónal y con notación inorden, el cuál en su momento no entendí bien, a continuación empecé a
-          aprender a programar hojas de calculo en excel, mi padre me enseño a manejar los condicionales, la función SI,
-          el ENTONCES y el DE_LO_CONTRARIO, con esto aún no podia hacer mucho, pero fue un bien inicio, porque cuando
-          entre a ver programación en VBA para Excel, se me hizo más sencillo que a los demás para entender el
-          funcionamiento lógico de las estructuras básicas de programación, VBA lo estudie en System Plus, en la carrera
+          programación funciónal y con notación inorden, el cuál en su momento no entendí bien, luego me empezó a
+          programar a programar hojas de calculo en excel, mi padre me enseño a manejar los condicionales, la función
+          SI, el ENTONCES y el DE_LO_CONTRARIO, con esto aún no podia hacer mucho, pero fue un bien inicio, porque
+          cuando
+          entre a ver programación en VBA para Excel, se me hizo más sencillo que a los demás. VBA lo estudie en System
+          Plus, en la carrera
           de Auxiliar en diseño gráfico más o menos a mis 16 años. Más adelante empecé a estudiar Java en la Universidad
           del Quindió, luego en la Universidad Técnologica de pereira conocí lenguajes como C, Prolog y Python, por mi
           cuenta en Youtube aprendi a manejar de forma avanzada JavaScript y de forma elemental NodeJS y aprendí a usar
@@ -212,7 +254,7 @@
           por medio de Sockets.
 
           <h3>
-               CIENCIAS DE LA COMPUTACIÓN
+               <i class="fas fa-robot"></i> CIENCIAS DE LA COMPUTACIÓN
           </h3>
 
           Tengo buenos conocimientos aplicando la matemática y algoritmos a la computación. Este es un tema que me
@@ -220,18 +262,129 @@
           representar el mundo de forma óptima para una computadora, me llama la atención sobretodo el tratamiento de
           gráficos por computadora, los principales temas que domino los voy a exponer a continuación.
 
-          <h5>
-               Regresión Lineal
-          </h5>
+          <script>
+               let i_app = 0
 
-          
+               function insertarEjecuciónDeApp(url) {
+                    document.write(`
+                         <div style="padding:10px;margin:10px">
+     
+                              <i class="fas fa-code"></i>
+     
+                              &nbsp;
+     
+                              <a href="${url}" target="_blank">
+                                   <span class="btn btn-primary">
+                                        Abrir <i class="fa-solid fa-globe"></i>
+                                   </span>
+                              </a>
+     
+                              <span class="btn btn-primary" id="mostrar-app-${i_app}" onclick="
+                              element = document.getElementById('app-${i_app}');
+                              element.innerHTML = \`<iframe src='${url}'></iframe>\`;
+     
+                              const y = this.getBoundingClientRect().top + window.scrollY;
+                              window.scroll({
+                              top: y,
+                              behavior: 'smooth'
+                              });
+     
+                              this.style.display = 'none';
+                              document.getElementById('ocultar-app-${i_app}').style.display='';
+                              ">
+                                   Ver <i class="fa-solid fa-eye"></i>
+                              </span>
+     
+                              <span class="btn btn-danger" style="display:none;" id="ocultar-app-${i_app}" onclick="
+                              element = document.getElementById('app-${i_app}');
+                              element.innerHTML ='';
+                              this.style.display = 'none';
+                              document.getElementById('mostrar-app-${i_app}').style.display='';
+                              ">
+                                   Ocultar Aplicación <i class="fa-solid fa-eye-slash"></i>
+                              </span>
 
-          <div style="text-align: center;">
-               <iframe src="Regresión Lineal/index.html" frameborder="1" style="width: 90%;height: 100vh;">
-               </iframe>
-          </div>
+                              <br>
+                              <br>
+     
+                              <div style="text-align: center;" id="app-${i_app}"></div>
+                         <div>
+                         `)
+                    i_app++
+               }
+
+               mapa = [
+                    {
+                         LABEL: "Métodos numéricos",
+                         HTML: "",
+                         CHILDS: [
+                              {
+                                   LABEL: "Cadenas de Markov",
+                                   HTML: "",
+                                   URL: "Cadenas de Markov/index.html"
+                              },
+                              {
+                                   LABEL: "Regresión Lineal",
+                                   HTML: "",
+                                   URL: "Regresión Lineal/index.html"
+                              }
+                         ]
+                    },
+                    {
+                         LABEL: "Estructura de datos",
+                         HTML: `
+                         Manejo perfectamente las estructuras de vectores, matrices en n dimensiones y listas, 
+                         estas son esenciales para cualquier lenguaje de programación y además de estas estructuras 
+                         manejo brevemente otras como las que mostraré a continuación.
+                         `,
+                         CHILDS: [
+                              {
+                                   LABEL: "Arboles Binarios",
+                                   HTML: "",
+                                   URL: "Árboles Binarios/Árboles binarios - recorridos/index.html"
+                              },
+                              {
+                                   LABEL: "Torres de Hanói",
+                                   HTML: "",
+                                   URL: "Árboles Binarios/Torres de hanói/index.html"
+                              }
+                         ]
+                    }
+               ]
+
+               document.write(`<ul>`)
+               for (let i = 0; i < mapa.length; i++) {
+                    const main = mapa[i];
+                    document.write(`
+                         <h3>
+                              <i class="fas fa-laptop-code"></i> ${main.LABEL}
+                         </h3>
+                         ${main.HTML}
+                         <ul>
+                         `
+                    )
+                    for (let j = 0; j < main.CHILDS.length; j++) {
+                         const secundary = main.CHILDS[j];
+                         document.write(`
+                              <li>
+                                   <h5>
+                                        <i class="fas fa-file-code"></i> ${secundary.LABEL}
+                                   </h5>
+                                   ${secundary.HTML}
+                              `
+                         )
+                         insertarEjecuciónDeApp(secundary.URL)
+                         document.write(`</li>`);
+                    }
+                    document.write(`</ul>`);
+               }
+               document.write(`</ul>`);
+
+          </script>
+
 
      </div>
+
 
 
 

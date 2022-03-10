@@ -2,7 +2,7 @@
   --color-lineas: black;
   --color-fondo-operador: rgba(255, 153, 0, 0.8);
   --color-fondo-variable-literal: rgba(255, 255, 255, 1);
-  --color-fondo-nodo-mouse-over: #90c4f4;
+  --color-fondo-nodo-mouse-over: skyblue  ;
   --color-borde-nodo-mouse-over: #0058aa;
   --color-fuente-nodo-mouse-over: #fff;
 }
