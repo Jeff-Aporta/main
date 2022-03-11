@@ -42,36 +42,14 @@
                margin: 0;
           }
 
-          .item-datos-personales {
-               display: inline-flex;
-               flex-direction: column;
-               text-align: center;
-               min-width: 150px;
-               margin-top: 10px;
-               background: rgba(255, 255, 255, 0.8);
-               border-radius: 10px;
-               overflow: hidden;
-          }
-
-
-          .item-datos-personales .encabezado {
-               background: rgba(0, 0, 0, 0.13);
-               color: white;
-          }
-
-          .item-datos-personales .encabezado,
-          .item-datos-personales .cuerpo {
-               padding: 10px;
-          }
-
           h1,
           h3,
           h5 {
                padding: 10px;
+               padding-left: 0;
                animation: fadeIn;
                animation-duration: 2s;
                font-weight: lighter;
-               color: rgb(0, 112, 150);
                text-transform: uppercase;
           }
 
@@ -107,7 +85,14 @@
                transform: scale(1.2);
           }
 
+          .titulo-datos-personales {
+               height: auto;
+               color: inherit;
+               font-weight: bolder;
+          }
+
           a {
+               color: inherit;
                text-decoration: none;
           }
 
@@ -119,133 +104,170 @@
      </style>
 
      <div
-          style="text-align: center;background: #03045E;padding: 20px;background-image: url(https://i.ibb.co/3yg64H5/banner.gif);background-position: 50%;background-size: cover;">
-          <div style="backdrop-filter: blur(3px);">
+          style="text-align: center;background: #03045E;background-image: url(https://i.ibb.co/3yg64H5/banner.gif);background-position: 50%;background-size: cover;">
+          <div style="backdrop-filter: blur(4px) brightness(0.5);padding: 20px;">
                <img src="https://i.ibb.co/Vp3zHSf/hdv.png" style="width: 90%;max-width: 700px;">
+
+               <div style="padding: 20px;color: rgba(255, 255, 255, 1);text-align: left;font-weight: lighter;">
+                    <h1 class="titulo-datos-personales" style="padding: 0;">
+                         DATOS PERSONALES
+                    </h1>
+                    <div>
+                         <hr>
+                         <h5 class="titulo-datos-personales">
+                              <i class="fas fa-globe-americas"></i>
+                              Ubicación.
+                         </h5>
+                         <strong>País:</strong> Colombia -
+                         <strong>Ciudad:</strong> Tuluá (Valle del Cauca)
+
+                         <hr>
+                         <h5 class="titulo-datos-personales">
+                              <i class="fas fa-address-book"></i>
+                              Contacto.
+                         </h5>
+                         <i class="fas fa-mobile-alt"></i>
+                         <strong>Celular:</strong> (+57) 310 225 7814
+                         <br>
+                         <i class="fas fa-envelope"></i>
+                         <strong>Correo:</strong> jeffaporta@gmail.com
+                         <br>
+                         <i class="fab fa-telegram"></i>
+                         <strong>Telegram:</strong> <a href="https://t.me/jeffAporta">https://t.me/jeffAporta</a>
+                         <br>
+
+                         <hr>
+                         <h5 class="titulo-datos-personales">
+                              <i class="fas fa-users"></i>
+                              Social.
+                         </h5>
+                         <strong><i class="fab fa-youtube"></i> YouTube:</strong> <a
+                              href="https://www.youtube.com/c/JeffAportaa">https://www.youtube.com/c/JeffAportaa</a>
+                         <br>
+
+                         <hr>
+                         <h5 class="titulo-datos-personales">
+                              <i class="fas fa-user-alt"></i>
+                              General.
+                         </h5>
+                         <strong>CC:</strong> 1094955981 <br>
+                         <strong>Edad:</strong> <span id="edad"></span> <br>
+                         <script>
+                              document.getElementById("edad").innerHTML = calcularEdad();
+
+                              function calcularEdad() {
+                                   var hoy = new Date();
+                                   var cumpleanos = new Date(1996, 05, 18);
+                                   var edad = hoy.getFullYear() - cumpleanos.getFullYear();
+                                   var m = hoy.getMonth() - cumpleanos.getMonth();
+                                   if (m < 0 || (m === 0 && hoy.getDate() < cumpleanos.getDate())) {
+                                        edad--;
+                                   }
+                                   return edad;
+                              }
+                         </script>
+                    </div>
+               </div>
+          </div>
+     </div>
+     <div style="display: flex;">
+
+          <div style="padding: 20px;background-color: #031D7E;color: white;">
+               <h1>
+                    PERFIL GENERAL
+               </h1>
+               <hr style="color: white;border: white 3px solid;">
+               Soy una persona con capacidad de compromiso y liderazgo, con decisión e iniciativa, excelentes relaciones
+               interpersonales y trabajo en equipo, habilidad en la realización de actividades, planeación, organización
+               y
+               rápido aprendizaje.
+               <br><br>
+               Soy honesto, comprometido y responsable en la ejecución de todas las tareas asignadas, creativo,
+               respetuoso y
+               tolerante, con principios éticos y morales que me han permitido destacar en los ámbitos en los cuales me
+               desenvuelvo.
+          </div>
+
+          <div style="padding: 20px;">
+               <h1>
+                    PERFIL EDUCATIVO
+               </h1>
+               <hr style="color: white;border: white 3px solid;">
+               Me gusta mucho la enseñanza, me va particularmente bien, aunque no tengo experiencia enseñando a grupos,
+               tengo un Canal de YouTube donde explico algoritmos y
+               hablo también de matemáticas aplicadas para lograr desarrollar programas.
+               <br>
+               <br>
+               <div style="text-align: center;">
+                    <a href="https://www.youtube.com/c/JeffAportaa"
+                         style="font-size: 40px;text-decoration: none;color: inherit;">
+                         <i class="fab fa-youtube" style="color: red;"></i> Jeff Aporta
+                    </a>
+               </div>
+               <br>
+               Soy muy bueno aprendiendo cosas nuevas, sobre todo relacionadas con la programación, estudio temas
+               diversos
+               relacionados con software e intento apropiarme al máximo de los conceptos que puedo encontrar de forma
+               gratuita en plataformas como youtube o en buscadores como google.
+               <br>
+               <br>
+               <br>
+               <br>
           </div>
      </div>
 
-     <div style="background-color: #2FA4FF;padding: 20px;">
-          <h1 style="color: white;font-weight: 400;text-align: center;">
-               DATOS PERSONALES
-          </h1>
-          <div style="text-align: center;">
-               <script>
-                    function calcularEdad() {
-                         var hoy = new Date();
-                         var cumpleanos = new Date(1996, 05, 18);
-                         var edad = hoy.getFullYear() - cumpleanos.getFullYear();
-                         var m = hoy.getMonth() - cumpleanos.getMonth();
-                         if (m < 0 || (m === 0 && hoy.getDate() < cumpleanos.getDate())) {
-                              edad--;
-                         }
-                         return edad;
-                    }
+     <div style="background-image: url(https://i.ibb.co/ByFqJSy/k.jpg);background-size: cover;background-position:50%">
 
-                    datos = [
-                         ["País", "Colombia"],
-                         ["Ciudad", "Tuluá (Valle del Cauca)"],
-                         ["Celular", "(+57) 310 225 7814"],
-                         ['<i class="fab fa-telegram"></i> Telegram', `<a href="https://t.me/jeffAporta">https://t.me/jeffAporta</a>`],
-                         ['<i class="fab fa-youtube"></i> YouTube', `<a href="https://www.youtube.com/c/JeffAportaa">https://www.youtube.com/c/JeffAportaa</a>`],
-                         ["Correo", "jeffaporta@gmail.com"],
-                         ["Documento de identidad", "CC: 1094955981"],
-                         ["Edad", calcularEdad()],
-                    ]
-                    for (const d of datos) {
-                         document.write(`
-                              <div class="item-datos-personales">
-                                   <div class="encabezado">
-                                        ${d[0]}
-                                   </div>
-                                   <div class="cuerpo">
-                                        ${d[1]}
-                                   </div>
-                              </div>
-                              `)
-                    }
-               </script>
-          </div>
+          <div style="padding: 20px;background: rgba(114, 192, 255, 0.9);">
 
-     </div>
+               <h1>
+                    PERFIL ARTÍSTICO
+               </h1>
 
-     <div style="padding: 20px;background: #90E0EF;">
-          <h1>
-               PERFIL GENERAL
-          </h1>
-          Soy una persona con capacidad de compromiso y liderazgo, con decisión e iniciativa, excelentes relaciones
-          interpersonales y trabajo en equipo, habilidad en la realización de actividades, planeación, organización y
-          rápido aprendizaje.
-          <br><br>
-          Soy honesto, comprometido y responsable en la ejecución de todas las tareas asignadas, creativo, respetuoso y
-          tolerante, con principios éticos y morales que me han permitido destacar en los ámbitos en los cuales me
-          desenvuelvo.
-     </div>
+               Me gustan mucho las artes visuales, soy un aficionado, hice un curso en bellas artes de la universidad
+               del
+               Quindío donde aprendí a manipular diferentes técnicas para ilustrar, he hecho dibujos a mano alzada,
+               pinturas
+               al óleo, murales con acuarelas, y como diseñador me pulo para que mis obras queden impactantes,
+               complejas,
+               frías, autsferas; mis obras más destacadas son las que a continuación adjuntare y que desarrolle
+               apoyándome en
+               algoritmos descubiertos por mi propia cuenta, donde por medio de funciones matemáticas y relaciones
+               trigonométricas hago uso del espacio para distribuir armónicamente un conjunto de puntos que serán
+               pintados en
+               patrón de ajedrez, inicialmente el algoritmo para pintar con el patrón de ajedrez lo desarrollé desde 0
+               por mi
+               cuenta para poder desarrollar los dibujos, sin embargo luego encontré herramientas en programación que me
+               permitian implementar lo mismo pero en menos líneas de código y más rápidos en tiempo de procesamiento.
 
+               <br>
+               <br>
 
-     <div style="padding: 20px;background: #CAF0F8;">
-          <h1>
-               PERFIL EDUCATIVO
-          </h1>
-          Me gusta mucho la enseñanza, me va particularmente bien, aunque no tengo experiencia enseñando a grupos,
-          tengo un Canal de YouTube donde explico algoritmos y
-          hablo también de matemáticas aplicadas para lograr desarrollar programas.
-          <br>
-          <br>
-          <div style="text-align: center;">
-               <a href="https://www.youtube.com/c/JeffAportaa"
-                    style="font-size: 40px;text-decoration: none;color: inherit;">
-                    <i class="fab fa-youtube" style="color: red;"></i> Jeff Aporta
-               </a>
-          </div>
-          <br>
-          Soy muy bueno aprendiendo cosas nuevas, sobre todo relacionadas con la programación, estudio temas diversos
-          relacionados con software e intento apropiarme al máximo de los conceptos que puedo encontrar de forma
-          gratuita en plataformas como youtube o en buscadores como google.
-     </div>
+               <div style="text-align: center;">
+                    <script>
+                         imagenes = [
+                              "https://i.ibb.co/V2bg296/Ecuaciones-001.jpg",
+                              "https://i.ibb.co/y5sgCM5/Ecuaciones-002.jpg",
+                              "https://i.ibb.co/jMhnPnL/Ecuaciones-003.jpg",
+                              "https://i.ibb.co/x6VKGDs/Ecuaciones-004.jpg",
+                              "https://i.ibb.co/wN21gGP/Ecuaciones-005.jpg",
+                              "https://i.ibb.co/99HBwRM/Ecuaciones-006.png",
+                              "https://i.ibb.co/25XpW5H/Ecuaciones-007.png",
+                         ]
 
-     <div style="padding: 20px;background: #eafcff;">
-
-          <h1>
-               PERFIL ARTÍSTICO
-          </h1>
-
-          Me gustan mucho las artes visuales, soy un aficionado, hice un curso en bellas artes de la universidad del
-          Quindío donde aprendí a manipular diferentes técnicas para ilustrar, he hecho dibujos a mano alzada, pinturas
-          al óleo, murales con acuarelas, y como diseñador me pulo para que mis obras queden impactantes, complejas,
-          frías, autsferas; mis obras más destacadas son las que a continuación adjuntare y que desarrolle apoyándome en
-          algoritmos descubiertos por mi propia cuenta, donde por medio de funciones matemáticas y relaciones
-          trigonométricas hago uso del espacio para distribuir armónicamente un conjunto de puntos que serán pintados en
-          patrón de ajedrez, inicialmente el algoritmo para pintar con el patrón de ajedrez lo desarrollé desde 0 por mi
-          cuenta para poder desarrollar los dibujos, sin embargo luego encontré herramientas en programación que me
-          permitian implementar lo mismo pero en menos líneas de código y más rápidos en tiempo de procesamiento.
-
-          <br>
-          <br>
-
-          <div style="text-align: center;">
-               <script>
-                    imagenes = [
-                         "https://i.ibb.co/V2bg296/Ecuaciones-001.jpg",
-                         "https://i.ibb.co/y5sgCM5/Ecuaciones-002.jpg",
-                         "https://i.ibb.co/jMhnPnL/Ecuaciones-003.jpg",
-                         "https://i.ibb.co/x6VKGDs/Ecuaciones-004.jpg",
-                         "https://i.ibb.co/wN21gGP/Ecuaciones-005.jpg",
-                         "https://i.ibb.co/99HBwRM/Ecuaciones-006.png",
-                         "https://i.ibb.co/25XpW5H/Ecuaciones-007.png",
-                    ]
-
-                    for (const img of imagenes) {
-                         document.write(`
+                         for (const img of imagenes) {
+                              document.write(`
                               <a class="example-image-link" href="${img}" data-lightbox="grupo1">
                                    <img class="example-image dibujo" src="${img}">
                               </a>
                               `)
-                    }
-               </script>
-          </div>
+                         }
+                    </script>
+               </div>
 
+          </div>
      </div>
+
 
      <div style="padding: 20px;">
 
@@ -430,6 +452,17 @@
                                    HTML: "Algoritmo que en determina de forma exacta las intersecciones entre una recta y un circulo",
                                    URL: "https://editor.p5js.org/Jeff-Aporta/sketches/ecBurGM3N"
                               },
+                         ]
+                    },
+                    {
+                         LABEL: "Arte",
+                         HTML: "",
+                         CHILDS: [
+                              {
+                                   LABEL: "Poligonometrismo",
+                                   HTML: "",
+                                   URL: "poligonometrismo/index.html"
+                              }
                          ]
                     },
                     {
