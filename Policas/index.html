@@ -90,6 +90,26 @@
           <br>
           <input type="number" step=".1" value="100" id="partes">
           <br>
+          v
+          <br>
+          <input type="number" step=".001" value="1" id="v">
+          <span class="btn btn-primary" id="v_start" style="font-size: 80%" onclick="
+          v_anim = setInterval(()=>{
+               document.getElementById('v').stepUp();
+          }, 20);
+          this.style.display='none';
+          document.getElementById('v_stop').style.display = '';
+          ">
+               <i class="fas fa-play"></i>
+          </span>
+          <span class="btn btn-primary" id="v_stop" style="font-size: 80%;display: none;" onclick="
+          clearInterval(v_anim);
+          this.style.display='none';
+          document.getElementById('v_start').style.display = '';
+          ">
+               <i class="fas fa-stop"></i>
+          </span>
+          <br>
           Ecuación
           <br>
           <input type="text" value="t * 0.01 * sin(t)" id="eq" onchange="actualizarFunción()">
@@ -150,6 +170,9 @@
           if (localStorage.getItem("eq")) {
                document.getElementById("eq").value = localStorage.getItem("eq")
           }
+          if (localStorage.getItem("v")) {
+               document.getElementById("v").value = localStorage.getItem("v")
+          }
 
           relleno = 'evenodd'
           polygon = []
@@ -185,18 +208,22 @@
                let partes = Number(document.getElementById("partes").value)
                let color1 = document.getElementById("color1").value
                let color2 = document.getElementById("color2").value
+               let _v = Number(document.getElementById("v").value)
 
                let k = (frameCount / 100)
 
                strokeWeight(borde)
 
                polygon = []
-               var Fx = nerdamer.setFunction("r", ["t"], eq);
+               var Fx = nerdamer.setFunction("r", ["t", "v"], eq);
                for (let i = 0; i < partes; i++) {
                     let t = lerp(lim_inf * PI, lim_sup * PI, i / partes)
-                    let v = p5.Vector.fromAngle(t, Number(nerdamer(`r(${t})`).evaluate().text()))
-                    v.mult(escala)
-                    polygon.push(v);
+                    try {
+                         let v = p5.Vector.fromAngle(t, Number(nerdamer(`r(${t},${_v})`).evaluate().text()))
+                         v.mult(escala)
+                         polygon.push(v);
+                    } catch (error) {
+                    }
                }
 
                relleno = 'nonzero'
@@ -219,30 +246,16 @@
                }
                endShape(CLOSE);
 
-               if (localStorage.getItem("scale") != document.getElementById("scale").value) {
-                    localStorage.setItem("scale", document.getElementById("scale").value)
-               }
-               if (localStorage.getItem("borde") != document.getElementById("borde").value) {
-                    localStorage.setItem("borde", document.getElementById("borde").value)
-               }
-               if (localStorage.getItem("lim-inf") != document.getElementById("lim-inf")) {
-                    localStorage.setItem("lim-inf", document.getElementById("lim-inf").value)
-               }
-               if (localStorage.getItem("lim-sup") != document.getElementById("lim-sup").value) {
-                    localStorage.setItem("lim-sup", document.getElementById("lim-sup").value)
-               }
-               if (localStorage.getItem("partes") != document.getElementById("partes").value) {
-                    localStorage.setItem("partes", document.getElementById("partes").value)
-               }
-               if (localStorage.getItem("color1") != document.getElementById("color1").value) {
-                    localStorage.setItem("color1", document.getElementById("color1").value)
-               }
-               if (localStorage.getItem("color2") != document.getElementById("color2").value) {
-                    localStorage.setItem("color2", document.getElementById("color2").value)
-               }
-               if (localStorage.getItem("eq") != document.getElementById("eq").value) {
-                    localStorage.setItem("eq", document.getElementById("eq").value)
-               }
+               localStorage.setItem("scale", document.getElementById("scale").value)
+               localStorage.setItem("borde", document.getElementById("borde").value)
+               localStorage.setItem("lim-inf", document.getElementById("lim-inf").value)
+               localStorage.setItem("lim-sup", document.getElementById("lim-sup").value)
+               localStorage.setItem("partes", document.getElementById("partes").value)
+               localStorage.setItem("color1", document.getElementById("color1").value)
+               localStorage.setItem("color2", document.getElementById("color2").value)
+               localStorage.setItem("eq", document.getElementById("eq").value)
+               localStorage.setItem("v", document.getElementById("v").value)
+
                pop()
 
                let LaTeX = `\\\\
@@ -252,8 +265,9 @@
                \\\\
                Quiebres: ${partes}
                \\\\
+               v: ${_v}
                \\\\
-               r(\\theta): ${nerdamer("r(θ)").toTeX().replaceAll("θ", "\\theta")}
+               r(\\theta): ${nerdamer("r(θ,v)").toTeX().replaceAll("θ", "\\theta")}
                `
 
                nerdamer.actualizarLaTeXURL(LaTeX, 150)

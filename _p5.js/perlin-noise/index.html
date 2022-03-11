@@ -1,0 +1,81 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+     <meta charset="UTF-8">
+     <meta http-equiv="X-UA-Compatible" content="IE=edge">
+     <meta name="viewport" content="width=device-width, initial-scale=1.0">
+     <title>Document</title>
+     <script src="https://cdnjs.cloudflare.com/ajax/libs/p5.js/1.4.0/p5.min.js"></script>
+</head>
+
+<body>
+     <style>
+          html,
+          body {
+               margin: 0;
+               padding: 0;
+          }
+
+          body {
+               flex-direction: column;
+               font-size: 200%;
+               display: flex;
+               justify-content: center;
+               align-items: center;
+               min-height: 100vh;
+          }
+     </style>
+
+     Perlin Noise
+     
+     <script>
+          let inc = 0.025
+
+          let n_max = 0
+          let n_min = 10
+
+          let recording = false
+          let encoder
+
+
+          function setup() {
+               createCanvas(400, 400);
+               pixelDensity(1);
+               noiseDetail(8, 0.8);
+          }
+
+          function draw() {
+               let yoff = 0;
+               loadPixels();
+               for (let y = 0; y < height; y++) {
+                    let xoff = 0;
+                    for (let x = 0; x < width; x++) {
+                         let index = (x + y * width) * 4;
+                         let z = noise(xoff, yoff, frameCount / 10) ** 2;
+                         if (z > n_max) {
+                              n_max = z
+                         }
+                         if (z < n_min) {
+                              n_min = z
+                         }
+                         if (z < (n_max + n_min) / 2) {
+                              pixels[index + 0] = 0;
+                              pixels[index + 1] = z * 128;
+                              pixels[index + 2] = z * 255;
+                         }else{
+                              pixels[index + 0] = 100;
+                              pixels[index + 1] = z * 255;
+                              pixels[index + 2] = 0;
+                         }
+                         pixels[index + 3] = 255;
+                         xoff += inc;
+                    }
+                    yoff += inc;
+               }
+               updatePixels();
+          }
+     </script>
+</body>
+
+</html>

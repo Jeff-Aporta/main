@@ -144,10 +144,15 @@ async function _cambiarNodo(tree, id) {
 }
 
 function generarArbolJSON(tree, raiz = true) {
+  if (tree == undefined) {
+    tree = -1;
+  }
   let retornoHTML = "";
   retornoHTML += `
-          <li>
-              <div class="nodo ${raiz ? "raiz" : ""} ${
+          <li style="${tree == -1 ? "visibility:hidden" : ""}">
+              <div  class="nodo ${
+    raiz ? "raiz" : ""
+  } ${
     !tree.LEFT_CHILD && !tree.RIGHT_CHILD && !raiz ? "hoja" : ""
   }" id="nodo${_id_}" onclick="cambiarNodo('nodo${_id_}')">
                    <a>${tree.LABEL}</a>
@@ -166,9 +171,9 @@ function generarArbolJSON(tree, raiz = true) {
     }
     keys.push(key);
   }
-  for (const key of keys) {
-    let sub_mapa = tree[key];
-    retornoHTML += generarArbolJSON(sub_mapa, false);
+  if (tree != -1 && (tree.LEFT_CHILD || tree.RIGHT_CHILD)) {
+    retornoHTML += generarArbolJSON(tree.LEFT_CHILD, false);
+    retornoHTML += generarArbolJSON(tree.RIGHT_CHILD, false);
   }
   retornoHTML += "</ul>";
   retornoHTML += "</li>";

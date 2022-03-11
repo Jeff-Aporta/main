@@ -8,6 +8,13 @@
 
 <body>
 
+     <style>
+          body,html{
+               margin: 0;
+               padding: 0;
+          }
+     </style>
+
      <script>
 
           function preload() {
@@ -17,7 +24,7 @@
           }
 
           function setup() {
-               createCanvas(800, 450, WEBGL);
+               createCanvas(windowWidth, windowHeight, WEBGL);
           }
 
           function draw() {
