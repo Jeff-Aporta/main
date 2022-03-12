@@ -56,7 +56,7 @@
                     </tr>
                     <tr>
                          <td>
-                              <input type="number" step="1" value="800" id="scale">
+                              <input type="number" step="1" value="403" id="scale">
                          </td>
                          <td style="padding-left: 5px;">
                               <input type="number" step="0.1" value="1" id="borde" min="0" max="2">
@@ -88,11 +88,11 @@
 
           Quiebres
           <br>
-          <input type="number" step=".1" value="100" id="partes">
+          <input type="number" step=".1" value="61.3" id="partes">
           <br>
           v
           <br>
-          <input type="number" step=".001" value="1" id="v">
+          <input type="number" step=".001" value="12.25" id="v">
           <span class="btn btn-primary" id="v_start" style="font-size: 80%" onclick="
           v_anim = setInterval(()=>{
                document.getElementById('v').stepUp();
@@ -112,7 +112,7 @@
           <br>
           Ecuación
           <br>
-          <input type="text" value="t * 0.01 * sin(t)" id="eq" onchange="actualizarFunción()">
+          <input type="text" value="sinh(cos(v*t))" id="eq" onchange="actualizarFunción()">
           <br>
           <table cellspacing="0" cellpadding="0" style="text-align: center;">
                <tbody>

@@ -8,7 +8,7 @@ function urlLaTeX(latex, sz = "") {
 }
 function HTMLlightboxLaTeX(latex, sz = "",grupo="0") {
   return `
-  <img class="img-LaTeX" src="${urlLaTeX(latex)}"
+  <img class="img-LaTeX" src="${urlLaTeX(latex,sz)}"
       data-lightbox="${urlLaTeX(
         latex,
         ""

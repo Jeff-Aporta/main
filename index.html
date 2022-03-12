@@ -104,10 +104,23 @@
                border-radius: 50%;
                border: 1px solid black;
                object-fit: cover;
+               cursor: pointer;
           }
 
           .miniatura-redonda:hover {
                border-radius: 0;
+          }
+
+          .miniatura-cuadrada {
+               position: relative;
+               transform: translateX(-50%);
+               left:50%;
+               max-width: 250px;
+               cursor: pointer;
+          }
+
+          .miniatura-cuadrada:hover {
+               transform: translateX(-50%) scale(1.1);
           }
 
           .subrayado-titulo-h1-blanco {
@@ -128,7 +141,6 @@
 
           #programas .description {
                padding: 5px;
-               background-color: rgba(255, 255, 255, 0.5);
           }
 
           #programas .item {
@@ -143,6 +155,10 @@
                font-size: 90%;
                border-radius: 10px;
                border: 2px solid white;
+          }
+
+          #programas .item:hover {
+               background: rgba(255, 255, 255, 1);
           }
 
           #programas .items {
@@ -325,8 +341,8 @@
                <br>
                <br>
                <div style="text-align: center;">
-                    <img class="miniatura-redonda" src="https://i.ibb.co/7NFLpBk/CERTIFICADO-TECNICO-EN-SISTEMAS-DEL-SENA.png"
-                         data-lightbox="https://i.ibb.co/7NFLpBk/CERTIFICADO-TECNICO-EN-SISTEMAS-DEL-SENA.png"
+                    <img class="miniatura-redonda"
+                         src="https://i.ibb.co/7NFLpBk/CERTIFICADO-TECNICO-EN-SISTEMAS-DEL-SENA.png"
                          data-lightbox-group="certificados">
                </div>
           </div>
@@ -364,25 +380,25 @@
                <div style="text-align: center;">
 
                     <img class="miniatura-redonda" src="https://i.ibb.co/V2bg296/Ecuaciones-001.jpg"
-                         data-lightbox="https://i.ibb.co/V2bg296/Ecuaciones-001.jpg" data-lightbox-group="dibujos">
+                         data-lightbox-group="dibujos">
 
                     <img class="miniatura-redonda" src="https://i.ibb.co/y5sgCM5/Ecuaciones-002.jpg"
-                         data-lightbox="https://i.ibb.co/y5sgCM5/Ecuaciones-002.jpg" data-lightbox-group="dibujos">
+                         data-lightbox-group="dibujos">
 
                     <img class="miniatura-redonda" src="https://i.ibb.co/jMhnPnL/Ecuaciones-003.jpg"
-                         data-lightbox="https://i.ibb.co/jMhnPnL/Ecuaciones-003.jpg" data-lightbox-group="dibujos">
+                         data-lightbox-group="dibujos">
 
                     <img class="miniatura-redonda" src="https://i.ibb.co/x6VKGDs/Ecuaciones-004.jpg"
-                         data-lightbox="https://i.ibb.co/x6VKGDs/Ecuaciones-004.jpg" data-lightbox-group="dibujos">
+                         data-lightbox-group="dibujos">
 
                     <img class="miniatura-redonda" src="https://i.ibb.co/wN21gGP/Ecuaciones-005.jpg"
-                         data-lightbox="https://i.ibb.co/wN21gGP/Ecuaciones-005.jpg" data-lightbox-group="dibujos">
+                         data-lightbox-group="dibujos">
 
                     <img class="miniatura-redonda" src="https://i.ibb.co/99HBwRM/Ecuaciones-006.png"
-                         data-lightbox="https://i.ibb.co/99HBwRM/Ecuaciones-006.png" data-lightbox-group="dibujos">
+                         data-lightbox-group="dibujos">
 
                     <img class="miniatura-redonda" src="https://i.ibb.co/25XpW5H/Ecuaciones-007.png"
-                         data-lightbox="https://i.ibb.co/25XpW5H/Ecuaciones-007.png" data-lightbox-group="dibujos">
+                         data-lightbox-group="dibujos">
 
                </div>
 
@@ -444,15 +460,11 @@
           <h3>
                <i class="fab fa-js-square"></i> TRABAJOS DESARROLLADOS EN JAVASCRIPT
           </h3>
-          <br>
+          <hr class="subrayado-titulo-h1-negro">
 
           Cómo JavaScript es el lenguaje de la web, he decidido traducir e implementar mis programas a este lenguaje
           para mostrar mis
-          destrezas programando.
-
-          <br><br>
-
-          Tengo buenos conocimientos aplicando la matemática y algoritmos a la computación. Este es un tema que me
+          destrezas programando. Tengo buena habilidad aplicando la matemática con algoritmos de computadora. Este es un tema que me
           apasiona, ya que abarca diversos temas y habla acerca de lo que es el modelamiento lógico de cómo se puede
           representar el mundo de forma óptima para una computadora, me llama la atención sobretodo el tratamiento de
           gráficos por computadora, los principales temas que domino los voy a exponer a continuación.

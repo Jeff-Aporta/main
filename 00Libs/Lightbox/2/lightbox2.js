@@ -77,23 +77,45 @@ window.addEventListener("load", () => {
 
   for (let i = 0; i < lightbox2_imagenes.length; i++) {
     const img = lightbox2_imagenes[i];
-    if (img.dataset.lightbox) {
-      if (!img.dataset.group) {
-        img.dataset.group = "0";
+    if (!img.dataset.lightbox && !img.dataset.lightboxGroup) {
+      continue;
+    }
+    if (!img.dataset.lightbox) {
+      img.dataset.lightbox = img.src;
+    }
+    if (!img.dataset.lightboxGroup) {
+      img.dataset.lightboxGroup = "0";
+    }
+    if (!lightbox2_grupos[img.dataset.lightboxGroup]) {
+      lightbox2_grupos[img.dataset.lightboxGroup] = [];
+    }
+    lightbox2_grupos[img.dataset.lightboxGroup].push(img);
+    img.dataset.lightbox2Index =
+      lightbox2_grupos[img.dataset.lightboxGroup].length - 1;
+    img.addEventListener("click", () => {
+      lightbox2_setImg(img);
+      lightbox2_grupo = img.dataset.group;
+      lightbox2_currentImage = img;
+      lightbox2_openModal();
+    });
+    document.getElementById("lightbox2-current-image").src = img.src;
+  }
+
+  document.addEventListener("keyup", controles_lightbox_teclas);
+
+  function controles_lightbox_teclas(event) {
+    if (div.style.display != "none") {
+      switch (event.key) {
+        case "ArrowLeft":
+          lightbox2_change(-1);
+          break;
+        case "ArrowRight":
+          lightbox2_change(1);
+          break;
+        case "Escape":
+          lightbox2_closeModal();
+          break;
       }
-      if (!lightbox2_grupos[img.dataset.lightboxGroup]) {
-        lightbox2_grupos[img.dataset.lightboxGroup] = [];
-      }
-      lightbox2_grupos[img.dataset.lightboxGroup].push(img);
-      img.dataset.lightbox2Index =
-        lightbox2_grupos[img.dataset.lightboxGroup].length - 1;
-      img.addEventListener("click", () => {
-        lightbox2_openModal();
-        lightbox2_setImg(img);
-        lightbox2_grupo = img.dataset.group;
-        lightbox2_currentImage = img;
-      });
-      document.getElementById("lightbox2-current-image").src = img.src;
     }
   }
 });
@@ -110,6 +132,15 @@ function lightbox2_setImg(img) {
 
 function lightbox2_openModal() {
   document.getElementById("lightbox2-modal").style.display = "flex";
+  if (
+    lightbox2_grupos[lightbox2_currentImage.dataset.lightboxGroup].length <= 1
+  ) {
+    document.getElementById("lightbox2-left").style.display = "none";
+    document.getElementById("lightbox2-right").style.display = "none";
+  } else {
+    document.getElementById("lightbox2-left").style.display = "flex";
+    document.getElementById("lightbox2-right").style.display = "flex";
+  }
 }
 
 function lightbox2_closeModal() {
@@ -129,22 +160,4 @@ function lightbox2_change(dn) {
   lightbox2_setImg(
     lightbox2_grupos[lightbox2_currentImage.dataset.lightboxGroup][n]
   );
-}
-
-document.addEventListener("keyup", controles_lightbox_teclas);
-
-function controles_lightbox_teclas(event) {
-  if (document.getElementById("lightbox2-modal").style.display != "none") {
-    switch (event.key) {
-      case "ArrowLeft":
-        lightbox2_change(-1);
-        break;
-      case "ArrowRight":
-        lightbox2_change(1);
-        break;
-      case "Escape":
-        lightbox2_closeModal();
-        break;
-    }
-  }
 }
