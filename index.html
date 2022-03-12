@@ -10,7 +10,7 @@
      <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
      <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/animate.css/4.1.1/animate.min.css">
 
-     <script src="00Libs/Lightbox/1/lightbox.js"></script>
+     <script src="00Libs/Lightbox/2/lightbox2.js"></script>
 
      <meta property="og:site_name" content="Jeffrey Agudelo">
      <meta property="og:title" content="Jeffrey Agudelo">
@@ -79,11 +79,12 @@
 
           .img-LaTeX {
                padding: 5px;
+               cursor: pointer;
           }
 
           .img-LaTeX:hover {
                background-color: white;
-               transform: scale(1.2);
+               transform: scale(1.1);
           }
 
           .titulo-datos-personales {
@@ -97,14 +98,15 @@
                text-decoration: none;
           }
 
-          .miniatur-lightbox1 {
+          .miniatura-redonda {
                width: 150px;
                height: 150px;
                border-radius: 50%;
                border: 1px solid black;
+               object-fit: cover;
           }
 
-          .miniatur-lightbox1:hover {
+          .miniatura-redonda:hover {
                border-radius: 0;
           }
 
@@ -125,7 +127,8 @@
           }
 
           #programas .description {
-               min-height: 200px;
+               padding: 5px;
+               background-color: rgba(255, 255, 255, 0.5);
           }
 
           #programas .item {
@@ -138,6 +141,8 @@
                min-height: 550px;
                vertical-align: top;
                font-size: 90%;
+               border-radius: 10px;
+               border: 2px solid white;
           }
 
           #programas .items {
@@ -212,7 +217,7 @@
                               <i class="fas fa-globe-americas"></i>
                               Ubicación.
                          </h5>
-                         <strong>País:</strong> Colombia 
+                         <strong>País:</strong> Colombia
                          <br>
                          <strong>Ciudad:</strong> Tuluá (Valle del Cauca)
 
@@ -320,11 +325,9 @@
                <br>
                <br>
                <div style="text-align: center;">
-                    <script>
-                         new lightbox1(
-                              "https://i.ibb.co/7NFLpBk/CERTIFICADO-TECNICO-EN-SISTEMAS-DEL-SENA.png"
-                         )
-                    </script>
+                    <img class="miniatura-redonda" src="https://i.ibb.co/7NFLpBk/CERTIFICADO-TECNICO-EN-SISTEMAS-DEL-SENA.png"
+                         data-lightbox="https://i.ibb.co/7NFLpBk/CERTIFICADO-TECNICO-EN-SISTEMAS-DEL-SENA.png"
+                         data-lightbox-group="certificados">
                </div>
           </div>
      </div>
@@ -359,17 +362,28 @@
                <br>
 
                <div style="text-align: center;">
-                    <script>
-                         new lightbox1(
-                              "https://i.ibb.co/V2bg296/Ecuaciones-001.jpg",
-                              "https://i.ibb.co/y5sgCM5/Ecuaciones-002.jpg",
-                              "https://i.ibb.co/jMhnPnL/Ecuaciones-003.jpg",
-                              "https://i.ibb.co/x6VKGDs/Ecuaciones-004.jpg",
-                              "https://i.ibb.co/wN21gGP/Ecuaciones-005.jpg",
-                              "https://i.ibb.co/99HBwRM/Ecuaciones-006.png",
-                              "https://i.ibb.co/25XpW5H/Ecuaciones-007.png",
-                         )
-                    </script>
+
+                    <img class="miniatura-redonda" src="https://i.ibb.co/V2bg296/Ecuaciones-001.jpg"
+                         data-lightbox="https://i.ibb.co/V2bg296/Ecuaciones-001.jpg" data-lightbox-group="dibujos">
+
+                    <img class="miniatura-redonda" src="https://i.ibb.co/y5sgCM5/Ecuaciones-002.jpg"
+                         data-lightbox="https://i.ibb.co/y5sgCM5/Ecuaciones-002.jpg" data-lightbox-group="dibujos">
+
+                    <img class="miniatura-redonda" src="https://i.ibb.co/jMhnPnL/Ecuaciones-003.jpg"
+                         data-lightbox="https://i.ibb.co/jMhnPnL/Ecuaciones-003.jpg" data-lightbox-group="dibujos">
+
+                    <img class="miniatura-redonda" src="https://i.ibb.co/x6VKGDs/Ecuaciones-004.jpg"
+                         data-lightbox="https://i.ibb.co/x6VKGDs/Ecuaciones-004.jpg" data-lightbox-group="dibujos">
+
+                    <img class="miniatura-redonda" src="https://i.ibb.co/wN21gGP/Ecuaciones-005.jpg"
+                         data-lightbox="https://i.ibb.co/wN21gGP/Ecuaciones-005.jpg" data-lightbox-group="dibujos">
+
+                    <img class="miniatura-redonda" src="https://i.ibb.co/99HBwRM/Ecuaciones-006.png"
+                         data-lightbox="https://i.ibb.co/99HBwRM/Ecuaciones-006.png" data-lightbox-group="dibujos">
+
+                    <img class="miniatura-redonda" src="https://i.ibb.co/25XpW5H/Ecuaciones-007.png"
+                         data-lightbox="https://i.ibb.co/25XpW5H/Ecuaciones-007.png" data-lightbox-group="dibujos">
+
                </div>
 
           </div>
@@ -558,34 +572,6 @@
           html += "</div>"
 
           document.write(html)
-
-          /* document.write(`<ul>`)
-          for (let i = 0; i < mapa.length; i++) {
-               const main = mapa[i];
-               document.write(`
-                    <h3>
-                         <i class="fas fa-laptop-code"></i> ${main.LABEL}
-                    </h3>
-                    ${main.HTML}
-                    <ul>
-                    `
-               )
-               for (let j = 0; j < main.CHILDS.length; j++) {
-                    const secundary = main.CHILDS[j];
-                    document.write(`
-                         <li>
-                              <h5>
-                                   <i class="fas fa-file-code"></i> ${secundary.LABEL}
-                              </h5>
-                              ${secundary.HTML}
-                         `
-                    )
-                    insertarEjecuciónDeApp(secundary.URL)
-                    document.write(`</li>`);
-               }
-               document.write(`</ul>`);
-          }
-          document.write(`</ul>`); */
 
      </script>
 

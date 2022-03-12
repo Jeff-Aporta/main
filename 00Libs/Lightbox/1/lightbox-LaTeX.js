@@ -3,6 +3,16 @@ init_lightbox1();
 function init_lightbox1() {
   let style = document.createElement("style");
   style.innerHTML = `
+          .img-LaTeX-lightbox1 {
+              padding: 5px;
+          }
+
+          .img-LaTeX-lightbox1:hover {
+              background-color: white;
+              transform: scale(1.2);
+              cursor:pointer;
+          }
+
           .miniatur-lightbox1 {
                display: inline-block;
                object-fit: cover;
@@ -107,54 +117,61 @@ function init_lightbox1() {
                object-fit: contain;
                border:3px solid white;
           }
+          .img-lightbox-modal-lightbox1-LaTeX {
+               background:rgba(255,255,255,0.9);
+               padding:10px;
+               height: 90vh;
+               width: 90vw;
+               object-fit: contain;
+               border:3px solid white;
+          }
      `;
   document.head.appendChild(style);
 }
 
-let set_lightboxes_lightbox1 = [];
-let n_set_lightbox_lightbox1 = 0;
-
-window.addEventListener("load", () => {
-  for (const key in set_lightboxes_lightbox1) {
-    set_lightboxes_lightbox1[key].cargarControles();
-  }
-});
-
-class lightbox1 {
-  constructor(...imagenes) {
+class lightbox1_LaTeX  {
+  constructor(separador = "", ...rutas) {
     this.slideIndex_lightbox1 = 0;
 
     this.id = (Math.random() + "").replace("0.", "");
     set_lightboxes_lightbox1[this.id] = this;
 
-    this.modal = document.createElement("div");
-    for (let i = 0; i < imagenes.length; i++) {
-      const img = imagenes[i];
-      document.write(`
+    let html = `<div>`;
+    for (let i = 0; i < rutas.length; i++) {
+      const img = rutas[i];
+      html += `
           <img 
-               class="miniatur-lightbox1" 
-               src="${img}" 
+               class="img-LaTeX-lightbox1"
+               src="${lightbox1_LaTeX.LaTeX(img)}" 
                onclick="
                     set_lightboxes_lightbox1['${this.id}'].openModal();
                     set_lightboxes_lightbox1['${this.id}'].currentSlide(${i});
                "
           >
-          `);
+          `;
+      html += separador;
     }
-    let html = `
+    html += `</div>`;
+
+    this.html = html;
+    html = "";
+    html += `
      <div id="mymodal-lightbox1-${this.id}" class="modal-lightbox1">
           <span class="close-lightbox1" onclick="set_lightboxes_lightbox1['${this.id}'].closeModal()">&times;</span>
           <div class="modal-lightbox1-content">
      `;
-    for (let i = 0; i < imagenes.length; i++) {
-      const img = imagenes[i];
+    for (let i = 0; i < rutas.length; i++) {
+      const img = rutas[i];
       html += `
                <div class="mySlides-lightbox1">
-                    <img src="${img}" class="img-lightbox-modal-lightbox1">
+                    <img src="${lightbox1_LaTeX.LaTeX(
+                      img,
+                      "\\huge"
+                    )}" class="img-lightbox-modal-lightbox1-LaTeX">
                </div>
           `;
     }
-    if (imagenes.length>1) {
+    if (rutas.length > 1) {
       html += `
       <a class="prev-lightbox1" onclick="set_lightboxes_lightbox1['${this.id}'].plusSlides(-1)">&#10094;</a>
       <a class="next-lightbox1" onclick="set_lightboxes_lightbox1['${this.id}'].plusSlides(1)">&#10095;</a>
@@ -164,8 +181,12 @@ class lightbox1 {
           </div>
      </div>
      `;
-    this.modal.innerHTML = html;
-    document.body.appendChild(this.modal);
+    this.html_modal = html;
+  }
+
+  insertarHTMLenDocument() {
+    document.body.innerHTML += this.html_modal;
+    this.cargarControles();
   }
 
   cargarControles() {
@@ -179,23 +200,23 @@ class lightbox1 {
     this.showSlides(this.slideIndex_lightbox1);
   }
 
-  // Open the Modal
+  static LaTeX(latex, sz = "", onlyurl = false) {
+    return `https://latex.codecogs.com/svg.image?${sz}&space;${escape(latex)}`;
+  }
+
   openModal() {
     this.element_myModal_lightbox1.style.display = "flex";
   }
 
-  // Close the Modal
   closeModal() {
     this.element_myModal_lightbox1.style.display = "none";
   }
 
-  // Next/previous controls
   plusSlides(n) {
     this.slideIndex_lightbox1 += n;
     this.showSlides(this.slideIndex_lightbox1);
   }
 
-  // Thumbnail image controls
   currentSlide(n) {
     this.slideIndex_lightbox1 = n;
     this.showSlides(this.slideIndex_lightbox1);
@@ -212,26 +233,5 @@ class lightbox1 {
       this.slides[i].style.display = "none";
     }
     this.slides[this.slideIndex_lightbox1].style.display = "block";
-  }
-}
-
-document.addEventListener("keyup", controles_lightbox_teclas);
-
-function controles_lightbox_teclas(event) {
-  for (const key in set_lightboxes_lightbox1) {
-    s = set_lightboxes_lightbox1[key];
-    if (s.element_myModal_lightbox1.style.display != "none") {
-      switch (event.key) {
-        case "ArrowLeft":
-          s.plusSlides(-1);
-          break;
-        case "ArrowRight":
-          s.plusSlides(1);
-          break;
-        case "Escape":
-          s.closeModal();
-          break;
-      }
-    }
   }
 }
