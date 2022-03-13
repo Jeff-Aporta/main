@@ -25,8 +25,6 @@ let n_mas_bajo = 10;
 
 class Mapa {
   constructor() {
-    noiseSeed(50);
-    noiseDetail(9, 0.9);
     for (let fila = -500; fila < 500; fila++) {
       for (let columna = -500; columna < 500; columna++) {
         indexPerlinNoise(columna, fila);
