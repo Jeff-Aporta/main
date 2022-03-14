@@ -1,21 +1,27 @@
 const INDEX_TILE_PASTO_1 = 0;
-const INDEX_TILE_PASTO_3 = 1;
+const INDEX_TILE_PASTO_2 = 1;
 const INDEX_TILE_ARENA = 2;
 const INDEX_TILE_NIEVE = 3;
 const INDEX_TILE_TIERRA = 4;
 const INDEX_TILE_AGUA = 5;
 const INDEX_TILE_ROCA = 6;
 const INDEX_TILE_AGUA_PROFUNDA = 7;
+const INDEX_TILE_TIERRA_CON_ROCA = 8;
+const INDEX_TILE_PASTO_3 = 9;
+const INDEX_TILE_PASTO_4 = 10;
 
 rutas_tiles = [
-  "https://i.ibb.co/jR2NTnk/grass-tile-1.png",
-  "https://i.ibb.co/Z8DzY5N/grass-tile-3.png",
-  "https://i.ibb.co/PxJdYHd/sand-tile.png",
+  "https://i.ibb.co/7tL3rZL/grass2.png",
+  "https://i.ibb.co/NVgV8dj/grass.png",
+  "https://i.ibb.co/qFHVNLz/sand.png",
   "https://i.ibb.co/m99NYxM/Sin-t-tulo-1.png",
-  "https://i.ibb.co/pfsT7z5/tierra.png",
+  "https://i.ibb.co/XVbfrdt/brown-terracotta.png",
   "https://i.ibb.co/NTvPHG4/CK2ea0R.gif",
-  "https://i.ibb.co/gDMxxQp/roca.jpg",
+  "https://i.ibb.co/VmxwhMb/cobblestone.png",
   "https://i.ibb.co/NTvPHG4/CK2ea0R.gif",
+  "https://i.ibb.co/kh0Ph3y/tierra-piedras.png",
+  "https://i.ibb.co/x7TpGv3/grass3.png",
+  "https://i.ibb.co/r0KfLFk/grass4.png",
 ];
 
 let EXTENSIÓN = 0.003;
@@ -61,7 +67,6 @@ class Mapa {
           );
 
           drawingContext.globalAlpha = 0.7;
-
           switch (index.index) {
             case INDEX_TILE_AGUA:
               drawingContext.globalAlpha = 0.3;
@@ -79,6 +84,7 @@ class Mapa {
               );
               break;
             default:
+              drawingContext.globalAlpha = 1;
               image(
                 img,
                 ESCALA_UNIDAD * columna,
@@ -110,10 +116,8 @@ class Mapa {
 function recalcularMaxMinPerlin() {
   n_mas_alto = 0;
   n_mas_bajo = 10;
-  for (let fila = -200; fila < 200; fila++) {
-    for (let columna = -200; columna < 200; columna++) {
-      indexPerlinNoise(columna, fila);
-    }
+  for (let columna = -1000; columna < 1000; columna++) {
+    indexPerlinNoise(columna, 0);
   }
   print("Perlin mayor = " + n_mas_alto);
   print("Perlin menor = " + n_mas_bajo);
@@ -143,30 +147,45 @@ function indexPerlinNoise(columna, fila) {
       };
     case 2:
       return {
-        index: INDEX_TILE_TIERRA,
-        color: [200, 100, 0],
+        index: INDEX_TILE_TIERRA_CON_ROCA,
+        color: [182, 130, 77],
       };
     case 3:
       return {
-        index: INDEX_TILE_PASTO_1,
-        color: [0, 200, 0],
+        index: INDEX_TILE_TIERRA,
+        color: [200, 100, 0],
       };
     case 4:
       return {
         index: INDEX_TILE_PASTO_3,
-        color: [0, 255, 0],
+        color: [30, 150, 0],
       };
     case 5:
+      return {
+        index: INDEX_TILE_PASTO_1,
+        color: [0, 200, 0],
+      };
+    case 6:
+      return {
+        index: INDEX_TILE_PASTO_2,
+        color: [0, 255, 0],
+      };
+    case 7:
+      return {
+        index: INDEX_TILE_PASTO_4,
+        color: [128, 255, 0],
+      };
+    case 8:
       return {
         index: INDEX_TILE_ARENA,
         color: [255, 200, 50],
       };
-    case 6:
+    case 9:
       return {
         index: INDEX_TILE_AGUA,
         color: [181, 194, 121],
       };
-    case 7:
+    case 10:
       return {
         index: INDEX_TILE_AGUA_PROFUNDA,
         color: [0, 128, 255],

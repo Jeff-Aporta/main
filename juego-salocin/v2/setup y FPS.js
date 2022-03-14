@@ -77,7 +77,7 @@ function setup() {
   minimapa.pixelDensity(1);
 
   css_canvas();
-  noSmooth();
+  //noSmooth();
 
   let seed = Math.floor(Math.random() * 100000);
   //seed = 12991;
@@ -90,7 +90,7 @@ function setup() {
   );
   recalcularMaxMinPerlin();
 
-  keyPressed();
+  /* keyPressed();
   document.getElementById("btn-crear-partida").click();
-  document.getElementById("btn-empezar").click();
+  document.getElementById("btn-empezar").click(); */
 }

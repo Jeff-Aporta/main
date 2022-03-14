@@ -410,7 +410,7 @@ class Jugador {
       image(this.sprite, -this.w / 2, -this.h / 2, this.w, this.h);
     }
     luces.push();
-    let radioLuz = 15;
+    let radioLuz = 12;
     if (this.movimiento.y < 0) {
       if (this.movimiento.x > 0) {
         luces.rotate(-PI / 4);
@@ -445,7 +445,7 @@ class Jugador {
       sprites.luz_radial,
       (-radioLuz * ESCALA_UNIDAD) / 2,
       (-radioLuz * ESCALA_UNIDAD) / 2,
-      radioLuz * ESCALA_UNIDAD + ESCALA_UNIDAD*.5*(this.dirección == RIGHT_ARROW?1:1),
+      radioLuz * ESCALA_UNIDAD + ESCALA_UNIDAD*.6,
       radioLuz * ESCALA_UNIDAD
     );
     luces.pop();

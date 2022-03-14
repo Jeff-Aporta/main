@@ -109,7 +109,6 @@ function apagarCanales(xR, xG, xB, luces) {
       }
     }
   }
-  updatePixels();
   drawingContext.putImageData(IMG, 0, 0);
   /* loadPixels()
   luces.loadPixels()
@@ -124,6 +123,41 @@ function apagarCanales(xR, xG, xB, luces) {
   }
   updatePixels()
   luces.updatePixels() */
+}
+
+function escalaGrises(xR, xG, xB) {
+  let IMG2;
+  if (luces) {
+    IMG2 = luces.drawingContext.getImageData(0, 0, luces.width, luces.height);
+  }
+  let IMG = drawingContext.getImageData(0, 0, width, height);
+  for (let c = 0; c < width; c++) {
+    for (let f = 0; f < height; f++) {
+      let i = (c + f * width) * 4;
+      let g = (IMG.data[i] + IMG.data[i + 1] + IMG.data[i + 2]) / 3;
+      IMG.data[i] = (g - IMG.data[i]) * xR + IMG.data[i];
+      IMG.data[i + 1] = (g - IMG.data[i + 1]) * xR + IMG.data[i + 1];
+      IMG.data[i + 2] = (g - IMG.data[i + 2]) * xR + IMG.data[i + 2];
+    }
+  }
+  drawingContext.putImageData(IMG, 0, 0);
+}
+
+function binarizar() {
+  let IMG2;
+  if (luces) {
+    IMG2 = luces.drawingContext.getImageData(0, 0, luces.width, luces.height);
+  }
+  let IMG = drawingContext.getImageData(0, 0, width, height);
+  for (let c = 0; c < width; c++) {
+    for (let f = 0; f < height; f++) {
+      let i = (c + f * width) * 4;
+      IMG.data[i] = IMG.data[i]<128?0:255;
+      IMG.data[i + 1] =  IMG.data[i+1]<128?0:255;
+      IMG.data[i + 2] =  IMG.data[i+2]<128?0:255;
+    }
+  }
+  drawingContext.putImageData(IMG, 0, 0);
 }
 
 let filter_dR;
