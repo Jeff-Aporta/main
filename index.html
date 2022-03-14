@@ -150,7 +150,7 @@
                display: inline-block;
                margin: 5px;
                width: 27vw;
-               min-height: 550px;
+               min-height: 600px;
                vertical-align: top;
                font-size: 90%;
                border-radius: 10px;
@@ -175,6 +175,10 @@
 
           .vidrio-borroso {
                backdrop-filter: blur(4px) brightness(0.5);
+          }
+
+          .categoria{
+               font-size: 90%;
           }
 
           @media (max-width: 500px) {
@@ -474,6 +478,7 @@
 
      <script>
           let i_app = 0
+          let i_sección = 0
 
           function insertarEjecuciónDeApp(url, retornar = false) {
                let html = `
@@ -548,7 +553,7 @@
           for (let i = 0; i < mapa_programas.length; i++) {
                const main = mapa_programas[i];
                html += `
-                    <div class="categoria">
+                    <div class="categoria" id="categoria-${i_sección}">
                          <div style="padding:30px">
                               <h3>
                               <i class="fas fa-laptop-code"></i> ${main.LABEL}
@@ -556,8 +561,53 @@
                               <hr class="subrayado-titulo-h1-negro">
                               ${main.HTML}
                               <br>
+                              <br>
+
+                              <span class="btn btn-warning" id="mostrar-apps-sección-${i_sección}" onclick="
+                              document.getElementById('apps-sección-${i_sección}').style.display = 'table';
+                              document.getElementById('apps-sección-${i_sección}').style.width = '100%';
+     
+                              const y = this.getBoundingClientRect().top + window.scrollY;
+                              window.scroll({
+                              top: y-30,
+                              behavior: 'smooth'
+                              });
+     
+                              this.style.display = 'none';
+                              document.getElementById('ocultar-apps-sección-${i_sección}').style.display='';
+
+                              ">
+                                   Expandir <i class="fa-solid fa-eye"></i>
+                              </span>
+
+     
+                              <span class="btn btn-danger" style="display:none;" id="ocultar-apps-sección-${i_sección}" onclick="
+                              element = document.getElementById('apps-sección-${i_sección}');
+                              
+                              this.style.display = 'none';
+                              document.getElementById('mostrar-apps-sección-${i_sección}').style.display='';
+
+                              document.getElementById('apps-sección-${i_sección}').style.opacity = '0';
+
+                              setTimeout(()=>{
+                                   const y = document.getElementById('categoria-${i_sección}').getBoundingClientRect().top + window.scrollY;
+                                   window.scroll({
+                                   top: y-10,
+                                   behavior: 'smooth'
+                                   });
+                                   document.getElementById('apps-sección-${i_sección}').style.display = 'none';
+                                   document.getElementById('apps-sección-${i_sección}').style.opacity = '1';
+                              },250);
+                              ">
+                                   Ocultar <i class="fa-solid fa-eye-slash"></i>
+                              </span>
+
+                              <br>
+                              <br>
+
+
                          </div>
-                         <div class="fondo1">
+                         <div class="fondo1" id="apps-sección-${i_sección}" >
                          <div class="items vidrio-borroso">
                          `
                for (let j = 0; j < main.CHILDS.length; j++) {
@@ -579,6 +629,7 @@
                html += `</div>`;
                html += `</div>`;
                html += `</div>`;
+               i_sección++
           }
 
           html += "</div>"

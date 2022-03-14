@@ -2,7 +2,7 @@ let mapa_programas = [
   {
     LABEL: "CIENCIA",
     HTML: `
-    En esta sección podrán ver algoritmos que se usan en otras ramas del conocimiento.
+    Algoritmos que se usan en otras ramas de la ciencia, tales como estadistica o la metrología.
     `,
     CHILDS: [
       {
@@ -43,7 +43,11 @@ let mapa_programas = [
           ) +
           "<br>" +
           HTMLlightboxLaTeX("y = ax+b", ``, "Regresión lineal")
-        }`,
+        }
+        <br>
+        <br>
+        <img src="https://i.ibb.co/0QpGMLH/regresi-n.png" data-lightbox-group="Regresión lineal"  class="miniatura-cuadrada">
+        `,
         URL: "regresion-lineal/index.html",
       },
     ],
@@ -263,14 +267,20 @@ let mapa_programas = [
     ],
   },
   {
-    LABEL: "Juegos",
-    HTML: ``,
+    LABEL: "Juegos elementales",
+    HTML: `
+    En esta parte están agrupados un conjunto de programas de juegos cortos, 
+    pueden ser considerados minijuegos, y su elaboración fue en corto tiempo.
+    Estos juegos forman parte de una serie de retos que me propuse a mi mismo 
+    para entender mejor los lenguajes de programación HTML, CSS y JS
+    `,
     CHILDS: [
       {
         LABEL: "Pong solitario",
         HTML: `
-                    Desarrollé un versionamiento de Pong (1972), y además hice un video explicando el proceso 
-                    completo para llegar al resultado.
+                    Desarrollé un versionamiento de Pong (1972), y además hice 
+                    un video explicando el proceso completo para llegar al 
+                    resultado.
                     <br><br>
                     <div style="text-align:center;">
                          <iframe class="youtube-frame" src="https://www.youtube.com/embed/MCEl05ZbZ80" title="YouTube video player" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe>
@@ -281,8 +291,9 @@ let mapa_programas = [
       {
         LABEL: "Tetris",
         HTML: `
-                    Desarrollé un versionamiento de Tetris (1984), y además hice un video explicando el proceso 
-                    completo para llegar al resultado.
+                    Desarrollé un versionamiento de Tetris (1984), y además hice 
+                    un video explicando el proceso completo para llegar al 
+                    resultado.
                     <br><br>
                     <div style="text-align:center;">
                          <iframe class="youtube-frame" src="https://www.youtube.com/embed/y_rnUOHUoQ4" title="YouTube video player" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe>
