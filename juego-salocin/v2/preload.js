@@ -10,6 +10,7 @@ function preload() {
   document.getElementById("p5_loading").style.justifyContent = "center";
   document.getElementById("p5_loading").style.alignItems = "center";
   sprites = {
+    luz_radial: loadImage("https://docs.google.com/drawings/d/e/2PACX-1vTF1T8JGCp6_-OwkImPKV-_zCTVjjXLSuEePXfuJhSO8YHsP60M_varkhEmgfxdNIdPRtDV1FF4P0eE/pub?w=200&h=200"),
     personaje: {
       quieto: {
         parpadeo: millis(),

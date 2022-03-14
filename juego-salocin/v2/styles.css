@@ -1,6 +1,7 @@
 @font-face {
   font-family: "Pixel";
   src: url("recursos/Minecraft.ttf");
+  font-size: 10px;
 }
 
 body {
@@ -60,7 +61,6 @@ input{
 
 #menu-nuevo-juego {
   background: rgba(0, 0, 0, 0.5);
-  font-size: 200%;
   position: absolute;
   z-index: 3;
   display: none;

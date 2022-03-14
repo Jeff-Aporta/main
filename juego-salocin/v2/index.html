@@ -119,111 +119,64 @@
     <script>
         const ESTADO_PRESS_ANY_KEY = 0
         const ESTADO_NUEVO_JUEGO = 1
-        const ESTADO_SELECCIÓN_NUEVO_JUEGO = 1
-        const ESTADO_JUEGO = 2
-        const ESTADO_JUEGO_PAUSA = 3
+        const ESTADO_SELECCIÓN_NUEVO_JUEGO = 2
+        const ESTADO_JUEGO = 3
+        const ESTADO_JUEGO_PAUSA = 4
 
         let ESTADO = -1
-        let RESOLUCIÓN = 200
 
-        const ESCALA_UNIDAD = 28
+        FACTOR_TIEMPO = 0
+
+        RESOLUCIÓN = 200
+        ESCALA_UNIDAD = 25
 
         let mostrar_mapa = true
         let mostrar_interno = true
-
-        function iniciarJuego() {
-            frameCount = 0
-            actualizarMinimapa();
-        }
-
-        function actualizarMinimapa() {
-            if (!mostrar_mapa) {
-                return
-            }
-            minimapa.loadPixels()
-            for (let c = -minimapa.width / 2; c < minimapa.width / 2; c++) {
-                for (let f = -minimapa.height / 2; f < minimapa.height / 2; f++) {
-                    let i = ((c + minimapa.width / 2) + (f + minimapa.height / 2) * minimapa.width) * 4;
-                    if ((c ** 2 + f ** 2) ** .5 < minimapa.width / 2) {
-                        let index = indexPerlinNoise(
-                            c * 2 + jugador.cx,
-                            f * 2 + jugador.cy
-                        )
-                        try {
-                            minimapa.pixels[i] = index.color[0]
-                            minimapa.pixels[i + 1] = index.color[1]
-                            minimapa.pixels[i + 2] = index.color[2]
-                        } catch (error) {
-                        }
-                        minimapa.pixels[i + 3] = 255
-                    } else {
-                        minimapa.pixels[i + 3] = 0
-                    }
-                }
-            }
-            minimapa.updatePixels()
-            minimapa.fill("red")
-            minimapa.noStroke()
-            minimapa.circle(minimapa.width / 2, minimapa.height / 2, 5)
-        }
-
-        function dibujarMapa() {
-            loadPixels()
-            let Ox = Math.floor(width / 2)
-            let Oy = Math.floor(height / 2)
-            for (let c = -Ox; c < Ox; c++) {
-                for (let f = -Oy; f < Oy; f++) {
-                    let i = ((c + Ox) + (f + Oy) * width) * 4;
-                    let index = indexPerlinNoise(
-                        c + jugador.cx,
-                        f + jugador.cy
-                    )
-                    try {
-                        pixels[i] = index.color[0]
-                        pixels[i + 1] = index.color[1]
-                        pixels[i + 2] = index.color[2]
-                    } catch (error) {
-                    }
-                    pixels[i + 3] = 255
-                }
-            }
-            updatePixels()
-            fill("red")
-            noStroke()
-            circle(width / 2, height / 2, 5)
-        }
-
 
         let camara_x = 0
         let camara_y = 0
         let pcamara_x = 0
         let pcamara_y = 0
 
+        function iniciarJuego() {
+            frameCount = 0
+            actualizarMinimapa();
+        }
+
         function draw() {
-            background("black")
-            if (ESTADO == ESTADO_SELECCIÓN_NUEVO_JUEGO || ESTADO == ESTADO_JUEGO_PAUSA) {
-                noiseSeed(Number(document.getElementById('semilla').value))
-                noiseDetail(
-                    Number(document.getElementById('semilla2').value),
-                    Number(document.getElementById('semilla3').value)
-                );
-                dibujarMapa()
-                return true
+            switch (ESTADO) {
+                case ESTADO_SELECCIÓN_NUEVO_JUEGO:
+                case ESTADO_JUEGO_PAUSA:
+                    noiseSeed(Number(document.getElementById('semilla').value))
+                    noiseDetail(
+                        Number(document.getElementById('semilla2').value),
+                        Number(document.getElementById('semilla3').value)
+                    );
+                    dibujarMapa()
+                    return
             }
+
+            luces.push()
+            luces.background("black")
+            luces.blendMode(SCREEN)
+
             push()
             camara_x = width / 2 - jugador.x
             camara_y = height / 2 - jugador.y
-            pcamara_x = lerp(pcamara_x, camara_x, 0.05)
-            pcamara_y = lerp(pcamara_y, camara_y, 0.05)
+            pcamara_x = lerp(pcamara_x, camara_x, 0.1)
+            pcamara_y = lerp(pcamara_y, camara_y, 0.1)
             translate(pcamara_x, pcamara_y)
+            luces.translate(pcamara_x, pcamara_y)
             mapa.draw()
             jugador.draw()
+            let radioLuz = 15;
             pop()
+
             textAlign(LEFT, TOP)
             textSize(10)
             fill("white")
             stroke("black")
-            let t = map(sin(frameCount / 6000 + PI / 2), -1, 1, 0, 1)
+            FACTOR_TIEMPO = map(sin(frameCount / 1000 - PI / 2), -1, 1, 0, 1)
             jugador.cx = round(jugador.x / ESCALA_UNIDAD - 0.5)
             jugador.cy = round(jugador.y / ESCALA_UNIDAD)
             if (jugador.cx != jugador.pcx) {
@@ -234,10 +187,23 @@
                 jugador.pcy = jugador.cy
                 actualizarMinimapa()
             }
-            apagarCanales(
-                drawingContext,
-                lerp(0.1, 1, t), lerp(0.1, 1, t), lerp(0.4, 1, t)
-            )
+
+            luces.pop()
+
+
+            if (FACTOR_TIEMPO < 0.5) {
+                apagarCanales(
+                    lerp(0.1, 1, FACTOR_TIEMPO), lerp(0.1, 1, FACTOR_TIEMPO), lerp(0.4, 1, FACTOR_TIEMPO),
+                    luces
+                )
+            } else {
+                apagarCanales(
+                    lerp(0.1, 1, FACTOR_TIEMPO), lerp(0.1, 1, FACTOR_TIEMPO), lerp(0.4, 1, FACTOR_TIEMPO),
+                )
+            }
+
+            //image(luces,0,0)
+
 
             /* desfaceDeCanales(
                 drawingContext,
@@ -262,7 +228,7 @@
                 </div>
                 <br>
                 <div style="border: 1px solid white;padding:3px;display:inline-block;width:45px;text-align:center;">
-                    t: ${t.toFixed(2)}
+                    t: ${FACTOR_TIEMPO.toFixed(2)}
                 </div>
                 `
             } else {

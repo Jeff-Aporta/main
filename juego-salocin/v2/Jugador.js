@@ -18,6 +18,9 @@ class Jugador {
     //limitadores velocidad
     this.velocidadCaminar = 1;
     this.velocidadRoll = 10;
+    //interacción mapa
+    this.cuadroDirectamenteSiguiente = createVector(0, 0);
+    this.prev_cuadroDirectamenteSiguiente = createVector(0, 0);
   }
 
   keysLogic() {
@@ -256,6 +259,79 @@ class Jugador {
     this.sprite.setFrame(Math.floor(this.sprite.aframe));
   }
 
+  marcarCuadroDirectamenteSiguiente() {
+    noFill();
+    let dborde = 0.7;
+    let alpha = 128;
+    switch (this.dirección) {
+      case RIGHT_ARROW:
+        if (this.pisoDerecha) {
+          stroke(
+            this.pisoDerecha.color[0] * dborde,
+            this.pisoDerecha.color[1] * dborde,
+            this.pisoDerecha.color[2] * dborde,
+            alpha
+          );
+        }
+        this.cuadroDirectamenteSiguiente.set(this.cxDerecha, this.cyDerecha);
+        break;
+      case LEFT_ARROW:
+        if (this.pisoIzquierda) {
+          stroke(
+            this.pisoIzquierda.color[0] * dborde,
+            this.pisoIzquierda.color[1] * dborde,
+            this.pisoIzquierda.color[2] * dborde,
+            alpha
+          );
+        }
+        this.cuadroDirectamenteSiguiente.set(
+          this.cxIzquierda,
+          this.cyIzquierda
+        );
+        break;
+      case DOWN_ARROW:
+        if (this.pisoAbajo) {
+          stroke(
+            this.pisoAbajo.color[0] * dborde,
+            this.pisoAbajo.color[1] * dborde,
+            this.pisoAbajo.color[2] * dborde,
+            alpha
+          );
+        }
+        this.cuadroDirectamenteSiguiente.set(this.cxAbajo, this.cyAbajo);
+        break;
+      case UP_ARROW:
+        if (this.pisoArriba) {
+          stroke(
+            this.pisoArriba.color[0] * dborde,
+            this.pisoArriba.color[1] * dborde,
+            this.pisoArriba.color[2] * dborde,
+            alpha
+          );
+        }
+        this.cuadroDirectamenteSiguiente.set(this.cxArriba, this.cyArriba);
+        break;
+    }
+    this.prev_cuadroDirectamenteSiguiente.set(
+      lerp(
+        this.prev_cuadroDirectamenteSiguiente.x,
+        this.cuadroDirectamenteSiguiente.x,
+        0.1
+      ),
+      lerp(
+        this.prev_cuadroDirectamenteSiguiente.y,
+        this.cuadroDirectamenteSiguiente.y,
+        0.1
+      )
+    );
+    rect(
+      this.prev_cuadroDirectamenteSiguiente.x * ESCALA_UNIDAD,
+      this.prev_cuadroDirectamenteSiguiente.y * ESCALA_UNIDAD,
+      this.w,
+      this.h
+    );
+  }
+
   draw() {
     push();
 
@@ -264,55 +340,61 @@ class Jugador {
     this.x += this.movimiento.x;
     this.y += this.movimiento.y;
 
-    noFill();
-    stroke("white");
-    rect(this.cx*ESCALA_UNIDAD, this.cy*ESCALA_UNIDAD, this.w, this.h);
-    rectMode(CENTER);
-    stroke(255,255,255,100);
-    rect(this.x, this.y, this.w, this.h);
+    //noFill();
+    //stroke("white");
+    //rect(this.cx * ESCALA_UNIDAD, this.cy * ESCALA_UNIDAD, this.w, this.h);
+    this.marcarCuadroDirectamenteSiguiente();
 
-    this.pisoDerecha = indexPerlinNoise(
-      Math.round(this.x / ESCALA_UNIDAD),
-      this.cy
-    ).index;
-    this.pisoIzquierda = indexPerlinNoise(
-      Math.round(this.x / ESCALA_UNIDAD),
-      this.cy
-    ).index;
-    this.pisoArriba = indexPerlinNoise(
-      this.cx,
-      Math.floor(this.y / ESCALA_UNIDAD - 0.5)
-    ).index;
-    this.pisoAbajo = indexPerlinNoise(
-      this.cx,
-      Math.floor(Math.round(this.y / ESCALA_UNIDAD) + 0.5)
-    ).index;
+    /* rectMode(CENTER);
+    stroke(255, 255, 255, 100);
+    rect(this.x, this.y, this.w, this.h); */
+
+    this.cxDerecha = this.cx + 1;
+    this.cyDerecha = this.cy;
+
+    this.cxIzquierda = this.cx - 1;
+    this.cyIzquierda = this.cy;
+
+    this.cxAbajo = this.cx;
+    this.cyAbajo = this.cy + 1;
+
+    this.cxArriba = this.cx;
+    this.cyArriba = this.cy - 1;
+
+    this.pisoDerecha = indexPerlinNoise(this.cxDerecha, this.cyDerecha);
+    this.pisoIzquierda = indexPerlinNoise(this.cxIzquierda, this.cyIzquierda);
+    this.pisoArriba = indexPerlinNoise(this.cxArriba, this.cyArriba);
+    this.pisoAbajo = indexPerlinNoise(this.cxAbajo, this.cyAbajo);
 
     if (this.piso == INDEX_TILE_AGUA_PROFUNDA) {
       if (
         this.movimiento.x > 0 &&
-        this.pisoDerecha != INDEX_TILE_AGUA_PROFUNDA
+        this.pisoDerecha.index != INDEX_TILE_AGUA_PROFUNDA
       ) {
         this.x = Math.round(this.x);
       }
       if (
         this.movimiento.x < 0 &&
-        this.pisoIzquierda != INDEX_TILE_AGUA_PROFUNDA
+        this.pisoIzquierda.index != INDEX_TILE_AGUA_PROFUNDA
       ) {
         this.x = Math.round(this.x);
       }
       if (
         this.movimiento.y < 0 &&
-        this.pisoArriba != INDEX_TILE_AGUA_PROFUNDA
+        this.pisoArriba.index != INDEX_TILE_AGUA_PROFUNDA
       ) {
         this.y = Math.floor(this.y);
       }
-      if (this.movimiento.y > 0 && this.pisoAbajo != INDEX_TILE_AGUA_PROFUNDA) {
-        this.y = Math.round(this.y) + 0.1 * ESCALA_UNIDAD;
+      if (
+        this.movimiento.y > 0 &&
+        this.pisoAbajo.index != INDEX_TILE_AGUA_PROFUNDA
+      ) {
+        this.y = Math.round(this.y);
       }
     }
 
     translate(this.x, this.y);
+    luces.translate(this.x, this.y);
 
     this.escogerSprite();
 
@@ -327,8 +409,50 @@ class Jugador {
     } else {
       image(this.sprite, -this.w / 2, -this.h / 2, this.w, this.h);
     }
+    luces.push();
+    let radioLuz = 15;
+    if (this.movimiento.y < 0) {
+      if (this.movimiento.x > 0) {
+        luces.rotate(-PI / 4);
+      } else if (this.movimiento.x < 0) {
+        luces.rotate((-3 * PI) / 4);
+      } else {
+        luces.rotate(-PI / 2);
+      }
+    } else if (this.movimiento.y > 0) {
+      if (this.movimiento.x > 0) {
+        luces.rotate(PI / 4);
+      } else if (this.movimiento.x < 0) {
+        luces.rotate((3 * PI) / 4);
+      } else {
+        luces.rotate(PI / 2);
+      }
+    } else {
+      if (this.dirección == UP_ARROW) {
+        rotate(-PI / 2);
+        luces.rotate(-PI / 2);
+      }
+      if (this.dirección == LEFT_ARROW) {
+        rotate(PI);
+        luces.rotate(PI);
+      }
+      if (this.dirección == DOWN_ARROW) {
+        rotate(PI / 2);
+        luces.rotate(PI / 2);
+      }
+    }
+    luces.image(
+      sprites.luz_radial,
+      (-radioLuz * ESCALA_UNIDAD) / 2,
+      (-radioLuz * ESCALA_UNIDAD) / 2,
+      radioLuz * ESCALA_UNIDAD + ESCALA_UNIDAD*.5*(this.dirección == RIGHT_ARROW?1:1),
+      radioLuz * ESCALA_UNIDAD
+    );
+    luces.pop();
+
     if (this.roll) {
       push();
+      luces.push();
       blendMode(SCREEN);
       fill("white");
       var gradient = drawingContext.createLinearGradient(
@@ -342,18 +466,24 @@ class Jugador {
       gradient.addColorStop(0.2, "orange");
       gradient.addColorStop(1, "transparent");
       drawingContext.fillStyle = gradient;
+      luces.drawingContext.fillStyle = gradient;
       noStroke();
       if (this.roll == UP_ARROW) {
         rotate(-PI / 2);
+        luces.rotate(-PI / 2);
       }
       if (this.roll == LEFT_ARROW) {
         rotate(PI);
+        luces.rotate(PI);
       }
       if (this.roll == DOWN_ARROW) {
         rotate(PI / 2);
+        luces.rotate(PI / 2);
       }
       circle(0, 0, this.w);
+      luces.circle(0, 0, this.w);
       pop();
+      luces.pop();
     }
     pop();
   }

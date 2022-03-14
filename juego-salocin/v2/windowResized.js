@@ -16,6 +16,7 @@ function css_canvas() {
   }
 
   resizeCanvas(w, h);
+  luces.resizeCanvas(w, h);
 
   let x = (windowWidth - width) / 2;
   let y = (windowHeight - height) / 2;

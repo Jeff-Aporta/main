@@ -88,25 +88,47 @@ function InvertirCanales(ctx, xR = 1, xG = 1, xB = 1) {
   ctx.putImageData(IMG, 0, 0);
 }
 
-function apagarCanales(ctx, xR, xG, xB) {
-  width = ctx.canvas.width;
-  height = ctx.canvas.height;
-  let IMG = ctx.getImageData(0, 0, width, height);
+function apagarCanales(xR, xG, xB, luces) {
+  let IMG2;
+  if (luces) {
+    IMG2 = luces.drawingContext.getImageData(0, 0, luces.width, luces.height);
+  }
+  let IMG = drawingContext.getImageData(0, 0, width, height);
   for (let c = 0; c < width; c++) {
     for (let f = 0; f < height; f++) {
-      let i = (c + f * IMG.width) * 4;
-      IMG.data[i] *= xR;
-      IMG.data[i + 1] *= xG;
-      IMG.data[i + 2] *= xB;
+      let i = (c + f * width) * 4;
+      if (luces) {
+        let i2 = (c + f * width) * 4;
+        IMG.data[i] *= (1 - xR) * (IMG2.data[i2] / 255) + xR;
+        IMG.data[i + 1] *= (1 - xG) * (IMG2.data[i2 + 1] / 255) + xG;
+        IMG.data[i + 2] *= (1 - xB) * (IMG2.data[i2 + 2] / 255) + xB;
+      } else {
+        IMG.data[i] *= xR;
+        IMG.data[i + 1] *= xG;
+        IMG.data[i + 2] *= xB;
+      }
     }
   }
-  ctx.putImageData(IMG, 0, 0);
+  updatePixels();
+  drawingContext.putImageData(IMG, 0, 0);
+  /* loadPixels()
+  luces.loadPixels()
+  for (let c = 0; c < width; c++) {
+    for (let f = 0; f < height; f++) {
+      let i = (c + f * width) * 4;
+      let i2 = (floor(c/2) + floor(f/2) * floor(width/2)) * 4;
+      pixels[i] *= (1 - xR) * (luces.pixels[i2] / 255) + xR;
+      pixels[i + 1] *= (1 - xG) * (luces.pixels[i2 + 1] / 255) + xG;
+      pixels[i + 2] *= (1 - xB) * (luces.pixels[i2 + 2] / 255) + xB;
+    }
+  }
+  updatePixels()
+  luces.updatePixels() */
 }
 
-
-let filter_dR
-let filter_dG
-let filter_dB
+let filter_dR;
+let filter_dG;
+let filter_dB;
 
 function desfaceDeCanales(
   ctx,

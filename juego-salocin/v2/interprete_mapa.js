@@ -33,8 +33,8 @@ class Mapa {
 
     let x = jugador.cx;
     let y = jugador.cy;
-    let dy = Math.floor(height / ESCALA_UNIDAD / 2) + 2;
-    let dx = Math.floor(width / ESCALA_UNIDAD / 2) + 2;
+    let dy = Math.floor(height / ESCALA_UNIDAD / 2) + 6;
+    let dx = Math.floor(width / ESCALA_UNIDAD / 2) + 6;
 
     for (let fila = y - dy; fila < y + dy; fila++) {
       for (let columna = x + dx; columna > x - dx; columna--) {
@@ -59,7 +59,7 @@ class Mapa {
             ESCALA_UNIDAD,
             ESCALA_UNIDAD
           );
-          
+
           drawingContext.globalAlpha = 0.7;
 
           switch (index.index) {
@@ -92,10 +92,8 @@ class Mapa {
         pop();
       }
     }
-    push()
-    if (
-      jugador.piso == INDEX_TILE_AGUA_PROFUNDA
-    ) {
+    push();
+    if (jugador.piso == INDEX_TILE_AGUA_PROFUNDA) {
       drawingContext.globalAlpha = 0.2;
       image(
         jugador.sprite,
@@ -105,7 +103,7 @@ class Mapa {
         jugador.h
       );
     }
-    pop()
+    pop();
   }
 }
 
@@ -174,4 +172,55 @@ function indexPerlinNoise(columna, fila) {
         color: [0, 128, 255],
       };
   }
+}
+
+function actualizarMinimapa() {
+  if (!mostrar_mapa) {
+    return;
+  }
+  minimapa.loadPixels();
+  for (let c = -minimapa.width / 2; c < minimapa.width / 2; c++) {
+    for (let f = -minimapa.height / 2; f < minimapa.height / 2; f++) {
+      let i =
+        (c + minimapa.width / 2 + (f + minimapa.height / 2) * minimapa.width) *
+        4;
+      if ((c ** 2 + f ** 2) ** 0.5 < minimapa.width / 2) {
+        let index = indexPerlinNoise(c * 2 + jugador.cx, f * 2 + jugador.cy);
+        try {
+          minimapa.pixels[i] = index.color[0];
+          minimapa.pixels[i + 1] = index.color[1];
+          minimapa.pixels[i + 2] = index.color[2];
+        } catch (error) {}
+        minimapa.pixels[i + 3] = 255;
+      } else {
+        minimapa.pixels[i + 3] = 0;
+      }
+    }
+  }
+  minimapa.updatePixels();
+  minimapa.fill("red");
+  minimapa.noStroke();
+  minimapa.circle(minimapa.width / 2, minimapa.height / 2, 2.5);
+}
+
+function dibujarMapa() {
+  loadPixels();
+  let Ox = Math.floor(width / 2);
+  let Oy = Math.floor(height / 2);
+  for (let c = -Ox; c < Ox; c++) {
+    for (let f = -Oy; f < Oy; f++) {
+      let i = (c + Ox + (f + Oy) * width) * 4;
+      let index = indexPerlinNoise(c + jugador.cx, f + jugador.cy);
+      try {
+        pixels[i] = index.color[0];
+        pixels[i + 1] = index.color[1];
+        pixels[i + 2] = index.color[2];
+      } catch (error) {}
+      pixels[i + 3] = 255;
+    }
+  }
+  updatePixels();
+  fill("red");
+  noStroke();
+  circle(width / 2, height / 2, 5);
 }

@@ -53,6 +53,25 @@ function setup() {
   contadorFPS();
 
   minimapa = createGraphics(50, 50);
+  luces = createGraphics(1, 1);
+  luces.pixelDensity(1);
+
+
+  /* luz_radial = createGraphics(ESCALA_UNIDAD, ESCALA_UNIDAD);
+  luz_radial.pixelDensity(1);
+  let gradient = luz_radial.drawingContext.createRadialGradient(
+    luz_radial.width / 2,
+    luz_radial.height / 2,
+    0,
+    luz_radial.width / 2,
+    luz_radial.height / 2,
+    luz_radial.width / 2
+  );
+  gradient.addColorStop(0, "white");
+  gradient.addColorStop(0.5, "gray");
+  gradient.addColorStop(1, "black");
+  luz_radial.drawingContext.fillStyle = gradient;
+  luz_radial.drawingContext.fillRect(0, 0, luz_radial.width, luz_radial.height); */
 
   pixelDensity(1);
   minimapa.pixelDensity(1);
@@ -61,7 +80,7 @@ function setup() {
   noSmooth();
 
   let seed = Math.floor(Math.random() * 100000);
-  seed = 12991;
+  //seed = 12991;
 
   document.getElementById("semilla").value = seed;
   noiseSeed(Number(document.getElementById("semilla").value));
@@ -71,7 +90,7 @@ function setup() {
   );
   recalcularMaxMinPerlin();
 
-  keyPressed()
-  document.getElementById("btn-crear-partida").click()
-  document.getElementById("btn-empezar").click()
+  keyPressed();
+  document.getElementById("btn-crear-partida").click();
+  document.getElementById("btn-empezar").click();
 }
