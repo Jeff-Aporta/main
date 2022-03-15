@@ -1,7 +1,6 @@
 @font-face {
   font-family: "Pixel";
   src: url("recursos/Minecraft.ttf");
-  font-size: 10px;
 }
 
 body {
@@ -34,7 +33,7 @@ input{
   z-index: 1;
   line-height: 95%;
   padding: 2px;
-  font-size: 35%;
+  font-size: 60%;
   color: white;
   text-shadow: 0.5px 0.5px 0 black;
 }

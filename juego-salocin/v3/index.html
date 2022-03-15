@@ -124,8 +124,8 @@
 
         FACTOR_TIEMPO = 0
 
-        RESOLUCIÓN = 220
-        ESCALA_UNIDAD = 31
+        RESOLUCIÓN = 300
+        ESCALA_UNIDAD = 28 * RESOLUCIÓN / 200
 
         let mostrar_mapa = true
         let mostrar_interno = true
@@ -173,8 +173,8 @@
             textSize(10)
             fill("white")
             stroke("black")
-            FACTOR_TIEMPO = map(sin(frameCount / 500 - PI / 2), -1, 1, 0, 1)
-            //FACTOR_TIEMPO=1
+            FACTOR_TIEMPO = map(sin(frameCount / 500 + PI / 2), -1, 1, 0, 1)
+            FACTOR_TIEMPO = 1
             jugador.cx = round(jugador.x / ESCALA_UNIDAD - 0.5)
             jugador.cy = round(jugador.y / ESCALA_UNIDAD)
             if (jugador.cx != jugador.pcx) {
@@ -190,37 +190,17 @@
 
 
             if (FACTOR_TIEMPO < 0.45) {
-                /* apagarCanales(
-                    lerp(0.1, 1, FACTOR_TIEMPO), lerp(0.1, 1, FACTOR_TIEMPO), lerp(0.8, 1, FACTOR_TIEMPO),
-                    luces
-                ) */
                 push()
                 drawingContext.globalAlpha = 0.9 - FACTOR_TIEMPO
                 image(luces, 0, 0)
                 pop()
             } else if (FACTOR_TIEMPO < 0.7) {
-                /* apagarCanales(
-                    lerp(0.1, 1, FACTOR_TIEMPO), lerp(0.1, 1, FACTOR_TIEMPO), lerp(0.8, 1, FACTOR_TIEMPO),
-                ) */
                 background(0, 0, 0, (0.9 - FACTOR_TIEMPO) * 255)
             } else if (FACTOR_TIEMPO < 0.75) {
                 let t = map(FACTOR_TIEMPO, 0.7, 0.75, 0.7, 1)
                 let k = map(FACTOR_TIEMPO, 0.7, 0.75, 0.9, 1)
-                /* apagarCanales(
-                    lerp(0.1, 1, t), lerp(0.1, 1, t), lerp(0.8, 1, t),
-                ) */
                 background(0, 0, 0, (k - t) * 255)
             }
-
-            /* desfaceDeCanales(
-                drawingContext,
-                map(noise(frameCount / 100), n_mas_bajo, n_mas_alto, -5, 5),
-                map(noise(1000 + frameCount / 1000), n_mas_bajo, n_mas_alto, -5, 5),
-                map(noise(2000 + frameCount / 1000), n_mas_bajo, n_mas_alto, -5, 5),
-                map(noise(3000 + frameCount / 1000), n_mas_bajo, n_mas_alto, -5, 5),
-                map(noise(4000 + frameCount / 1000), n_mas_bajo, n_mas_alto, -5, 5),
-                map(noise(5000 + frameCount / 1000), n_mas_bajo, n_mas_alto, -5, 5)
-            ) */
 
             if (mostrar_interno) {
                 document.getElementById("interno").innerHTML = `

@@ -46,7 +46,7 @@ let mapa_programas = [
         }
         <br>
         <br>
-        <img src="https://i.ibb.co/0QpGMLH/regresi-n.png" data-lightbox-group="Regresión lineal"  class="miniatura-cuadrada">
+        <img src="https://upload.wikimedia.org/wikipedia/commons/thumb/3/3a/Linear_regression.svg/350px-Linear_regression.svg.png" data-lightbox-group="Regresión lineal"  class="miniatura-cuadrada2">
         `,
         URL: "regresion-lineal/index.html",
       },
@@ -118,7 +118,7 @@ let mapa_programas = [
         siguiente ecuación
         ${HTMLlightboxLaTeX(
           `\\vec{r}(t)=(\\vec{b}-\\vec{a})t+\\vec{a}`,
-          "\\LARGE",
+          "",
           "Recta vectorial"
         )}
         `,

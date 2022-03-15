@@ -10,32 +10,64 @@ function preload() {
   document.getElementById("p5_loading").style.justifyContent = "center";
   document.getElementById("p5_loading").style.alignItems = "center";
   sprites = {
-    luz_radial: loadImage("https://docs.google.com/drawings/d/e/2PACX-1vTF1T8JGCp6_-OwkImPKV-_zCTVjjXLSuEePXfuJhSO8YHsP60M_varkhEmgfxdNIdPRtDV1FF4P0eE/pub?w=200&h=200"),
+    luz_radial: loadImage(
+      "https://docs.google.com/drawings/d/e/2PACX-1vTF1T8JGCp6_-OwkImPKV-_zCTVjjXLSuEePXfuJhSO8YHsP60M_varkhEmgfxdNIdPRtDV1FF4P0eE/pub?w=200&h=200"
+    ),
     personaje: {
       quieto: {
         parpadeo: millis(),
-        arriba: loadImage("imgs/parpadeando-arriba.png"),
-        derecha: loadImage("imgs/parpadeando-derecha.gif"),
-        abajo: loadImage("imgs/parpadeando-abajo.gif"),
-        izquierda: loadImage("imgs/parpadeando-izquierda.gif"),
-        bote: {
-          arriba: loadImage("imgs/bote-parpadeando-arriba.png"),
-          derecha: loadImage("imgs/bote-parpadeando-derecha.gif"),
-          abajo: loadImage("imgs/bote-parpadeando-abajo.gif"),
-          izquierda: loadImage("imgs/bote-parpadeando-izquierda.gif"),
-        },
+        arriba: loadImage("https://i.ibb.co/9rymgpk/parpadeando-arriba.png"),
+        derecha: loadImage("https://i.ibb.co/0tZfJjW/parpadeando-derecha.gif"),
+        abajo: loadImage("https://i.ibb.co/v4KTkHD/parpadeando-abajo.gif"),
+        izquierda: loadImage(
+          "https://i.ibb.co/hsRW46C/parpadeando-izquierda.gif"
+        ),
       },
       caminando: {
-        arriba: loadImage("imgs/caminando-arriba.gif"),
-        derecha: loadImage("imgs/caminando-derecha.gif"),
-        abajo: loadImage("imgs/caminando-abajo.gif"),
-        izquierda: loadImage("imgs/caminando-izquierda.gif"),
+        arriba: loadImage("https://i.ibb.co/Cns0xGr/caminando-arriba.gif"),
+        derecha: loadImage("https://i.ibb.co/VCw7rsG/caminando-derecha.gif"),
+        abajo: loadImage("https://i.ibb.co/McFNmZt/caminando-abajo.gif"),
+        izquierda: loadImage(
+          "https://i.ibb.co/31bvR7V/caminando-izquierda.gif"
+        ),
       },
-      roll: {
-        //arriba: loadImage("imgs/roll-arriba.gif"),
-        //derecha: loadImage("imgs/roll-derecha.gif"),
-        //abajo: loadImage("imgs/roll-abajo.gif"),
-        //izquierda: loadImage("imgs/roll-izquierda.gif")
+    },
+    bad_link: {
+      quieto: {
+        parpadeo: millis(),
+        arriba: loadImage("https://i.ibb.co/9rymgpk/parpadeando-arriba.png"),
+        derecha: loadImage("https://i.ibb.co/0tZfJjW/parpadeando-derecha.gif"),
+        abajo: loadImage("https://i.ibb.co/v4KTkHD/parpadeando-abajo.gif"),
+        izquierda: loadImage(
+          "https://i.ibb.co/hsRW46C/parpadeando-izquierda.gif"
+        ),
+      },
+      caminando: {
+        arriba: loadImage("https://i.ibb.co/Cns0xGr/caminando-arriba.gif"),
+        derecha: loadImage("https://i.ibb.co/VCw7rsG/caminando-derecha.gif"),
+        abajo: loadImage("https://i.ibb.co/McFNmZt/caminando-abajo.gif"),
+        izquierda: loadImage(
+          "https://i.ibb.co/31bvR7V/caminando-izquierda.gif"
+        ),
+      },
+    },
+    pasto:loadImage("https://i.ibb.co/Rp3VMFv/grass-con-borde.png"),
+    pasto_esq_RL:loadImage("https://i.ibb.co/H4wyp01/grass-con-borde2.png"),
+    pasto_esq_R:loadImage("https://i.ibb.co/MDX97G4/grass-con-borde3.png"),
+    pasto_esq_L:loadImage("https://i.ibb.co/1279F77/grass-con-borde4.png"),
+    texturas:{
+      A: loadImage("https://i.ibb.co/8rWWyCg/textura-pasto.png"),
+      C: loadImage("https://i.ibb.co/qjdxV8c/textura-pasto2.png"),
+      B: loadImage("https://i.ibb.co/rskbwkm/rocks.jpg"),
+    },
+    transiciones: {
+      water: {
+        sand: {
+          top: loadImage("https://i.ibb.co/8xYwHf5/water-sand-top.png"),
+          down: loadImage("https://i.ibb.co/WWHJ7yf/water-sand-down.png"),
+          left: loadImage("https://i.ibb.co/VjRxJBk/water-sand-left.png"),
+          right: loadImage("https://i.ibb.co/txfz7Fn/water-sand-right.png"),
+        },
       },
     },
   };
@@ -44,4 +76,8 @@ function preload() {
     tiles[img] = loadImage(img);
   }
   sprites.tiles = tiles;
+}
+
+function transformarTiles(){
+
 }

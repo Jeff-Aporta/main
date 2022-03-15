@@ -32,10 +32,6 @@ function setup() {
   sprites.personaje.quieto.izquierda.aframe = 0;
   sprites.personaje.quieto.abajo.aframe = 0;
   sprites.personaje.quieto.arriba.aframe = 0;
-  sprites.personaje.quieto.bote.derecha.aframe = 0;
-  sprites.personaje.quieto.bote.izquierda.aframe = 0;
-  sprites.personaje.quieto.bote.abajo.aframe = 0;
-  sprites.personaje.quieto.bote.arriba.aframe = 0;
   sprites.personaje.caminando.derecha.aframe = 0;
   sprites.personaje.caminando.izquierda.aframe = 0;
   sprites.personaje.caminando.abajo.aframe = 0;
@@ -77,7 +73,7 @@ function setup() {
   minimapa.pixelDensity(1);
 
   css_canvas();
-  //noSmooth();
+  noSmooth();
 
   let seed = Math.floor(Math.random() * 100000);
   //seed = 12991;
