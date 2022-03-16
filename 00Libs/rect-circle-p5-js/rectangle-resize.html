@@ -1,0 +1,51 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+     <meta charset="UTF-8">
+     <meta http-equiv="X-UA-Compatible" content="IE=edge">
+     <meta name="viewport" content="width=device-width, initial-scale=1.0">
+     <title>Collide-rect-circle</title>
+     <script src="https://cdnjs.cloudflare.com/ajax/libs/p5.js/1.1.9/p5.js"></script>
+     <script src="lib.js"></script>
+</head>
+
+<body>
+     <style>
+          body {
+               padding: 0;
+               margin: 0;
+          }
+     </style>
+     <script>
+          function setup() {
+               createCanvas(windowWidth - 10, windowHeight - 10);
+               circulo = new Circle(0, 0, 100);
+               rectangulo = new Rectangle(width / 2, height / 2, 150, 150)
+               noStroke()
+          }
+
+          function windowResized() {
+               resizeCanvas(windowWidth - 10, windowHeight - 10)
+               rectangulo = new Rectangle(windowWidth / 2, windowHeight / 2, 150, 150)
+          }
+
+          function draw() {
+               background(220);
+
+
+               fill(255, 0, 0, 100)
+               rectangulo.draw()
+               rectangulo.resize(
+                    (mouseX - rectangulo.x),
+                    (mouseY - rectangulo.y)
+               );
+               stroke(0)
+               strokeWeight(1)
+               line(rectangulo.x, rectangulo.y, mouseX, mouseY)
+          }
+     </script>
+
+</body>
+
+</html>

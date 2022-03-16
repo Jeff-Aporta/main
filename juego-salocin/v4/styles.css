@@ -1,0 +1,87 @@
+@font-face {
+  font-family: "Pixel";
+  src: url("recursos/Minecraft.ttf");
+}
+
+body {
+  font-family: Pixel;
+  margin: 0;
+  padding: 0;
+}
+
+button{
+  background: transparent;
+  color: white;
+  border: 1px solid rgba(255, 255, 255, 0.25);
+  border-radius: 2px;
+}
+
+button:hover{
+  background: rgba(0, 0, 0, 0.25);
+}
+
+input{
+  outline: none;
+}
+
+.btn {
+  margin: 3px;
+}
+
+#interno {
+  position: absolute;
+  z-index: 1;
+  line-height: 95%;
+  padding: 2px;
+  font-size: 60%;
+  color: white;
+  text-shadow: 0.5px 0.5px 0 black;
+}
+
+#menu-pausa {
+  position: absolute;
+  z-index: 2;
+  background: rgba(0, 0, 0, 0.3);
+  display: none;
+  justify-content: center;
+  align-items: center;
+  flex-direction: column;
+}
+
+#menu-press-any-key {
+  background: rgba(0, 0, 0, 0.5);
+  position: absolute;
+  z-index: 3;
+  display: none;
+  justify-content: center;
+  align-items: center;
+  flex-direction: column;
+}
+
+#menu-nuevo-juego {
+  background: rgba(0, 0, 0, 0.5);
+  position: absolute;
+  z-index: 3;
+  display: none;
+  justify-content: center;
+  align-items: center;
+  flex-direction: column;
+}
+
+#menu-selección-nuevo-juego {
+  font-size: 50%;
+  background: rgba(0, 0, 0, 0.5);
+  color: white;
+  position: absolute;
+  z-index: 3;
+  display: none;
+  justify-content: center;
+  align-items: center;
+  flex-direction: column;
+}
+
+#p5_loading {
+  background-color: black;
+  width: 100vw;
+  height: 100vh;
+}

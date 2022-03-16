@@ -2,7 +2,7 @@ let mapa_programas = [
   {
     LABEL: "CIENCIA",
     HTML: `
-    Algoritmos que se usan en otras ramas de la ciencia, tales como estadistica o la metrología.
+    Algoritmos que se usan en otras ramas de la ciencia, tales como estadística o metrología.
     `,
     CHILDS: [
       {
@@ -19,7 +19,7 @@ let mapa_programas = [
             ``,
             "Cadenas de markov"
           ),
-        URL: "Cadenas de Markov/index.html",
+        URL: "cadenas-de-markov/",
       },
       {
         LABEL: "Regresión Lineal",
@@ -27,7 +27,6 @@ let mapa_programas = [
         Es una técnica usada para predecir ciertos conjuntos de datos que tienen una dispersión
         lineal, pero que no están alineados. Este algoritmo es usado en fisica o estadistica
         para reducir margenes de error.
-        <br>
         <br>
         ${
           HTMLlightboxLaTeX(
@@ -44,11 +43,11 @@ let mapa_programas = [
           "<br>" +
           HTMLlightboxLaTeX("y = ax+b", ``, "Regresión lineal")
         }
-        <br>
-        <br>
-        <img src="https://upload.wikimedia.org/wikipedia/commons/thumb/3/3a/Linear_regression.svg/350px-Linear_regression.svg.png" data-lightbox-group="Regresión lineal"  class="miniatura-cuadrada2">
+        <div style="text-align:center;">
+          <img src="https://upload.wikimedia.org/wikipedia/commons/thumb/3/3a/Linear_regression.svg/350px-Linear_regression.svg.png" data-lightbox-group="Regresión lineal"  class="miniatura-cuadrada">
+        </div>
         `,
-        URL: "regresion-lineal/index.html",
+        URL: "regresion-lineal/",
       },
     ],
   },
@@ -68,9 +67,11 @@ let mapa_programas = [
         inmediata los recorridos preorden, inorden y postorden.
         <br>
         <br>
-        <img src="https://i.ibb.co/09nvD4c/bt.png" data-lightbox-group="Arboles binarios"  class="miniatura-cuadrada">
+        <div style="text-align:center;">
+          <img src="https://i.ibb.co/09nvD4c/bt.png" data-lightbox-group="Arboles binarios"  class="miniatura-cuadrada">
+        </div>
         `,
-        URL: "estructura-de-datos/arboles-binarios-recorridos/index.html",
+        URL: "estructura-de-datos/arboles-binarios-recorridos/",
       },
       {
         LABEL: "Torres de Hanói",
@@ -80,9 +81,11 @@ let mapa_programas = [
         se puede realizar de forma manual con papel y lapíz.
         <br>
         <br>
-        <img src="https://i.ibb.co/ZWMqB9H/torres-de-hano.png" data-lightbox-group="torres de hanoi" class="miniatura-cuadrada">
+        <div style="text-align:center;position:relative;">
+          <img src="https://i.ibb.co/ZWMqB9H/torres-de-hano.png" data-lightbox-group="torres de hanoi" class="miniatura-cuadrada">
+        </div>
         `,
-        URL: "estructura-de-datos/arboles-binarios-Torres-de-hanoi/index.html",
+        URL: "estructura-de-datos/arboles-binarios-Torres-de-hanoi/",
       },
     ],
   },
@@ -152,9 +155,11 @@ let mapa_programas = [
         la que desaarrolló el tipo de dibujos geométricos que hago, funciona fragmentando funciones de forma simetrica.
         <br>
         <br>
-        <img src="https://i.ibb.co/25XpW5H/Ecuaciones-007.png" data-lightbox-group="poligonometrismo" class="miniatura-cuadrada">
+        <div style="text-align:center">
+          <img src="https://i.ibb.co/25XpW5H/Ecuaciones-007.png" data-lightbox-group="poligonometrismo" class="miniatura-cuadrada">
+        </div>
         `,
-        URL: "poligonometrismo/index.html",
+        URL: "poligonometrismo/",
       },
     ],
   },
@@ -174,7 +179,7 @@ let mapa_programas = [
           <iframe class="youtube-frame" src="https://www.youtube.com/embed/SDnhXcOZiXM" title="YouTube video player" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe>
         </div>
         `,
-        URL: "Starfield/index.html",
+        URL: "Starfield/",
       },
       {
         LABEL: "Estanque de peces",
@@ -189,7 +194,7 @@ let mapa_programas = [
               <iframe class="youtube-frame" src="https://www.youtube.com/embed/0cvC6XRYz24" title="YouTube video player" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe>
         </div>
         `,
-        URL: "Estanque-de-peces/index.html",
+        URL: "Estanque-de-peces/",
       },
       {
         LABEL: "Tierra y luna",
@@ -203,7 +208,7 @@ let mapa_programas = [
             <iframe class="youtube-frame" src="https://www.youtube.com/embed/ijqsaG5qp3Y" title="YouTube video player" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe>
         </div>
         `,
-        URL: "_p5.js/Planeta/index.html",
+        URL: "_p5.js/Planeta/",
       },
     ],
   },
@@ -216,32 +221,32 @@ let mapa_programas = [
         HTML: `
         Este es un algori
         `,
-        URL: "liquido-ley-de-hooke/index.html",
+        URL: "liquido-ley-de-hooke/",
       },
       {
         LABEL: "Juego de la Vida de Conway",
         HTML: ``,
-        URL: "juego-de-la-vida-conway/index.html",
+        URL: "juego-de-la-vida-conway/",
       },
       {
         LABEL: "Árbol recursivo",
         HTML: ``,
-        URL: "Arbol-recursivo/index.html",
+        URL: "Arbol-recursivo/",
       },
       {
         LABEL: "Conjunto de Mandelbrot",
         HTML: ``,
-        URL: "Mandelbrot-Set/index.html",
+        URL: "Mandelbrot-Set/",
       },
       {
         LABEL: "Espiral de Ulam",
         HTML: ``,
-        URL: "_p5.js/espiral-de-ulam/index.html",
+        URL: "_p5.js/espiral-de-ulam/",
       },
       {
         LABEL: "Ruido de Perlin",
         HTML: ``,
-        URL: "_p5.js/perlin-noise/index.html",
+        URL: "_p5.js/perlin-noise/",
       },
     ],
   },
@@ -252,17 +257,17 @@ let mapa_programas = [
       {
         LABEL: "Simulación de dados",
         HTML: ``,
-        URL: "simulador-de-dados/index.html",
+        URL: "simulador-de-dados/",
       },
       {
         LABEL: "Temporizador (tipo moneda en 3D)",
         HTML: ``,
-        URL: "temporizador-tipo-moneda/index.html",
+        URL: "temporizador-tipo-moneda/",
       },
       {
         LABEL: "Cubo de imágenes",
         HTML: ``,
-        URL: "cubo-de-imagenes/index.html",
+        URL: "cubo-de-imagenes/",
       },
     ],
   },
@@ -278,15 +283,15 @@ let mapa_programas = [
       {
         LABEL: "Pong solitario",
         HTML: `
-                    Desarrollé un versionamiento de Pong (1972), y además hice 
-                    un video explicando el proceso completo para llegar al 
-                    resultado.
-                    <br><br>
-                    <div style="text-align:center;">
-                         <iframe class="youtube-frame" src="https://www.youtube.com/embed/MCEl05ZbZ80" title="YouTube video player" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe>
-                    </div>
-                    `,
-        URL: "pong-solitario/index.html",
+            Desarrollé un versionamiento de Pong (1972), y además hice 
+            un video explicando el proceso completo para llegar al 
+            resultado.
+            <br><br>
+            <div style="text-align:center;">
+                  <iframe class="youtube-frame" src="https://www.youtube.com/embed/MCEl05ZbZ80" title="YouTube video player" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe>
+            </div>
+            `,
+        URL: "pong-solitario/",
       },
       {
         LABEL: "Tetris",
@@ -299,7 +304,7 @@ let mapa_programas = [
                          <iframe class="youtube-frame" src="https://www.youtube.com/embed/y_rnUOHUoQ4" title="YouTube video player" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe>
                     </div>
                     `,
-        URL: "tetris/index.html",
+        URL: "tetris/",
       },
       {
         LABEL: "Juego de preguntas v1",
@@ -312,7 +317,7 @@ let mapa_programas = [
                          <iframe class="youtube-frame" src="https://www.youtube.com/embed/HHDCktzuUCk" title="YouTube video player" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe>
                     </div>
                     `,
-        URL: "juego-de-preguntas/juego-de-preguntas-v1/index.html",
+        URL: "juego-de-preguntas/juego-de-preguntas-v1/",
       },
       {
         LABEL: "Buscaminas",
@@ -324,7 +329,7 @@ let mapa_programas = [
                          <iframe class="youtube-frame" src="https://www.youtube.com/embed/xwapo6FFhnQ" title="YouTube video player" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe>
                     </div>
                     `,
-        URL: "buscaminas/index.html",
+        URL: "buscaminas/",
       },
       {
         LABEL: "Flappy Bird",
@@ -336,7 +341,7 @@ let mapa_programas = [
                          <iframe class="youtube-frame" src="https://www.youtube.com/embed/nfNe-SPlumY" title="YouTube video player" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe>
                     </div>
                     `,
-        URL: "flappy-bird/index.html",
+        URL: "flappy-bird/",
       },
     ],
   },

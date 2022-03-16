@@ -1,0 +1,676 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+     <meta charset="UTF-8">
+     <meta http-equiv="X-UA-Compatible" content="IE=edge">
+     <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+     <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/css/bootstrap.min.css">
+     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
+
+     <link rel="stylesheet" href="../prettyprint/night-blue.css">
+     <link rel="stylesheet" href="../../main.css">
+
+     <script src="https://cdn.jsdelivr.net/gh/google/code-prettify@master/loader/run_prettify.js"></script>
+
+     <title>Rectángulos y circulos</title>
+</head>
+
+<body>
+     <style>
+          .prev-code {
+               display: table;
+               width: 80%;
+               min-width: 350px;
+               height: 50vh;
+               margin: auto;
+          }
+     </style>
+
+     <script>
+          document.write(
+               readText("../../00frag_encabezado.html")
+          )
+
+          document.write(
+               readText("../../00frag-menu-pegajoso.html")
+               .replace("index.html","../../index.html")
+               .replace("jeff-aporta.html","../../jeff-aporta.html")
+               .replace(`href="librerias.html" style="text-decoration: none;"`,`href="librerias.html" style="text-decoration: none;border-bottom:2px solid hotpink;"`)
+               .replace("librerias.html","../../librerias.html")
+               .replace("jeff-dibuja.html","../../jeff-dibuja.html")
+          )
+
+          function readText(ruta_local) {
+               var texto = null;
+               var xmlhttp = new XMLHttpRequest();
+               xmlhttp.open("GET", ruta_local, false);
+               xmlhttp.send();
+               if (xmlhttp.status == 200) {
+                    texto = xmlhttp.responseText;
+               }
+               return texto;
+          }
+     </script>
+
+     <div style="padding: 20px;">
+
+          <h1>
+               Dependencia
+          </h1>
+          <hr class="subrayado-titulo-h1-blanco">
+
+          Está librería fue pensada principalmente para trabajar con p5.js, es por esta razón que deben incluirla en el
+          proyecto, sin embargo si no se va a hacer uso de <code>Rectangle.draw()</code> el programa no debería hacer
+          ningún reclamo por consola
+
+          <br>
+          <br>
+
+          <div style="background: rgba(255, 255, 255, 0.15);padding: 20px;">
+               <a href="https://p5js.org/es/download/" target="_blank">https://p5js.org/es/download/</a>
+          </div>
+
+          <br>
+          <br>
+
+          <h1>
+               Rectángulos y circulos
+          </h1>
+
+          <hr class="subrayado-titulo-h1-blanco">
+
+          En esta librería encontrarás herramientas sufifientes para trabajar con rectángulos y circulos, de forma
+          sencilla, haciendo uso de algoritmos programados y desarrollados por mi. una vez creados los elementos podrás
+          moverlos, redimensionarlos, calcular sus colisiones, uniones e intersecciones, todo desde código. Esta
+          librería está principalmente orientada para la creación de juegos básicos, para lo que normalmente denominan
+          los hitbox en los juegos.
+
+          <br>
+          <br>
+
+
+          <div style="background: rgba(255, 255, 255, 0.15);padding: 5px;">
+               CDN
+               <code class="code-1">
+                    <script>
+                         document.write(location.href.replace("index.html", "") + "lib.js")
+                    </script>
+               </code>
+          </div>
+
+          <hr>
+
+          <h1>
+               trabajar con rectángulos
+          </h1>
+
+          <hr class="subrayado-titulo-h1-blanco">
+
+          El rectángulo es un objeto muy útil en la programación de gráficos. Tiene su propia clase en esta librería y
+          se usa para almacenar y manipular un área rectangular. Un objeto puede ser creado dando la posición y el
+          tamaño.
+          <script>
+               i_code = 0
+
+               function insertarCódigo(c) {
+                    c = c.split("\n")
+                    html = c.map((x) => x.replaceAll(c[c.length - 1], ""))
+                    html.pop()
+                    html = html.join("<br>")
+                    document.write(`
+                    <div style="position:relative;">
+                         <a onclick="navigator.clipboard.writeText(document.getElementById('code-${i_code}').innerText);if(!this.innerText.includes('copiado')) this.innerHTML+=' copiado'" style="position:absolute;right:30px;transform:translateY(10px);cursor:pointer;">
+                              <i class="fas fa-copy"></i>
+                         </a>
+                         <pre class="prettyprint languaje-js linenums:1" id="code-${i_code}">`
+                         + html + `
+                         </pre>
+                    </div>`
+                    )
+                    i_code++
+               }
+
+               insertarCódigo(`
+               rectangulo = new Rectangle(x, y, width, height);
+               `)
+          </script>
+
+          Ejemplo:
+
+          <script>
+               insertarCódigo(`
+               rectangulo = new Rectangle(0, 0, 100, 100); //x=0,y=0,w=0,h=0
+               `)
+          </script>
+          Esto crea un rectángulo en la posición <code>(0,0)</code> y de tamaño <code>100&times;100</code>
+          <br>
+          <br>
+          Para obtener los valores una vez establecidos o modificados, es con las propiedades <code>pos</code> y
+          <code>size</code>, justo cómo mostraré a continuación:
+          <script>
+               insertarCódigo(`
+               rectangulo.pos //retorna la posición del rectángulo -> {x:0, y:0}
+               rectangulo.size //retorna el tamaño del rectángulo -> [100,100]
+               `)
+          </script>
+
+          <h3>
+               Funciones tipo GET
+          </h3>
+
+          Estas funciones ayudan a obtener en tiempo real ciertos datos del objeto, aún después de haberlo modificado
+
+          <script>
+               insertarCódigo(`
+               //Tamaño y posición----------------------------
+
+               rectangulo.pos //retorna la posición del rectángulo -> {x:0, y:0}
+               rectangulo.size //retorna el tamaño del rectángulo -> [100,100]
+
+               //Bordes---------------------------------------
+
+               rectangulo.top //retorna el 'y' de la parte superior del rectángulo
+               rectangulo.bottom //retorna el 'y' de la parte inferior del rectángulo
+               rectangulo.right //retorna el 'x' de la parte izquierda del rectángulo
+               rectangulo.left //retorna el 'x' de la parte derecha del rectángulo
+
+               //Vertices-------------------------------------
+
+               rectangulo.topleft //Retorna un vector que describe la posición superior izquierda del rectángulo
+               rectangulo.topright //Retorna un vector que describe la posición superior derecha del rectángulo
+               rectangulo.bottomleft //Retorna un vector que describe la posición inferior izquierda del rectángulo
+               rectangulo.bottomright //Retorna un vector que describe la posición inferior derecha del rectángulo
+
+               rectangulo.vertices //Retorna una lista con todos los vertices anteriormende descritos
+
+               //Definición-------------------------------------
+               
+               rectangulo._defined //Retorna true o false si el rectángulo está definido
+               `)
+          </script>
+
+          <h3>
+               Mover los rectángulos
+          </h3>
+
+          <script>
+               insertarCódigo(`
+               function setup() {
+                    ...
+                    rectangulo = new Rectangle(width / 2 - 75, height / 2 - 75, 150, 150)
+                    ...
+               }
+               function draw() {
+                    ...
+                    rectangulo.move(
+                         mouseX - rectangulo.w / 2,
+                         mouseY - rectangulo.h / 2
+                    )
+                    rectangulo.draw()
+               }
+               `)
+          </script>
+
+          <h5 style="text-align: center;">Código en tiempo real</h5>
+          <iframe src="rectangle-move.html" class="prev-code"></iframe>
+
+          <br>
+
+          <h3>
+               Redimensionar los rectángulos
+          </h3>
+
+          Esta función recibe un ancho y un alto, cualquier valor real, negativo o positivo
+
+          <script>
+               insertarCódigo(`
+               function setup() {
+                    ...
+                    rectangulo = new Rectangle(width / 2 - 75, height / 2 - 75, 150, 150)
+                    ...
+               }
+               function draw() {
+                    ...
+                    rectangulo.resize(
+                         (mouseX - rectangulo.x),
+                         (mouseY - rectangulo.y)
+                    );
+                    rectangulo.draw()
+                    ...
+               }
+               `)
+          </script>
+
+          <h5 style="text-align: center;">Código en tiempo real</h5>
+          <iframe src="rectangle-resize.html" class="prev-code"></iframe>
+
+          <br>
+
+          <h3>
+               Colisión punto-rectángulo
+          </h3>
+
+          <script>
+               insertarCódigo(`
+               function setup() {
+                    ...
+                    rectangulo = new Rectangle(width / 2 - 75, height / 2 - 75, 150, 150)
+                    ...
+               }
+               function draw() {
+                    ...
+                    if (rectangulo.collidePoint(mouseX, mouseY)) {
+                         fill(0, 255, 0, 100)
+                    } else {
+                         fill(255, 0, 0, 100)
+                    }
+                    rectangulo.draw()
+                    ...
+               }
+               `)
+          </script>
+
+          <h5 style="text-align: center;">Código en tiempo real</h5>
+          <iframe src="rectangle-collide-point.html" class="prev-code"></iframe>
+
+          <br>
+
+          <h3>
+               Colisión rectángulo-rectángulo
+          </h3>
+
+          <script>
+               insertarCódigo(`
+               function setup() {
+                    ...
+                    rectangulo = new Rectangle(width / 2 - 75, height / 2 - 75, 150, 150)
+                    rectangulo2 = new Rectangle(0, 0, 150, 150);
+                    ...
+               }
+               function draw() {
+                    ...
+                    if (rectangulo.collideRect(rectangulo2)) {
+                         fill(0, 255, 0, 100)
+                    }
+                    else {
+                         fill(255, 0, 0, 100)
+                    }
+                    rectangulo2.move(
+                         mouseX - rectangulo2.w / 2,
+                         mouseY - rectangulo2.h / 2
+                    )
+                    rectangulo.draw()
+                    rectangulo2.draw()
+                    ...
+               }
+               `)
+          </script>
+
+          <h5 style="text-align: center;">Código en tiempo real</h5>
+          <iframe src="rectangle-collide-rectangle.html" class="prev-code"></iframe>
+
+          <br>
+
+          <h3>
+               ¿Está dentro de otro rectángulo?
+          </h3>
+
+          <script>
+               insertarCódigo(`
+               function setup() {
+                    ...
+                    rectangulo = new Rectangle(width / 2 - 75, height / 2 - 75, 150, 150)
+                    rectangulo2 = new Rectangle(0, 0, 150, 150);
+                    ...
+               }
+
+               function draw() {
+                    ...
+                    rectangulo2.move(mouseX - 35, mouseY - 35)
+
+                    fill(255, 0, 0, 100)
+                    if (rectangulo2.isInside(rectangulo)) {
+                         fill(0, 255, 0, 100)
+                    }
+                    rectangulo.draw()
+                    rectangulo2.draw()
+                    ...
+               }
+               `)
+          </script>
+
+          <h5 style="text-align: center;">Código en tiempo real</h5>
+          <iframe src="rectangle-detect-other-inside.html" class="prev-code"></iframe>
+
+          <br>
+
+          <h3>
+               Intersecto rectángulo-rectángulo
+          </h3>
+
+          <script>
+               insertarCódigo(`
+               function setup() {
+                    ...
+                    rectangulo = new Rectangle(width / 2 - 75, height / 2 - 75, 150, 150)
+                    rectangulo2 = new Rectangle(0, 0, 150, 150);
+                    ...
+               }
+
+               function draw() {
+                    ...
+                    rectangulo2.move(
+                         mouseX - rectangulo2.w / 2,
+                         mouseY - rectangulo2.h / 2
+                    )
+
+                    fill(255, 0, 0, 100)
+                    rectangulo.draw()
+                    rectangulo2.draw()
+                    fill(0, 255, 0, 100)
+                    rectangulo2.intersect(rectangulo).draw();
+                    ...
+               }
+               `)
+          </script>
+
+          <h5 style="text-align: center;">Código en tiempo real</h5>
+          <iframe src="rectangle-intersect.html" class="prev-code"></iframe>
+
+          <br>
+
+          <h3>
+               Unión rectángulo-rectángulo
+          </h3>
+
+          <script>
+               insertarCódigo(`
+               function setup() {
+                    ...
+                    rectangulo = new Rectangle(width / 2 - 75, height / 2 - 75, 150, 150)
+                    rectangulo2 = new Rectangle(0, 0, 150, 150);
+                    ...
+               }
+
+               function draw() {
+                    ...
+                    //efecto de reposición con el mouse
+                    rectangulo2.move(
+                         mouseX - rectangulo2.w / 2,
+                         mouseY - rectangulo2.h / 2
+                    )
+
+                    //Ajustes gráficos
+                    noStroke()
+                    fill(255, 0, 0, 100)
+
+                    //Dibujado de los rectángulos a unir
+                    rectangulo.draw()
+                    rectangulo2.draw()
+
+                    //Ajustes gráficos
+                    noFill()
+                    stroke(255, 0, 0)
+                    strokeWeight(1)
+
+                    //Dibujado de la unión
+                    rectangulo.union(rectangulo2).draw()
+                    ...
+               }
+               `)
+          </script>
+
+          <h5 style="text-align: center;">Código en tiempo real</h5>
+          <iframe src="rectangle-union.html" class="prev-code"></iframe>
+
+          <hr>
+
+          <h1>
+               trabajar con Circulos
+          </h1>
+
+          <hr class="subrayado-titulo-h1-blanco">
+
+          Los circulos en muchas ocasiones pueden dar mejor estimación de colisión que un rectángulo, su inicialización
+          es muy similar a la de los rectángulos
+
+          <script>
+               insertarCódigo(`
+               circulo = new Circle(cx, cy, d);
+               `)
+          </script>
+
+          <code>cx:</code> es la abscisa del centro del círculo
+          <br>
+          <code>cy:</code> es la ordenada del centro del círculo
+          <br>
+          <code>r:</code>&nbsp; es el diametro del círculo
+
+          <script>
+               insertarCódigo(`
+               circulo = new Circle(0, 0, 100);
+               `)
+          </script>
+
+          Esto crea un círculo en la posición <code>(0,0)</code> con un diametro de <code>100</code>
+
+          <br>
+          <br>
+
+          <h3>
+               reposición de circulos
+          </h3>
+
+          <script>
+               insertarCódigo(`
+               function setup() {
+                    ...
+                    circulo = new Circle(width/2, height/2, 100);
+                    ...
+               }
+
+               function draw() {
+                    ...
+                    //efecto de reposición con el mouse
+                    circulo.move(mouseX, mouseY)
+                    circulo.draw()
+                    ...
+               }
+               `)
+          </script>
+
+          <h5 style="text-align: center;">Código en tiempo real</h5>
+          <iframe src="circle-move.html" class="prev-code"></iframe>
+
+          <br>
+          <br>
+
+          <h3>
+               Redimensión de círculos
+          </h3>
+
+          <script>
+               insertarCódigo(`
+               function setup() {
+                    ...
+                    circulo = new Circle(width/2, height/2, 100);
+                    ...
+               }
+
+               function draw() {
+                    ...
+                    let d = circulo.distanceCenter(mouseX, mouseY)
+                    circulo.r = d
+                    circulo.draw()
+                    ...
+               }
+               `)
+          </script>
+
+          <h5 style="text-align: center;">Código en tiempo real</h5>
+          <iframe src="circle-resize.html" class="prev-code"></iframe>
+
+          <br>
+          <br>
+
+          <h3>
+               Rectángulo contenedor
+          </h3>
+
+          <script>
+               insertarCódigo(`
+               function setup() {
+                    ...
+                    circulo = new Circle(width/2, height/2, 100);
+                    ...
+               }
+
+               function draw() {
+                    ...
+                    circulo.move(mouseX, mouseY)
+                    circulo.draw()
+                    stroke(255, 0, 0)
+                    noFill()
+                    circulo.toRect().draw()
+                    ...
+               }
+               `)
+          </script>
+
+          <h5 style="text-align: center;">Código en tiempo real</h5>
+          <iframe src="circle-outer-rectangle.html" class="prev-code"></iframe>
+
+          <br><br>
+
+          <h3>
+               Colisión punto-círculo
+          </h3>
+
+          <script>
+               insertarCódigo(`
+               function setup() {
+                    ...
+                    circulo = new Circle(width/2, height/2, 100);
+                    ...
+               }
+
+               function draw() {
+                    ...
+                    if (circulo.collidePoint(mouseX, mouseY)) {
+                         fill(0, 255, 0, 100)
+                    } else {
+                         fill(255, 0, 0, 100)
+                    }
+                    circulo.draw()
+                    ...
+               }
+               `)
+          </script>
+
+          <h5 style="text-align: center;">Código en tiempo real</h5>
+          <iframe src="circle-collide-point.html" class="prev-code"></iframe>
+
+          <br><br>
+
+          <h3>
+               Colisión círculo-rectángulo
+          </h3>
+
+          <script>
+               insertarCódigo(`
+               function setup() {
+                    ...
+                    circulo = new Circle(width/2, height/2, 100);
+                    rectangulo = new Rectangle(width / 2 - 75, height / 2 - 75, 150, 150)
+                    ...
+               }
+
+               function draw() {
+                    ...
+                    if (circulo.collideRect(rectangulo)) {
+                         fill(128, 200, 0, 100)
+                    }
+                    circulo.move(mouseX, mouseY)
+                    circulo.draw()
+                    rectangulo.draw()
+                    ...
+               }
+               `)
+          </script>
+
+          <h5 style="text-align: center;">Código en tiempo real</h5>
+          <iframe src="circle-rect-collide.html" class="prev-code"></iframe>
+
+          <br><br>
+
+          <h3>
+               Colisión círculo-círculo
+          </h3>
+
+          <script>
+               insertarCódigo(`
+               function setup() {
+                    ...
+                    circulo = new Circle(0, 0, 100);
+                    circulo2 = new Circle(width / 2, height / 2, 150)
+                    ...
+               }
+
+               function draw() {
+                    ...
+                    circulo.move(mouseX, mouseY)
+
+                    fill(255, 0, 0, 100)
+                    if (circulo.collideCircle(circulo2)) {
+                         fill(0, 255, 0, 100)
+                    }
+                    circulo.draw()
+                    circulo2.draw()
+                    ...
+               }
+               `)
+          </script>
+
+          <h5 style="text-align: center;">Código en tiempo real</h5>
+          <iframe src="circle-collide-circle-circle.html" class="prev-code"></iframe>
+
+          <br><br>
+
+          <h3>
+               ¿Está dentro de otro círculo?
+          </h3>
+
+          <script>
+               insertarCódigo(`
+               function setup() {
+                    ...
+                    circulo = new Circle(0, 0, 100);
+                    circulo2 = new Circle(width / 2, height / 2, 150)
+                    ...
+               }
+
+               function draw() {
+                    ...
+                    circulo.move(mouseX, mouseY)
+
+                    fill(255, 0, 0, 100)
+                    if (circulo.isInside_circle(circulo2)) {
+                         fill(0, 255, 0, 100)
+                    }
+                    circulo.draw()
+                    circulo2.draw()
+                    ...
+               }
+               `)
+          </script>
+
+          <h5 style="text-align: center;">Código en tiempo real</h5>
+          <iframe src="circle-detection-inside.html" class="prev-code"></iframe>
+
+     </div>
+
+</body>
+
+</html>

@@ -5,7 +5,7 @@ function lerp(a, b, t) {
   return (b - a) * t + a;
 }
 
-function trayectoriaCircular(x, y, r, a) {
+function point_circle(x, y, r, a) {
   return {
     x: r * cos(a) + x,
     y: r * sen(a) + y,
@@ -51,4 +51,16 @@ function distancia3D(vector1, vector2) {
       (vector1.z - vector2.z) ** 2) **
     0.5
   );
+}
+
+function proporciónDeChoque(a, b, c, d) {
+  let V1 = { x: b.x - a.x, y: b.y - a.y };
+  let V2 = { x: d.x - c.x, y: d.y - c.y };
+  let V3 = { x: a.x - c.x, y: a.y - c.y };
+
+  function determinante(a, b) {
+    return a.x * b.y - a.y * b.x;
+  }
+  
+  return determinante(V2, V3) / determinante(V1, V2);
 }

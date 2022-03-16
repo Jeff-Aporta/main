@@ -1,0 +1,54 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+     <meta charset="UTF-8">
+     <meta http-equiv="X-UA-Compatible" content="IE=edge">
+     <meta name="viewport" content="width=device-width, initial-scale=1.0">
+     <title>Convertir mapa a png</title>
+
+     <script src="https://cdnjs.cloudflare.com/ajax/libs/p5.js/1.4.0/p5.js"></script>
+     <script src="interprete_mapa.js"></script>
+</head>
+
+<body>
+     <script>
+
+          function setup() {
+               createCanvas(1000, 1000)
+               mapa = new Mapa();
+               pixelDensity(1)
+               console.log(indexPerlinNoise(0, 0))
+          }
+
+          function draw() {
+               actualizarMinimapa()
+          }
+
+          function actualizarMinimapa() {
+               loadPixels()
+               for (let c = -width / 2; c < width / 2; c++) {
+                    for (let f = -height / 2; f < height / 2; f++) {
+                         let i = ((c + width / 2) + (f + height / 2) * width) * 4;
+                         let index = indexPerlinNoise(
+                              c,
+                              f
+                         )
+                         try {
+                              pixels[i] = index.color[0]
+                              pixels[i + 1] = index.color[1]
+                              pixels[i + 2] = index.color[2]
+                         } catch (error) {
+                         }
+                         pixels[i + 3] = 255
+                    }
+               }
+               updatePixels()
+               fill("red")
+               noStroke()
+               circle(width / 2, height / 2, 5)
+          }
+     </script>
+</body>
+
+</html>

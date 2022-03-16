@@ -1,0 +1,313 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+     <meta charset="UTF-8">
+     <meta http-equiv="X-UA-Compatible" content="IE=edge">
+     <meta name="viewport" content="width=device-width, initial-scale=1.0">
+     <title>Jeff Aporta</title>
+
+     <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/css/bootstrap.min.css">
+     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
+     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/animate.css/4.1.1/animate.min.css">
+
+     <script src="00Libs/Lightbox/2/lightbox2.js"></script>
+     <script src="img-LaTeX.js"></script>
+     <script src="mapa-programas.js"></script>
+     <link rel="stylesheet" href="main.css">
+
+     <meta property="og:site_name" content="Jeffrey Agudelo">
+     <meta property="og:title" content="Jeffrey Agudelo">
+     <meta property="og:description" content="0,1,1,2,3,5,8,13,21,34,...">
+     <meta property="og:image" content="https://i.ibb.co/3vg4KNb/softyo-001.png">
+     <link rel="icon" type="image/png" href="https://i.ibb.co/3vg4KNb/softyo-001.png">
+
+</head>
+
+<body>
+
+     <style>
+          .youtube-frame {
+               width: 100%;
+               max-width: 300px;
+               height: 180px;
+          }
+
+          .img-link-lightbox {
+               display: inline-flex;
+               flex-direction: column;
+               justify-content: center;
+               align-items: center;
+               font-weight: bolder;
+          }
+
+          .img-LaTeX {
+               padding: 5px;
+               cursor: pointer;
+          }
+
+          .img-LaTeX:hover {
+               background-color: white;
+               transform: scale(1.1);
+          }
+
+          a {
+               color: inherit;
+               text-decoration: none;
+          }
+
+          .miniatura-cuadrada {
+               max-width: 250px;
+               cursor: pointer;
+               border-radius: 10px;
+               left: 0;
+               bottom: 20px;
+          }
+
+          .miniatura-cuadrada:hover {
+               transform: scale(1.1);
+          }
+
+          #programas .description {
+               padding: 5px;
+          }
+
+          #programas .item {
+               color: black;
+               position: relative;
+               background: rgba(255, 255, 255, 0.85);
+               text-align: left;
+               padding: 10px;
+               display: inline-block;
+               margin: 5px;
+               width: 30vw;
+               vertical-align: top;
+               font-size: 90%;
+               border-radius: 10px;
+               border: 2px solid white;
+          }
+
+          #programas .items {
+               display: flex;
+               justify-content: center;
+               flex-wrap: wrap;
+               padding: 20px;
+          }
+
+          .fondo1 {
+               background: url(https://i.ibb.co/sjFtsgt/output-onlinegiftools.gif);
+               background-position: 50%;
+               background-size: cover;
+               background-attachment: fixed;
+          }
+
+          .vidrio-borroso {
+               background: url(https://i.ibb.co/gmRqdsd/glass.png);
+               backdrop-filter: blur(4px);
+          }
+
+          @media (min-width:1px) and (max-width: 500px) {
+               body {
+                    font-size: 75%;
+               }
+          }
+
+          @media (min-width:500px) and (max-width:700px) {
+               body {
+                    font-size: 85%;
+               }
+          }
+
+          @media (min-width:700px) and (max-width:900px) {
+               body {
+                    font-size: 95%;
+               }
+          }
+     </style>
+
+     <script>
+          document.write(
+               readText("00frag_encabezado.html")
+          )
+          
+          document.write(
+               readText("00frag-menu-pegajoso.html")
+               .replace(`href="jeff-aporta.html" style="text-decoration: none;"`,`href="#" style="text-decoration: none;border-bottom:2px solid hotpink;"`)
+          )
+
+          function readText(ruta_local) {
+               var texto = null;
+               var xmlhttp = new XMLHttpRequest();
+               xmlhttp.open("GET", ruta_local, false);
+               xmlhttp.send();
+               if (xmlhttp.status == 200) {
+                    texto = xmlhttp.responseText;
+               }
+               return texto;
+          }
+     </script>
+
+     <script>
+          let i_app = 0
+          let i_sección = 0
+
+          function insertarEjecuciónDeApp(url, retornar = false) {
+               let html = `
+                         <div style="padding:10px;margin:10px">
+     
+                              <i class="fas fa-code"></i>
+     
+                              &nbsp;
+     
+                              <a href="${url}" target="_blank">
+                                   <span class="btn btn-primary">
+                                        Abrir <i class="fa-solid fa-globe"></i>
+                                   </span>
+                              </a>
+     
+                              <span class="btn btn-primary" id="mostrar-app-${i_app}" onclick="
+                              document.getElementById('app-${i_app}').innerHTML = \`<iframe src='${url}'></iframe>\`;
+
+                              document.getElementById('app-container-${i_app}').style.display = 'table';
+                              document.getElementById('app-container-${i_app}').style.width = '100%';
+     
+                              const y = this.getBoundingClientRect().top + window.scrollY;
+                              window.scroll({
+                              top: y-30,
+                              behavior: 'smooth'
+                              });
+     
+                              this.style.display = 'none';
+                              document.getElementById('ocultar-app-${i_app}').style.display='';
+
+                              ">
+                                   Ver <i class="fa-solid fa-eye"></i>
+                              </span>
+
+     
+                              <span class="btn btn-danger" style="display:none;" id="ocultar-app-${i_app}" onclick="
+                              element = document.getElementById('app-${i_app}');
+                              element.innerHTML ='';
+                              this.style.display = 'none';
+                              document.getElementById('mostrar-app-${i_app}').style.display='';
+
+                              document.getElementById('app-container-${i_app}').style.display = 'inline-block';
+                              document.getElementById('app-container-${i_app}').style.width = '';
+
+                              setTimeout(()=>{
+                                   const y = document.getElementById('app-container-${i_app}').getBoundingClientRect().top + window.scrollY;
+                                   window.scroll({
+                                   top: y-10,
+                                   behavior: 'smooth'
+                                   });
+                              },300)
+                              ">
+                                   Ocultar <i class="fa-solid fa-eye-slash"></i>
+                              </span>
+
+                              <br>
+                              <br>
+     
+                              <div style="text-align: center;" id="app-${i_app}"></div>
+                         </div>
+                         `
+               i_app++
+               if (retornar) {
+                    return html
+               }
+               document.write(html)
+          }
+
+          html = ""
+          html += "<div id='programas'>"
+
+          for (let i = 0; i < mapa_programas.length; i++) {
+               const main = mapa_programas[i];
+               html += `
+                    <div class="categoria" id="categoria-${i_sección}">
+                         <div style="padding:30px">
+                              <h3>
+                              <i class="fas fa-laptop-code"></i> ${main.LABEL}
+                              </h3>
+                              <hr class="subrayado-titulo-h1-negro">
+                              ${main.HTML}
+                              <br>
+                              <br>
+
+                              <span class="btn btn-warning" id="mostrar-apps-sección-${i_sección}" onclick="
+                              document.getElementById('apps-sección-${i_sección}').style.display = 'table';
+                              document.getElementById('apps-sección-${i_sección}').style.width = '100%';
+     
+                              const y = this.getBoundingClientRect().top + window.scrollY;
+                              window.scroll({
+                              top: y-30,
+                              behavior: 'smooth'
+                              });
+     
+                              this.style.display = 'none';
+                              document.getElementById('ocultar-apps-sección-${i_sección}').style.display='';
+
+                              ">
+                                   Expandir <i class="fa-solid fa-eye"></i>
+                              </span>
+
+     
+                              <span class="btn btn-danger" style="display:none;" id="ocultar-apps-sección-${i_sección}" onclick="
+                              element = document.getElementById('apps-sección-${i_sección}');
+                              
+                              this.style.display = 'none';
+                              document.getElementById('mostrar-apps-sección-${i_sección}').style.display='';
+
+                              document.getElementById('apps-sección-${i_sección}').style.opacity = '0';
+
+                              setTimeout(()=>{
+                                   const y = document.getElementById('categoria-${i_sección}').getBoundingClientRect().top + window.scrollY;
+                                   window.scroll({
+                                   top: y-10,
+                                   behavior: 'smooth'
+                                   });
+                                   document.getElementById('apps-sección-${i_sección}').style.display = 'none';
+                                   document.getElementById('apps-sección-${i_sección}').style.opacity = '1';
+                              },250);
+                              ">
+                                   Ocultar <i class="fa-solid fa-eye-slash"></i>
+                              </span>
+
+                              <br>
+                              <br>
+
+
+                         </div>
+                         <div class="fondo1" id="apps-sección-${i_sección}" >
+                         <div class="items vidrio-borroso">
+                         `
+               for (let j = 0; j < main.CHILDS.length; j++) {
+                    const secundary = main.CHILDS[j];
+                    html += `
+                         <div class="item" id="app-container-${i_app}">
+
+                                   <h5>
+                                        <i class="fas fa-file-code"></i> ${secundary.LABEL}
+                                   </h5>`
+                    html += insertarEjecuciónDeApp(secundary.URL, true)
+                    html += `
+                                   <div class="description">
+                                        ${secundary.HTML}
+                                   </div>
+                              `
+                    html += `</div>`;
+               }
+               html += `</div>`;
+               html += `</div>`;
+               html += `</div>`;
+               i_sección++
+          }
+
+          html += "</div>"
+
+          document.write(html)
+
+     </script>
+</body>
+
+</html>

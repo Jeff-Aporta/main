@@ -1,0 +1,459 @@
+<!DOCTYPE html>
+<html lang="es">
+
+<head>
+     <meta charset="UTF-8">
+     <meta http-equiv="X-UA-Compatible" content="IE=edge">
+     <meta name="viewport" content="width=device-width, initial-scale=1.0">
+     <title>Jeff dibuja</title>
+
+     <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/css/bootstrap.min.css">
+     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
+     <script src="00Libs/Lightbox/2/lightbox2.js"></script>
+     <link rel="stylesheet" href="main.css">
+</head>
+
+<body>
+     <style>
+          #contenido {
+               padding: 10px;
+               text-align: center;
+          }
+
+          .miniatura-redonda {
+               width: 150px;
+               height: 150px;
+               margin: 10px;
+               object-fit: cover;
+               cursor: pointer;
+               border-radius: 10px;
+               border: 2px solid white;
+          }
+
+          .miniatura-redonda:hover {
+               transform: scale(1.1);
+          }
+
+          h1 {
+               color: white;
+               text-transform: uppercase;
+          }
+     </style>
+     <script>
+          document.write(readText("00frag_encabezado.html"))
+
+          document.write(
+               readText("00frag-menu-pegajoso.html")
+               .replace(`href="jeff-dibuja.html" style="text-decoration: none;"`,`href="#" style="text-decoration: none;border-bottom:2px solid hotpink;"`)
+          )
+
+
+          function readText(ruta_local) {
+               var texto = null;
+               var xmlhttp = new XMLHttpRequest();
+               xmlhttp.open("GET", ruta_local, false);
+               xmlhttp.send();
+               if (xmlhttp.status == 200) {
+                    texto = xmlhttp.responseText;
+               }
+               return texto;
+          }
+     </script>
+
+     <div style="padding: 20px;">
+          Este es un espacio donde encontrarás mis dibujos, conoce un poco más de mi. Manejo diferentes estilos de
+          dibujo, los he organizado por categorias para que se pueda entender mejor mi trabajo.
+     </div>
+
+     <div id="contenido">
+     </div>
+
+     <script>
+          lightbox_update_style({
+               background: "rgba(0,0,0,0.5)",
+               colorBorder: "rgba(0,0,0,1)",
+               background2: "rgba(0,0,0,0.7)",
+               colorButtons: "white"
+          })
+          let imagenes = `<h1>Matemáticos</h1>
+                         https://i.ibb.co/rkKtV23/Ecuaciones-001.jpg
+                         Ojo
+                         https://i.ibb.co/9gfLKVY/Ecuaciones-002.jpg
+                         Huracán
+                         https://i.ibb.co/SsbmymV/Ecuaciones-003.jpg
+                         Cardioide
+                         https://i.ibb.co/Mf4Pz1Y/Ecuaciones-004.jpg
+                         Mariposa
+                         https://i.ibb.co/L6b1jBL/Ecuaciones-005.jpg
+                         Ángel
+                         https://i.ibb.co/wY8mmgg/Ecuaciones-006.png
+                         Viento
+                         https://i.ibb.co/HVJ9xvK/Ecuaciones-007.png
+                         Tríangulos
+                         https://i.ibb.co/QcdBdBC/Ecuaciones-008.png
+                         Decaedro
+                         <hr>
+                         <h1>Trabajos</h1>
+                         https://i.ibb.co/cDsBmmr/Vendido-1.jpg
+                         Florencia Vanina D'polito
+                         https://i.ibb.co/kmHZcvQ/Vendido-2.jpg
+                         Musical
+                         https://i.ibb.co/QDd3zCg/Vendido-3.jpg
+                         Luna danzante
+                         <hr>
+                         <h1>Textuales</h1>
+                         https://i.ibb.co/Ss7KkWc/mi-nombre-2.jpg
+                         Say my name
+                         https://i.ibb.co/dMY5CZt/mi-nombre.jpg
+                         Say my name
+                         <hr>
+                         <h1>Autorretratos</h1>
+                         https://i.ibb.co/tJkVWFn/softyo-001.jpg
+
+                         https://i.ibb.co/qNz3smz/softyo-001.png
+                         
+                         https://i.ibb.co/y89LScz/softyo-002.jpg
+                         
+                         https://i.ibb.co/NCYBZMX/softyo-003.jpg
+
+                         https://i.ibb.co/ZfTHKLy/Softyo.jpg
+
+                         <hr>
+                         <h1>Conceptuales</h1>
+                         https://i.ibb.co/dg7XYnH/simbolismo.jpg
+                         TV Basura
+                         https://i.ibb.co/M1w5XxK/Ni-os-maldosos-010.jpg
+                         Humano ser
+                         https://i.ibb.co/QNMC7sq/Modelos-006.jpg
+                         Las apariencias engañan
+                         https://i.ibb.co/FXFkFzV/de-cabeza.jpg
+                         En un mundo paralelo
+                         https://i.ibb.co/ngpWmyP/Miedo-2.jpg
+                         Ellos no están bajo tu cama
+                         https://i.ibb.co/8BQHbzd/Miedo.jpg
+                         Ellos si están bajo tu cama
+                         <hr>
+                         <h1>Ambientales</h1>
+                         https://i.ibb.co/YcnV1zW/Amor-ambiental-2.jpg
+                         Medio ambiente
+                         https://i.ibb.co/89HnL0k/amor-ambiental-3.jpg
+                         Calentamiento global
+                         https://i.ibb.co/6D4T5kv/Amor-ambiental.jpg
+                         Unión naturaleza
+                         <hr>
+                         <h1>Animales</h1>
+                         https://i.ibb.co/VJZHbR1/pajaro.jpg
+                         Pájaro
+                         https://i.ibb.co/FW1xXSg/Modelos-022.jpg
+                         Yo
+                         https://i.ibb.co/80W9hdF/modelos.jpg
+                         Tiburón
+                         <hr>
+                         <h1>Multiples elementos</h1>
+                         https://i.ibb.co/2nFRYrN/Caos-2.jpg
+                         Nutrias
+                         https://i.ibb.co/ss5nbng/caos-3.jpg
+                         Love
+                         https://i.ibb.co/bvtGpHq/Caos.jpg
+                         Mundo submarino
+                         https://i.ibb.co/LJn34fj/nicole-007.jpg
+                         Mundo
+                         <hr>
+                         <h1>Mágicos</h1>
+                         https://i.ibb.co/L5h5DHd/espiritu.jpg
+                         Espirutu del bosque
+                         https://i.ibb.co/ZHJX4H5/felicidad-2.jpg
+                         Duende (De tu mente al papel)
+                         <hr>
+                         <h1>Ciencia</h1>
+                         https://i.ibb.co/vXTnMRd/Conceptual.jpg
+                         Prisma
+                         https://i.ibb.co/7grJvKX/Modelos-023.jpg
+                         Newton
+                         <hr>
+                         <h1>Drogas</h1>
+                         https://i.ibb.co/2t8D0Kw/droga-3.jpg
+                         Heroina
+                         https://i.ibb.co/XZXxwR0/droga-5.jpg
+                         Marihuana
+                         https://i.ibb.co/TbJq6yZ/droga-6.jpg
+                         Marihuana
+                         https://i.ibb.co/PNwNPpC/droga-7.jpg
+                         Marihuana
+                         https://i.ibb.co/c1GKG1x/droga-8.jpg
+                         Nicotina
+                         https://i.ibb.co/YcQGnJx/droga.jpg
+                         Hongos
+                         <hr>
+                         <h1>Kawaii</h1>
+                         https://i.ibb.co/swK2RyY/nicole-001.jpg
+                         Un detalle para ti
+                         https://i.ibb.co/XDqWvQ9/nicole-002.jpg
+                         Noche
+                         https://i.ibb.co/ys4wgLL/nicole-003.jpg
+                         Adiós infancia
+                         https://i.ibb.co/9h1tqmy/nicole-004.jpg
+                         Juntos pintamos el futuro
+                         https://i.ibb.co/JnD2GTB/nicole.jpg
+                         Juntos pintamos el futuro 2
+                         https://i.ibb.co/b14Pf4K/nicole-008.jpg
+                         El aro
+                         https://i.ibb.co/Sd1n2ts/nicole-009.jpg
+                         Jack
+                         <hr>
+                         <h1>Niños Maldosos</h1>
+                         <h3>Suicidios</h3>
+                         https://i.ibb.co/8j6yfhm/suicidio-2.jpg
+                         En la segunda guerra mundial
+                         https://i.ibb.co/278yZm3/suicidio.jpg
+                         Y en el eco del bosque, se oirán voces reir
+                         https://i.ibb.co/Trm1KMz/Ni-os-maldosos-005.jpg
+                         Suicidio cuadro a cuadro
+                         https://i.ibb.co/99YbQjh/Ni-os-maldosos-007.jpg
+                         Muerte en el aire
+                         <h3>Ángel</h3>
+                         https://i.ibb.co/64v8xTC/Ni-os-maldosos-002.jpg
+                         Ángel
+                         https://i.ibb.co/YyG93kq/Ni-os-maldosos-003.jpg
+                         Ángel 2
+                         <h3>Transtornados</h3>
+                         https://i.ibb.co/cXT6NQS/Ni-os-maldosos-006.jpg
+                         Ella
+                         https://i.ibb.co/VC4rLD4/Ni-os-maldosos-008.jpg
+                         Mi mascota
+                         https://i.ibb.co/dMWvrWt/Ni-os-maldosos-009.jpg
+                         Una mano sale de la pared
+                         <hr>
+                         <h1>ADAPTACIONES</h1>
+                         <h3>Musical</h3>
+                         https://i.ibb.co/9GSn5cd/marihuana-001.jpg
+                         Morodo
+                         https://i.ibb.co/vJBL6Vx/marihuana-002.jpg
+                         Rastaman
+                         https://i.ibb.co/r6gsQ07/marihuana-003.jpg
+                         El paraiso
+                         https://i.ibb.co/sRLLVb8/marihuana-004.jpg
+                         Respetable
+                         https://i.ibb.co/G07FFXZ/marihuana-005.jpg
+                         Enlunado
+                         https://i.ibb.co/BKrQ0W7/marihuana-006.jpg
+                         Conquistandote
+                         https://i.ibb.co/StLYwCk/marihuana-007.jpg
+                         Paz
+                         https://i.ibb.co/SfJGZCf/Modelos-004.jpg
+                         Systema solar
+                         https://i.ibb.co/BzCKXfk/retrato.jpg
+                         El Ayuwoky
+                         https://i.ibb.co/J7HFZT1/adaptacion-musical-2.jpg
+                         Canserbero: Jeremias 17-5
+                         https://i.ibb.co/LRJRwjR/Adaptacion-musical-3.jpg
+                         Mitch Lucker (RIP 2012)
+                         https://i.ibb.co/L9tDw5Z/adaptacion-musical-4.jpg
+                         Kurtco
+                         https://i.ibb.co/TLBCcbC/adaptacion-musical-5.jpg
+                         Guns n roses
+                         https://i.ibb.co/cvdtwCy/adaptacion-musical.jpg
+                         Necrofilia enamorada
+                         https://i.ibb.co/m6qQKxz/cultura-musical.jpg
+                         EMO
+                         <h3>Anime</h3>
+                         https://i.ibb.co/DrKZssq/Modelos-012.jpg
+                         Cell DBZ
+                         https://i.ibb.co/fS37nZr/adaptacion-de-anime-2.jpg
+                         Yuno Gore
+                         https://i.ibb.co/BC4SGJZ/adaptacion-de-anime.jpg
+                         Pikachu Gore
+                         <h3>Juegos</h3>
+                         https://i.ibb.co/9WW6K0z/adaptacion-de-juego-2.jpg
+                         Pac-man Gore
+                         https://i.ibb.co/WB2r7dd/adaptacion-de-juego-3.jpg
+                         Mario Bros Gore
+                         https://i.ibb.co/6tjJZFV/adaptacion-de-juego.jpg
+                         Pac-man: Fila al baño de fantasmas
+                         <h3>Cuentos</h3>
+                         https://i.ibb.co/Xtx37c9/adaptacion-gore-2.jpg
+                         Alicia
+                         https://i.ibb.co/s38TYhk/adaptacion-gore.jpg
+                         Caperucita roja
+                         <h3>Social</h3>
+                         https://i.ibb.co/1TVnDrV/adaptacion-gore-3.jpg
+                         Facebook
+                         https://i.ibb.co/48k8M6b/Modelos-009.jpg
+                         Msngr
+                         <hr>
+                         <h1>Amor</h1>
+                         https://i.ibb.co/SdjqLKQ/soledad-7.jpg
+                         Te amo
+                         https://i.ibb.co/vJjtj2n/prision.jpg
+                         Prisión
+                         https://i.ibb.co/bKNYb8B/modelo-2.jpg
+                         Desde otro planeta
+                         https://i.ibb.co/HNq80Ld/amor-3.jpg
+                         Enamora2
+                         https://i.ibb.co/KLhdJ3Q/amor-4.jpg
+                         Regalo
+                         https://i.ibb.co/VtZmrZq/amor-5.jpg
+                         Enamora2
+                         https://i.ibb.co/RjH9dx2/amor.jpg
+                         Enamora2
+                         https://i.ibb.co/mGtcnKX/enamorado-2.jpg
+                         Sombras del pasado
+                         https://i.ibb.co/gty8bkm/enamorado-3.jpg
+                         La mujer perfecta
+                         https://i.ibb.co/QJ2b878/Enamorado.jpg
+                         Loco por tu amor
+                         <hr>
+                         <h1>Caricaturas</h1>
+                         https://i.ibb.co/DKBypwb/Chistoso-1.jpg
+                         Cortney
+                         https://i.ibb.co/T2vpJNf/Chistoso-2.jpg
+                         Cortney 2
+                         https://i.ibb.co/MZy1fGC/ciencia-ficcion.jpg
+                         Worm
+                         https://i.ibb.co/mG7d1P8/Modelo-3.jpg
+                         Lokura
+                         https://i.ibb.co/c894pys/erotismo.jpg
+                         Aviones fálicos
+                         <hr>
+                         <h1>Depresión</h1>
+                         https://i.ibb.co/cyBVHPY/modelo.jpg
+                         No lo hago, lo imagino.
+                         https://i.ibb.co/N2V8P9C/depresion.jpg
+                         El demonio en tu cabeza
+                         <hr>
+                         <h1>Griegos</h1>
+                         https://i.ibb.co/xG2cSdG/desamor.jpg
+                         Medusa
+                         <hr>
+                         <h1>Inframundo</h1>
+                         https://i.ibb.co/KbjTRxH/decapitaci-n.jpg
+                         Decapitación
+                         https://i.ibb.co/ZzCF9N4/guerrero.jpg
+                         Guerrero lovecraftniano
+                         https://i.ibb.co/DKfmCcz/inframundo-3.jpg
+                         A tus servicios
+                         https://i.ibb.co/QCR10Xx/inframundo.jpg
+                         Diseño libre
+                         https://i.ibb.co/W5fx3gW/mitologico-2.jpg
+                         Alma en el purgatorio
+                         <h3>Mina</h3>
+                         https://i.ibb.co/L5mZqY0/angel-2.jpg
+                         Ángel
+                         https://i.ibb.co/X7smSBZ/angel.jpg
+                         Ángel 2
+                         https://i.ibb.co/VN4FHsv/droga-2.jpg
+                         Marihuana
+                         https://i.ibb.co/mthYj5s/esquizofrenia.jpg
+                         Esquizofrenia
+                         https://i.ibb.co/g9SRkVJ/inframundo-2.jpg
+                         llegó tu hora
+                         https://i.ibb.co/HF82Psy/inframundo-4.jpg
+                         Auto-penitencia
+                         https://i.ibb.co/Y8Sxmct/MIna.jpg
+                         Noche de mágia
+                         <hr>
+                         <h1>Zombies</h1>
+                         https://i.ibb.co/LgkVLMm/modelo-6.jpg
+                         Priinczx
+                         https://i.ibb.co/h9R6NRX/Modelos-001.jpg
+                         Sed
+                         https://i.ibb.co/hCbrdsT/Modelos-002.jpg
+                         Compartir
+                         https://i.ibb.co/m8PvzvZ/Modelos-005.jpg
+                         Sonso musical
+                         <hr>
+                         <h1>Soledad</h1>
+                         https://i.ibb.co/xqLzn9k/Soledad-2.jpg
+                         Pensando sólo en dibujar
+                         https://i.ibb.co/hYMRzFR/Soledad.jpg
+                         Preso de la soledad
+                         https://i.ibb.co/cxVCq6r/soledad-3.jpg
+                         Cortes de soledad
+                         https://i.ibb.co/vmnrPLp/soledad-8.jpg
+                         Vudú
+                         https://i.ibb.co/Bcb9RBm/soledad-9.jpg
+                         El hafa de la soledad
+                         https://i.ibb.co/6RdxN73/Modelos-007.jpg
+                         Preso de la soledad
+                         https://i.ibb.co/c1t21vw/Modelos-008.jpg
+                         En el infinito, pero sólo.
+                         <hr>
+                         <h1>Venganza</h1>
+                         https://i.ibb.co/Rzvy37Q/traicion.jpg
+                         traición
+                         https://i.ibb.co/6WW0QDm/pesadilla-2.jpg
+                         Los infelices y fracasados
+                         https://i.ibb.co/j5T42bZ/Modelos-010.jpg
+                         Tu me comiste, ahora yo te como
+                         https://i.ibb.co/jwwXpCb/Modelos-011.jpg
+                         La venganza es dulce
+                         <hr>
+                         <h1>Masoquismo</h1>
+                         https://i.ibb.co/fXsHrmw/Modelos-013.jpg
+                         No me importa, ten mi amor
+                         https://i.ibb.co/Srp7XCd/Modelos-014.jpg
+                         Amor de lejos
+                         https://i.ibb.co/xhXDnfj/Modelos-018.jpg
+                         Auto-penitencia
+                         <hr>
+                         <h1>Perpendicular</h1>
+                         https://i.ibb.co/QHrF2my/Modelos-017.jpg
+                         De la muerte, sale vida
+                         <hr>
+                         <h1>Gore</h1>
+                         https://i.ibb.co/f9190vg/Modelos-019.jpg
+                         Asesinato
+                         https://i.ibb.co/nbnMtY8/Modelos-020.jpg
+                         Anime modelo
+                         <hr>
+                         <h1>Pesadillas</h1>
+                         https://i.ibb.co/TKfGMQF/pelicula.jpg
+                         Pesadilla
+                         https://i.ibb.co/2Sx7nxR/pesadilla-3.jpg
+                         Pesadilla 2
+                         https://i.ibb.co/C8qg1Pb/pesadilla-5.jpg
+                         Pesadilla 3
+                         https://i.ibb.co/rd3vHtH/pesadilla-6.jpg
+                         Oso pesadilla
+                         https://i.ibb.co/JQyLp1t/pesadilla.jpg
+                         Osito pesadilla
+                         <hr>
+                         <h1>Me siento tan soporifero que...</h1>
+                         https://i.ibb.co/xMhMrh0/Soporifero-1.jpg
+                         Lloro mis alegrias....
+                         https://i.ibb.co/C9rbh0T/Soporifero-2.jpg
+                         Me inyectaría aire en las venas...
+                         https://i.ibb.co/bF6vpFG/Soporifero-3.jpg
+                         Me inyectaría aire en las venas... 2
+                         https://i.ibb.co/qn6pV1b/soporifero.jpg
+                         Imagino mi propio suicidio...`
+          let split = imagenes.split("\n").map((x) => {
+               return x.trim()
+          })
+          let html = ``
+          let c = 0
+          for (const i of split) {
+               if (i.startsWith("<")) {
+                    html += i
+               } else {
+                    if (c % 2 == 0) {
+                         html += `
+                         <span style="display:inline-block;margin:10px">
+                              <img class="miniatura-redonda" src="${i}"
+                                   data-lightbox-group="dibujos">
+                              <br>`
+                    } else {
+                         html += `
+                         ${i}
+                         </span>`
+                    }
+                    c++
+               }
+
+          }
+
+          document.getElementById("contenido").innerHTML = html
+     </script>
+</body>
+
+</html>

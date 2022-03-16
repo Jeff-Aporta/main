@@ -1,0 +1,103 @@
+pre.prettyprint {
+  overflow: auto;
+  background-color: rgb(50, 0, 50);
+  text-align: left;
+  margin: 20px;
+}
+
+pre .nocode {
+  background-color: none;
+  color: #000;
+}
+
+pre .str {
+  color: limegreen;
+  font-style: italic;
+}
+
+/* string*/
+pre .kwd {
+  color: mediumturquoise;
+  font-weight: bold;
+}
+
+pre .com {
+  color: rgba(255, 255, 255, 0.4);
+}
+
+/* comment - skyblue */
+pre .typ {
+  color: #98fb98;
+}
+
+/* type    - lightgreen */
+pre .lit {
+  color: gold;
+}
+
+/* literal - darkred */
+pre .pun {
+  color: rgba(255, 200, 255);
+}
+
+/* punctuation */
+pre .pln {
+  color: white;
+}
+
+/* plaintext */
+pre .tag {
+  color: #f0e68c;
+  font-weight: bold;
+}
+
+/* html/xml tag    - lightyellow */
+pre .atn {
+  color: #bdb76b;
+  font-weight: bold;
+}
+
+/* attribute name  - khaki */
+pre .atv {
+  color: #ffa0a0;
+}
+
+/* attribute value - pink */
+pre .dec {
+  color: #98fb98;
+}
+
+/* decimal         - lightgreen */
+
+/* Specify class=linenums on a pre to get line numbering */
+ol.linenums {
+  margin-top: 0;
+  margin-bottom: 0;
+  color: rgba(255, 255, 255, 0.3);
+}
+
+/* IE indents via margin-left */
+li.L0,
+li.L1,
+li.L2,
+li.L3,
+li.L5,
+li.L6,
+li.L7,
+li.L8 {
+  list-style-type: none;
+}
+
+/* Alternate shading for lines */
+li.L1,
+li.L3,
+li.L5,
+li.L7,
+li.L9 {
+  background: rgba(255, 255, 255, 0.05) !important;
+}
+
+::marker {
+  color: rgba(255, 255, 255, 0.1);
+  font-size: 15px;
+}

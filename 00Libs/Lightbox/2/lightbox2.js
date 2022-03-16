@@ -1,14 +1,24 @@
 window.addEventListener("load", () => {
-  let style = document.createElement("style");
+  lightbox_load();
+});
+
+let style = document.createElement("style");
+
+lightbox_update_style({})
+
+function lightbox_update_style(obj) {
   style.innerHTML = `
              #lightbox2-modal {
                   display: none;
-                  background-color: rgba(255, 255, 255, 0.5);
+                  background-color: ${
+                    obj.background ?? "rgba(255, 255, 255, 0.5)"
+                  };
                   position: fixed;
                   top: 0;
                   left: 0;
                   width: 100vw;
                   height: 100vh;
+                  z-index:99999;
              }
    
              #lightbox2-current-image {
@@ -19,8 +29,12 @@ window.addEventListener("load", () => {
                   top: 50%;
                   transform: translateY(-50%) translateX(-50%);
                   object-fit: contain;
-                  border: 3px solid rgba(255, 255, 255, 1);
-                  background: rgba(255, 255, 255, 0.7);
+                  border: 3px solid ${
+                    obj.colorBorder ?? "rgba(255, 255, 255, 1)"
+                  };
+                  background: ${
+                    obj.background2 ?? "rgba(255, 255, 255, 0.7)"
+                  };
                   padding: 10px;
                   box-sizing: border-box;
              }
@@ -28,7 +42,9 @@ window.addEventListener("load", () => {
              #lightbox2-close,
              #lightbox2-left,
              #lightbox2-right {
-                  color: black;
+                  color: ${
+                    obj.colorButtons ?? "black"
+                  };
                   width: 7.5vw;
                   display: flex;
                   justify-content: center;
@@ -63,6 +79,9 @@ window.addEventListener("load", () => {
                   right: 0;
              }
         `;
+}
+
+function lightbox_load() {
   document.head.appendChild(style);
 
   let div = document.createElement("div");
@@ -118,7 +137,7 @@ window.addEventListener("load", () => {
       }
     }
   }
-});
+}
 
 let lightbox2_imagenes = document.getElementsByTagName("img");
 let lightbox2_grupos = [];

@@ -19,7 +19,7 @@
      <link rel="icon" type="image/png" href="https://i.ibb.co/3vg4KNb/softyo-001.png">
 
      <script src="img-LaTeX.js"></script>
-     <script src="mapa-programas.js"></script>
+     
 </head>
 
 <body>
@@ -35,12 +35,6 @@
                border: 2px solid black;
                width: 98%;
                height: 85vh;
-          }
-
-          .youtube-frame {
-               width: 100%;
-               max-width: 300px;
-               height: 180px;
           }
 
           body,
@@ -101,14 +95,12 @@
           .miniatura-redonda {
                width: 150px;
                height: 150px;
-               border-radius: 50%;
-               border: 1px solid black;
                object-fit: cover;
                cursor: pointer;
           }
 
           .miniatura-redonda:hover {
-               border-radius: 0;
+               border-radius: 50%;
           }
 
           .miniatura-cuadrada {
@@ -146,46 +138,25 @@
                transform: translateY(-20px);
           }
 
-          #section2 .item {
+          .columnas-2 {
+               display: flex;
+          }
+
+          .columnas-2 .item {
                max-width: 50vw;
-          }
-
-          #programas .description {
-               padding: 5px;
-          }
-
-          #programas .item {
-               background: rgba(255, 255, 255, 0.85);
-               text-align: left;
-               padding: 10px;
-               display: inline-block;
-               margin: 5px;
-               width: 30vw;
-               min-height: 600px;
-               vertical-align: top;
-               font-size: 90%;
-               border-radius: 10px;
-               border: 2px solid white;
-          }
-
-          #programas .item:hover {
-               background: rgba(255, 255, 255, 1);
-          }
-
-          #programas .items {
-               padding: 10px;
-               text-align: center;
+               width: 100%;
           }
 
           .fondo1 {
-               background-color: #03045E;
-               background-image: url(https://i.ibb.co/3yg64H5/banner.gif);
+               background: url(https://i.ibb.co/sjFtsgt/output-onlinegiftools.gif);
                background-position: 50%;
                background-size: cover;
+               background-attachment: fixed;
           }
 
           .vidrio-borroso {
-               backdrop-filter: blur(4px) brightness(0.5);
+               background: url(https://i.ibb.co/gmRqdsd/glass.png);
+               backdrop-filter: blur(4px);
           }
 
           .categoria {
@@ -203,16 +174,16 @@
                }
           }
 
-          @media (min-width:500px) and (max-width:600px) {
+          @media (min-width:500px) and (max-width:700px) {
                body {
                     font-size: 85%;
                }
 
-               #section2 {
+               .columnas-2 {
                     flex-direction: column;
                }
 
-               #section2 .item {
+               .columnas-2 .item {
                     max-width: 100vw;
                }
 
@@ -223,7 +194,7 @@
 
           }
 
-          @media (min-width:600px) and (max-width:900px) {
+          @media (min-width:700px) and (max-width:900px) {
                body {
                     font-size: 95%;
                }
@@ -238,70 +209,95 @@
           <div class="vidrio-borroso" style="padding: 20px;">
                <img src="https://i.ibb.co/Vp3zHSf/hdv.png" style="width: 90%;max-width: 700px;">
 
-               <div style="padding: 20px;color: rgba(255, 255, 255, 1);text-align: left;font-weight: lighter;">
-                    <h1 class="titulo-datos-personales" style="padding: 0;">
+               <div style="padding: 20px;color: white;background-color: rgba(0, 0, 0, 0.5);text-align: left;font-weight: lighter;">
+                    <h1 class="titulo-datos-personales">
                          DATOS PERSONALES
                     </h1>
-                    <div>
-                         <hr>
-                         <h5 class="titulo-datos-personales">
-                              <i class="fas fa-globe-americas"></i>
-                              Ubicación.
-                         </h5>
-                         <strong>País:</strong> Colombia
+                    <hr class="subrayado-titulo-h1-blanco">
+                    <div class="columnas-2">
+                         <div class="item">
+                              <h5 class="titulo-datos-personales">
+                                   <i class="fas fa-globe-americas"></i>
+                                   Ubicación.
+                              </h5>
+                              <strong>País:</strong> Colombia
+                              <br>
+                              <strong>Ciudad:</strong> Tuluá (Valle del Cauca)
+                         </div>
                          <br>
-                         <strong>Ciudad:</strong> Tuluá (Valle del Cauca)
+                         <div class="item">
+                              <h5 class="titulo-datos-personales">
+                                   <i class="fas fa-address-book"></i>
+                                   Contacto.
+                              </h5>
+                              <i class="fas fa-mobile-alt"></i>
+                              <strong>Celular:</strong> (+57) 310 725 7814
+                              <br>
+                              <i class="fas fa-envelope"></i>
+                              <strong>Correo:</strong> jeffaporta@gmail.com
+                              <br>
+                              <i class="fab fa-telegram"></i>
+                              <strong>Telegram:</strong> <a href="https://t.me/jeffAporta">https://t.me/jeffAporta</a>
+                              <br>
+                         </div>
+                    </div>
+                    <br>
+                    <div class="columnas-2">
+                         <div class="item">
+                              <h5 class="titulo-datos-personales">
+                                   <i class="fas fa-users"></i>
+                                   Social.
+                              </h5>
+                              <strong><i class="fab fa-youtube"></i> YouTube:</strong> <a
+                                   href="https://www.youtube.com/c/JeffAportaa">https://www.youtube.com/c/JeffAportaa</a>
+                              <br>
+                         </div>
+                         <br>
+                         <div class="item">
+                              <h5 class="titulo-datos-personales">
+                                   <i class="fas fa-user-alt"></i>
+                                   General.
+                              </h5>
+                              <strong>CC:</strong> 1094955981 <br>
+                              <strong>Edad:</strong> <span id="edad"></span> <br>
+                              <script>
+                                   document.getElementById("edad").innerHTML = calcularEdad();
 
-                         <hr>
-                         <h5 class="titulo-datos-personales">
-                              <i class="fas fa-address-book"></i>
-                              Contacto.
-                         </h5>
-                         <i class="fas fa-mobile-alt"></i>
-                         <strong>Celular:</strong> (+57) 310 225 7814
-                         <br>
-                         <i class="fas fa-envelope"></i>
-                         <strong>Correo:</strong> jeffaporta@gmail.com
-                         <br>
-                         <i class="fab fa-telegram"></i>
-                         <strong>Telegram:</strong> <a href="https://t.me/jeffAporta">https://t.me/jeffAporta</a>
-                         <br>
-
-                         <hr>
-                         <h5 class="titulo-datos-personales">
-                              <i class="fas fa-users"></i>
-                              Social.
-                         </h5>
-                         <strong><i class="fab fa-youtube"></i> YouTube:</strong> <a
-                              href="https://www.youtube.com/c/JeffAportaa">https://www.youtube.com/c/JeffAportaa</a>
-                         <br>
-
-                         <hr>
-                         <h5 class="titulo-datos-personales">
-                              <i class="fas fa-user-alt"></i>
-                              General.
-                         </h5>
-                         <strong>CC:</strong> 1094955981 <br>
-                         <strong>Edad:</strong> <span id="edad"></span> <br>
-                         <script>
-                              document.getElementById("edad").innerHTML = calcularEdad();
-
-                              function calcularEdad() {
-                                   var hoy = new Date();
-                                   var cumpleanos = new Date(1996, 05, 18);
-                                   var edad = hoy.getFullYear() - cumpleanos.getFullYear();
-                                   var m = hoy.getMonth() - cumpleanos.getMonth();
-                                   if (m < 0 || (m === 0 && hoy.getDate() < cumpleanos.getDate())) {
-                                        edad--;
+                                   function calcularEdad() {
+                                        var hoy = new Date();
+                                        var cumpleanos = new Date(1996, 05, 18);
+                                        var edad = hoy.getFullYear() - cumpleanos.getFullYear();
+                                        var m = hoy.getMonth() - cumpleanos.getMonth();
+                                        if (m < 0 || (m === 0 && hoy.getDate() < cumpleanos.getDate())) {
+                                             edad--;
+                                        }
+                                        return edad;
                                    }
-                                   return edad;
-                              }
-                         </script>
+                              </script>
+                         </div>
                     </div>
                </div>
           </div>
      </div>
-     <div style="display: flex;" id="section2">
+
+     <script>
+          document.write(
+               readText("00frag-menu-pegajoso.html")
+               .replace(`href="index.html" style="font-size: 180%;text-decoration: none;"`,`href="#" style="font-size: 180%;text-decoration: none;border-bottom:2px solid hotpink;"`)
+          )
+
+          function readText(ruta_local) {
+               var texto = null;
+               var xmlhttp = new XMLHttpRequest();
+               xmlhttp.open("GET", ruta_local, false);
+               xmlhttp.send();
+               if (xmlhttp.status == 200) {
+                    texto = xmlhttp.responseText;
+               }
+               return texto;
+          }
+     </script>
+     <div class="columnas-2">
 
           <div class="item" style="padding: 20px;background-color: #031D7E;color: white;font-weight: lighter;">
                <h1>
@@ -320,10 +316,10 @@
                <br><br>
                Me gusta el diseño, las artes visuales, la programación y la matemática, realmente me divierto mucho
                desarrollando
-               cualquierda de estas actividades, también soy muy sociable, me gusta hacer amigos y ayudar al que lo
+               cualquiera de estas actividades, también soy muy sociable, me gusta hacer amigos y ayudar al que lo
                necesita,
                me gusta enseñar y que me enseñen, aprendo rápido por lo general aunque aclaro que aprendo más fácil con
-               material audio visual
+               material audiovisual
                que con literatura.
                <br><br>
           </div>
@@ -374,25 +370,19 @@
                <hr class="subrayado-titulo-h1-negro">
 
                Me gustan mucho las artes visuales, soy un aficionado, hice un curso en bellas artes de la universidad
-               del
-               Quindío donde aprendí a manipular diferentes técnicas para ilustrar, he hecho dibujos a mano alzada,
-               pinturas
-               al óleo, murales con acuarelas, y como diseñador me pulo para que mis obras queden impactantes,
-               complejas,
-               frías, autsferas; mis obras más destacadas son las que a continuación adjuntare y que desarrolle
-               apoyándome en
-               algoritmos descubiertos por mi propia cuenta, donde por medio de funciones matemáticas y relaciones
-               trigonométricas hago uso del espacio para distribuir armónicamente un conjunto de puntos que serán
-               pintados en
-               patrón de ajedrez, inicialmente el algoritmo para pintar con el patrón de ajedrez lo desarrollé desde 0
-               por mi
-               cuenta para poder desarrollar los dibujos, sin embargo luego encontré herramientas en programación que me
-               permitian implementar lo mismo pero en menos líneas de código y más rápidos en tiempo de procesamiento.
+               del Quindío donde aprendí a manipular diferentes técnicas para ilustrar, he hecho dibujos a mano alzada,
+               pinturas al óleo, murales con acuarelas, y como diseñador me pulo para que mis obras queden impactantes,
+               complejas, frías, autsferas; mis obras más destacadas son las que desarrolle apoyándome en algoritmos
+               desarrollados por mi, donde por medio de funciones matemáticas y relaciones trigonométricas hago uso del
+               espacio para distribuir armónicamente un conjunto de puntos que serán pintados en patrón de ajedrez.
 
                <br>
                <br>
 
                <div style="text-align: center;">
+
+                    <img class="miniatura-redonda" src="https://i.ibb.co/QcdBdBC/Ecuaciones-008.png"
+                         data-lightbox-group="dibujos">
 
                     <img class="miniatura-redonda" src="https://i.ibb.co/V2bg296/Ecuaciones-001.jpg"
                          data-lightbox-group="dibujos">
@@ -415,6 +405,13 @@
                     <img class="miniatura-redonda" src="https://i.ibb.co/25XpW5H/Ecuaciones-007.png"
                          data-lightbox-group="dibujos">
 
+                    <br>
+                    <br>
+
+                    <a class="btn btn-dark" href="jeff-dibuja.html">
+                         Ver todos
+                    </a>
+
                </div>
 
           </div>
@@ -427,18 +424,15 @@
                PERFIL DE PROGRAMADOR
           </h1>
 
-          Desde los 15 años empecé a programar, mi primer tutor fue mi padre; empezó enseñandome Racket, un lenguaje de
-          programación funciónal y con notación inorden, el cuál en su momento no entendí bien, luego me empezó a
-          programar a programar hojas de calculo en excel, mi padre me enseño a manejar los condicionales, la función
-          SI, el ENTONCES y el DE_LO_CONTRARIO, con esto aún no podia hacer mucho, pero fue un bien inicio, porque
-          cuando
-          entre a ver programación en VBA para Excel, se me hizo más sencillo que a los demás. VBA lo estudie en System
-          Plus, en la carrera
-          de Auxiliar en diseño gráfico más o menos a mis 16 años. Más adelante empecé a estudiar Java en la Universidad
-          del Quindió, luego en la Universidad Técnologica de pereira conocí lenguajes como C, Prolog y Python, por mi
-          cuenta en Youtube aprendi a manejar de forma avanzada JavaScript y de forma elemental NodeJS y aprendí a usar
-          varias de sus técnologias, sobretodo lo que más me gustó fue la comunicación directa entre cliente y servidor
-          por medio de Sockets.
+          Mi especialización en frontend, aunque conozco un poco de back, desde los 15 años empecé a programar, mi
+          primer tutor fue mi padre; empezó enseñándome Racket, un lenguaje de programación funcional y con notación
+          inorden, el cuál en su momento no entendí bien, luego me empezó a programar a programar hojas de cálculo en
+          excel, mi padre me enseñó a manejar los condicionales, la función “SI”, el “ENTONCES” y “DE LO CONTRARIO”, con
+          no podía hacer mucho, pero fue un buen inicio, porque cuando entre a ver programación en VBA para Excel, se me
+          hizo más sencillo que a los demás. VBA lo estudié en System Plus, en la carrera de Auxiliar en diseño gráfico
+          más o menos a mis 16 años. Más adelante empecé a estudiar Java en la universidad del Quindío, luego en la
+          Universidad Tecnológica de pereira conocí lenguajes como C, Prolog y Python, por mi cuenta en Youtube aprendí
+          a manejar de forma avanzada JavaScript y de forma elemental NodeJS.
 
           <br>
           <br>
@@ -478,177 +472,24 @@
           <hr class="subrayado-titulo-h1-negro">
 
           Cómo JavaScript es el lenguaje de la web, he decidido traducir e implementar mis programas a este lenguaje
-          para mostrar mis
-          destrezas programando. Tengo buena habilidad aplicando la matemática con algoritmos de computadora. Este es un
-          tema que me
-          apasiona, ya que abarca diversos temas y habla acerca de lo que es el modelamiento lógico de cómo se puede
-          representar el mundo de forma óptima para una computadora, me llama la atención sobretodo el tratamiento de
-          gráficos por computadora, los principales temas que domino los voy a exponer a continuación.
+          para mostrar mis destrezas programando. Tengo buena habilidad aplicando la matemática con algoritmos de
+          computadora. Este es un tema que me apasiona.
+
+          <br>
+          <br>
+
+          <div style="text-align: center;">
+               <a href="jeff-aporta.html" class="btn btn-dark" style="font-size: 200%;">
+                    <i class="fas fa-code"></i> Ver programas
+               </a>
+               
+               <a href="jeff-aporta.html" class="btn btn-dark" style="font-size: 200%;">
+                    <i class="fa-solid fa-book"></i> Ver Librerías
+               </a>
+          </div>
 
      </div>
 
-
-     <script>
-          let i_app = 0
-          let i_sección = 0
-
-          function insertarEjecuciónDeApp(url, retornar = false) {
-               let html = `
-                         <div style="padding:10px;margin:10px">
-     
-                              <i class="fas fa-code"></i>
-     
-                              &nbsp;
-     
-                              <a href="${url}" target="_blank">
-                                   <span class="btn btn-primary">
-                                        Abrir <i class="fa-solid fa-globe"></i>
-                                   </span>
-                              </a>
-     
-                              <span class="btn btn-primary" id="mostrar-app-${i_app}" onclick="
-                              document.getElementById('app-${i_app}').innerHTML = \`<iframe src='${url}'></iframe>\`;
-
-                              document.getElementById('app-container-${i_app}').style.display = 'table';
-                              document.getElementById('app-container-${i_app}').style.width = '100%';
-     
-                              const y = this.getBoundingClientRect().top + window.scrollY;
-                              window.scroll({
-                              top: y-30,
-                              behavior: 'smooth'
-                              });
-     
-                              this.style.display = 'none';
-                              document.getElementById('ocultar-app-${i_app}').style.display='';
-
-                              ">
-                                   Ver <i class="fa-solid fa-eye"></i>
-                              </span>
-
-     
-                              <span class="btn btn-danger" style="display:none;" id="ocultar-app-${i_app}" onclick="
-                              element = document.getElementById('app-${i_app}');
-                              element.innerHTML ='';
-                              this.style.display = 'none';
-                              document.getElementById('mostrar-app-${i_app}').style.display='';
-
-                              document.getElementById('app-container-${i_app}').style.display = 'inline-block';
-                              document.getElementById('app-container-${i_app}').style.width = '';
-
-                              setTimeout(()=>{
-                                   const y = document.getElementById('app-container-${i_app}').getBoundingClientRect().top + window.scrollY;
-                                   window.scroll({
-                                   top: y-10,
-                                   behavior: 'smooth'
-                                   });
-                              },300)
-                              ">
-                                   Ocultar <i class="fa-solid fa-eye-slash"></i>
-                              </span>
-
-                              <br>
-                              <br>
-     
-                              <div style="text-align: center;" id="app-${i_app}"></div>
-                         </div>
-                         `
-               i_app++
-               if (retornar) {
-                    return html
-               }
-               document.write(html)
-          }
-
-          html = ""
-          html += "<div id='programas'>"
-
-          for (let i = 0; i < mapa_programas.length; i++) {
-               const main = mapa_programas[i];
-               html += `
-                    <div class="categoria" id="categoria-${i_sección}">
-                         <div style="padding:30px">
-                              <h3>
-                              <i class="fas fa-laptop-code"></i> ${main.LABEL}
-                              </h3>
-                              <hr class="subrayado-titulo-h1-negro">
-                              ${main.HTML}
-                              <br>
-                              <br>
-
-                              <span class="btn btn-warning" id="mostrar-apps-sección-${i_sección}" onclick="
-                              document.getElementById('apps-sección-${i_sección}').style.display = 'table';
-                              document.getElementById('apps-sección-${i_sección}').style.width = '100%';
-     
-                              const y = this.getBoundingClientRect().top + window.scrollY;
-                              window.scroll({
-                              top: y-30,
-                              behavior: 'smooth'
-                              });
-     
-                              this.style.display = 'none';
-                              document.getElementById('ocultar-apps-sección-${i_sección}').style.display='';
-
-                              ">
-                                   Expandir <i class="fa-solid fa-eye"></i>
-                              </span>
-
-     
-                              <span class="btn btn-danger" style="display:none;" id="ocultar-apps-sección-${i_sección}" onclick="
-                              element = document.getElementById('apps-sección-${i_sección}');
-                              
-                              this.style.display = 'none';
-                              document.getElementById('mostrar-apps-sección-${i_sección}').style.display='';
-
-                              document.getElementById('apps-sección-${i_sección}').style.opacity = '0';
-
-                              setTimeout(()=>{
-                                   const y = document.getElementById('categoria-${i_sección}').getBoundingClientRect().top + window.scrollY;
-                                   window.scroll({
-                                   top: y-10,
-                                   behavior: 'smooth'
-                                   });
-                                   document.getElementById('apps-sección-${i_sección}').style.display = 'none';
-                                   document.getElementById('apps-sección-${i_sección}').style.opacity = '1';
-                              },250);
-                              ">
-                                   Ocultar <i class="fa-solid fa-eye-slash"></i>
-                              </span>
-
-                              <br>
-                              <br>
-
-
-                         </div>
-                         <div class="fondo1" id="apps-sección-${i_sección}" >
-                         <div class="items vidrio-borroso">
-                         `
-               for (let j = 0; j < main.CHILDS.length; j++) {
-                    const secundary = main.CHILDS[j];
-                    html += `
-                         <div class="item" id="app-container-${i_app}">
-
-                                   <h5>
-                                        <i class="fas fa-file-code"></i> ${secundary.LABEL}
-                                   </h5>`
-                    html += insertarEjecuciónDeApp(secundary.URL, true)
-                    html += `
-                                   <div class="description">
-                                        ${secundary.HTML}
-                                   </div>
-                              `
-                    html += `</div>`;
-               }
-               html += `</div>`;
-               html += `</div>`;
-               html += `</div>`;
-               i_sección++
-          }
-
-          html += "</div>"
-
-          document.write(html)
-
-     </script>
 
 </body>
 

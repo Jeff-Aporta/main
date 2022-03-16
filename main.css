@@ -1,0 +1,43 @@
+* {
+  transition: all 0.25s;
+}
+
+body {
+  margin: 0;
+  padding: 0;
+  background: #123;
+  color: white;
+}
+
+h1,
+h2,
+h3,
+h4,
+h5,
+h6 {
+  font-weight: lighter;
+  text-transform: uppercase;
+  padding: 10px;
+}
+
+.code-1 {
+  color: white;
+  display: flex;
+  background-color: rgba(255, 255, 255, 0.15);
+  padding: 20px;
+  margin: 20px;
+}
+
+.subrayado-titulo-h1-blanco {
+  color: white;
+  border: white 3px solid;
+  transform: translateY(-20px);
+}
+
+a {
+  color: inherit;
+}
+
+a:hover{
+  color: gray;
+}

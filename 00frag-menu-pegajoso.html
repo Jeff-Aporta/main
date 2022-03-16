@@ -1,0 +1,45 @@
+<style>
+     #menu-pegajoso {
+          background: rgba(0, 0, 0, 0.85);
+          z-index: 10;
+          display: flex;
+          flex-wrap: wrap;
+          align-items: center;
+          justify-content: space-between;
+          color: rgba(255, 255, 255, 1);
+          text-align: left;
+          font-weight: lighter;
+          position: sticky;
+          top: 0;
+     }
+
+     #menu-pegajoso a {
+          padding: 20px;
+     }
+
+     #menu-pegajoso a:hover {
+          background: rgba(0, 0, 255, 0.2);
+          color: lightgray;
+     }
+
+     @media (max-width: 700px) {
+          #menu-pegajoso {
+               position: inherit;
+          }
+     }
+</style>
+
+<div id="menu-pegajoso">
+     <a href="index.html" style="font-size: 180%;text-decoration: none;">
+          <i class="fas fa-home"></i> PRINCIPAL
+     </a>
+     <a href="jeff-aporta.html" style="text-decoration: none;">
+          <i class="fas fa-book"></i> PROGRAMACIÓN
+     </a>
+     <a href="librerias.html" style="text-decoration: none;">
+          <i class="fas fa-book"></i> LIBRERIAS
+     </a>
+     <a href="jeff-dibuja.html" style="text-decoration: none;">
+          <i class="fa-solid fa-pen-ruler"></i> DIBUJOS
+     </a>
+</div>
