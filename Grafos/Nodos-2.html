@@ -1,0 +1,143 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+     <meta charset="UTF-8">
+     <meta http-equiv="X-UA-Compatible" content="IE=edge">
+     <meta name="viewport" content="width=device-width, initial-scale=1.0">
+     <title>Nodos 2</title>
+
+     <script src="https://cdnjs.cloudflare.com/ajax/libs/p5.js/1.4.1/p5.min.js"></script>
+
+     <script src="../00Libs/rect-circle-p5-js/lib.js"></script>
+</head>
+
+<body>
+     <style>
+          body {
+               margin: 0;
+               padding: 0;
+          }
+     </style>
+
+     <script>
+
+          class Vertices {
+               constructor(x, y) {
+                    this.shape = new Circle(x, y, 70)
+                    this.txt = "Prueba"
+                    this.conexiones = []
+               }
+
+               conectar(node) {
+                    if (this.conexiones.includes(node)) {
+                         return
+                    }
+                    this.conexiones.push(node)
+               }
+
+               get mouseOver() {
+                    return this.shape.collidePoint(mouseX, mouseY)
+               }
+
+               draw() {
+                    if (this.mouseOver) {
+                         fill("lime")
+                    } else {
+                         fill("red")
+                    }
+                    this.shape.draw()
+                    fill("black")
+                    text(this.txt, this.shape.x, this.shape.y)
+               }
+
+               drawConections() {
+                    for (const c of this.conexiones) {
+                         line(this.shape.x, this.shape.y, c.shape.x, c.shape.y)
+                         push()
+                         let x = (this.shape.x - c.shape.x)
+                         let y = (this.shape.y - c.shape.y)
+                         let d = (x * x + y * y) ** .5
+                         x /= d
+                         y /= d
+                         x *= c.shape.r
+                         y *= c.shape.r
+                         let a = Math.atan2(y,x)
+                         x += c.shape.x
+                         y += c.shape.y
+
+                         translate(x, y)
+                         rotate(a+PI)
+
+                         beginShape()
+                         vertex(0, 0)
+                         vertex(-10, 5)
+                         vertex(-10, -5)
+                         endShape(CLOSE)
+                         pop()
+                    }
+               }
+          }
+
+          let nodo1
+          let nodo2
+
+          function mousePressed() {
+               for (const n of nodos) {
+                    if (n.mouseOver) {
+                         nodo1 = n
+                         return
+                    }
+               }
+          }
+
+          function mouseReleased() {
+               if (!nodo1) {
+                    return
+               }
+               for (const n of nodos) {
+                    if (n.mouseOver) {
+                         nodo1.conectar(n)
+                         nodo1 = undefined
+                         return
+                    }
+               }
+          }
+
+          function doubleClicked() {
+               for (const n of nodos) {
+                    if (n.mouseOver) {
+                         n.txt = "doble clic"
+                         return
+                    }
+               }
+          }
+
+          function setup() {
+               createCanvas(600, 600)
+               textAlign(CENTER, CENTER)
+               nodosGenerar = 7
+               nodos = []
+               for (let i = 0; i < nodosGenerar; i++) {
+                    let a = i * 2 * PI / nodosGenerar
+                    nodos.push(new Vertices(250 * cos(a) + width / 2, 250 * sin(a) + height / 2))
+               }
+          }
+
+          function draw() {
+               background("lightgray")
+               if (nodo1) {
+                    line(nodo1.shape.x, nodo1.shape.y, mouseX, mouseY)
+               }
+               for (const n of nodos) {
+                    n.drawConections()
+               }
+               for (const n of nodos) {
+                    n.draw()
+               }
+          }
+     </script>
+
+</body>
+
+</html>

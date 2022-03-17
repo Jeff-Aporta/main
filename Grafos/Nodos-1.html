@@ -1,0 +1,78 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+     <meta charset="UTF-8">
+     <meta http-equiv="X-UA-Compatible" content="IE=edge">
+     <meta name="viewport" content="width=device-width, initial-scale=1.0">
+     <title>Nodos 1</title>
+
+     <script src="https://cdnjs.cloudflare.com/ajax/libs/p5.js/1.4.1/p5.min.js"></script>
+
+     <script src="../00Libs/rect-circle-p5-js/lib.js"></script>
+</head>
+
+<body>
+     <style>
+          body {
+               margin: 0;
+               padding: 0;
+          }
+     </style>
+
+     <script>
+
+          class Vertices {
+               constructor(x, y) {
+                    this.shape = new Circle(x, y, 50)
+                    this.txt = "Prueba"
+                    this.conexiones = []
+               }
+
+               conectar(node) {
+                    if (this.conexiones.includes(node)) {
+                         return
+                    }
+                    this.conexiones.push(node)
+                    node.conectar(this)
+               }
+
+               draw() {
+                    this.shape.draw()
+                    text(this.txt, this.shape.x, this.shape.y)
+               }
+
+               drawConections(){
+                    for (const c of this.conexiones) {
+                         line(this.shape.x, this.shape.y, c.shape.x, c.shape.y)
+                    }
+               }
+          }
+
+          function setup() {
+               createCanvas(600, 600)
+               textAlign(CENTER, CENTER)
+               nodosGenerar = 7
+               nodos = []
+               for (let i = 0; i < nodosGenerar; i++) {
+                    let a = i * 2 * PI / nodosGenerar
+                    nodos.push(new Vertices(250 * cos(a), 250 * sin(a)))
+               }
+               nodos[0].conectar(nodos[1])
+          }
+
+          function draw() {
+               background("lightgray")
+               translate(width / 2, height / 2)
+               for (const n of nodos) {
+                    n.drawConections()
+               }
+               for (const n of nodos) {
+                    n.draw()
+               }
+          }
+     </script>
+
+</body>
+
+</html>

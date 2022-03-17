@@ -5,6 +5,10 @@ class Circle {
     this.d = d;
   }
 
+  copy() {
+    return new Circle(this.x, this.y, this.d);
+  }
+
   toRect() {
     return new Rectangle(this.x - this.r, this.y - this.r, this.d, this.d);
   }
@@ -38,7 +42,7 @@ class Circle {
     let a = this.r + circulo.r;
     return d < a;
   }
-  
+
   isInside_circle(circulo) {
     let d = this.distanceCenter(circulo.center);
     let a = Math.abs(this.r - circulo.r);
@@ -62,8 +66,8 @@ class Circle {
 
   distanceCenter(x, y) {
     if (x instanceof p5.Vector || x instanceof Object) {
-      y = x.y
-      x = x.x
+      y = x.y;
+      x = x.x;
     }
     return ((this.center.x - x) ** 2 + (this.center.y - y) ** 2) ** 0.5;
   }

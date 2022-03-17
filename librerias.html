@@ -11,23 +11,28 @@
      <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
 
      <link rel="stylesheet" href="main.css">
+
+     <script src="00Libs/Lightbox/2/lightbox2.js"></script>
 </head>
 
 <body>
 
      <style>
-          .items{
+          .items {
                display: flex;
                justify-content: center;
                flex-wrap: wrap;
           }
 
           .item {
+               position: relative;
                background-color: rgba(255, 255, 255, 0.3);
                padding: 20px;
+               padding-bottom: 50px;
                width: 350px;
                border-radius: 10px;
                text-align: center;
+               margin: 10px;
           }
 
           .item iframe {
@@ -36,7 +41,7 @@
                overflow: hidden;
           }
 
-          .btn{
+          .btn {
                border-radius: 50px;
           }
      </style>
@@ -47,7 +52,7 @@
 
           document.write(
                readText("00frag-menu-pegajoso.html")
-               .replace(`href="librerias.html" style="text-decoration: none;"`,`href="librerias.html" style="text-decoration: none;border-bottom:2px solid hotpink;"`)
+                    .replace(`href="librerias.html" style="text-decoration: none;"`, `href="librerias.html" style="text-decoration: none;border-bottom:2px solid hotpink;"`)
           )
 
           function readText(ruta_local) {
@@ -80,7 +85,29 @@
                     <br>
                     <br>
                     <div style="text-align: center;">
-                         <a href="00Libs/rect-circle-p5-js/index.html" class="btn btn-success">
+                         <a href="00Libs/rect-circle-p5-js/index.html" class="btn btn-success" style="position: absolute;bottom: 10px;left:50%;transform: translateX(-50%);">
+                              Ver documentación
+                         </a>
+                    </div>
+               </div>
+
+               <div class="item">
+                    <div
+                         style="background: lightgray;width: 300px;height: 300px;display: flex;justify-content: center;align-items: center;">
+                         <img id="img-2" width="70%" class="miniatura" src="https://i.ibb.co/25XpW5H/Ecuaciones-007.png"
+                              style="box-shadow: 10px 10px 3px rgba(0, 0, 0, 0.4);border: 2px solid white;cursor: pointer;"
+                              data-lightbox-group="1">
+                    </div>
+                    <br>
+                    <h4>
+                         Lightbox v2
+                    </h4>
+                    Esta librería está diseñada para cualquier web que requiera presentar imágenes, tiene un diseño
+                    responsive, lo que la hace compatible para celulares
+                    <br>
+                    <br>
+                    <div style="text-align: center;">
+                         <a href="#" class="btn btn-success" style="position: absolute;bottom: 10px;left:50%;transform: translateX(-50%);">
                               Ver documentación
                          </a>
                     </div>
