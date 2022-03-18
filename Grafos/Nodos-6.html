@@ -66,13 +66,11 @@
 
           table {
                border: 1px solid rgba(0, 0, 0, 0.5);
-               border-radius: 10px;
-               overflow: hidden;
           }
 
           td {
                border: 1px solid rgba(0, 0, 0, 0.5);
-               min-width: 40px;
+               min-width: 50px;
           }
      </style>
 
@@ -88,13 +86,19 @@
      <br>
 
      <div style="padding: 20px;">
-          Los grafos tiene aplicaciones importantes en redes, bioinformática, ingeniería de software, diseño web y de
-          bases de
-          datos, aprendizaje automático y en interfaces visuales para otros dominios técnicos.
-          <br>
-          <br>
-          Está aplicación es sólo material didactico para abordar el tema de grafos.
+          Forma sencilla y ágil de modelar grafos desde una interfaz gráfica para computadora, no es compatible con
+          dispositivos tátciles por los controles con el mouse y el teclado.
      </div>
+     <br>
+
+     <div style="text-align: center;">
+          <span>
+               Diametro
+               <br>
+               <input type="number" min="50" max="100" onchange="cambiarDiametro(Number(this.value));">
+          </span>
+     </div>
+
      <br>
 
      <div id="contenedor-canvas" style="text-align: center;">
@@ -107,6 +111,27 @@
      </span>
 
      <div style="text-align: center;font-size: 120%;">
+
+          <hr>
+          <h3>Camino más corto</h3>
+
+          <span style="display: inline-block;">
+               <input type="text" id="ndk1" placeholder="Partida">
+          </span>
+          <span style="display: inline-block;">
+               <input type="text" id="ndk2" placeholder="Llegada">
+          </span>
+
+          <a class="btn btn-primary" style="transform: translateY(-5px);"
+               onclick="_Dijkstra(document.getElementById('ndk1').value,document.getElementById('ndk2').value)">
+               Dijkstra
+          </a>
+
+          <br>
+
+          <span id="camino"></span>
+
+          <hr>
           <h3>Conjunto</h3>
           <div id="conjunto" style="padding: 10px;">
           </div>
@@ -132,6 +157,86 @@
 
           let DIAMETRO = 50
 
+          let startDijkstra, endDijkstra, globalDikstra = []
+
+          function _Dijkstra(et1, et2) {
+               globalDikstra = []
+               for (const n of nodos) {
+                    if (n.txt == et1) {
+                         startDijkstra = n
+                    }
+                    if (n.txt == et2) {
+                         endDijkstra = n
+                    }
+               }
+               if (!startDijkstra || !endDijkstra) {
+                    return
+               }
+               Dijkstra()
+               costo_minimo = Number.MAX_VALUE
+               for (const g of globalDikstra) {
+                    costo_minimo = Math.min(g.costo, costo_minimo)
+               }
+               globalDikstra = globalDikstra.filter((x) => {
+                    return x.costo == costo_minimo
+               })[0]
+               const y = document.getElementById("defaultCanvas0").getBoundingClientRect().top + window.scrollY;
+               window.scroll({
+                    top: y - 30,
+                    behavior: 'smooth'
+               });
+
+               let camino = ""
+               for (let i = 0; i < globalDikstra.camino.length; i++) {
+                    const element = globalDikstra.camino[i];
+                    camino += element.txt + (i < globalDikstra.camino.length-1 ? "→" : "")
+               }
+               document.getElementById("camino").innerHTML = camino
+          }
+
+          function Dijkstra(
+               nodo = startDijkstra,
+               camino = [startDijkstra],
+               costo = 0,
+               deep = 0
+          ) {
+               for (const n of nodo.conexiones) {
+                    if (camino.includes(n)) {
+                         continue
+                    }
+                    let copy_camino = [...camino]
+                    copy_camino.push(n)
+                    let arista = buscarArista(n, nodo)
+                    if (n == endDijkstra) {
+                         let dk = {
+                              costo: costo + arista.ponderación,
+                              camino: copy_camino
+                         }
+                         if (deep == 0) {
+                              globalDikstra.push(dk)
+                         }
+                         return dk
+                    } else {
+                         let dk = Dijkstra(
+                              n,
+                              copy_camino,
+                              costo + arista.ponderación,
+                              deep + 1
+                         )
+                         if (dk && dk.camino.includes(startDijkstra) && dk.camino.includes(endDijkstra)) {
+                              globalDikstra.push(dk)
+                         }
+                    }
+               }
+          }
+
+          function cambiarDiametro(nd) {
+               DIAMETRO = nd
+               for (const n of nodos) {
+                    n.shape.d = DIAMETRO
+               }
+          }
+
           let alfabeto = []
           for (let i = 65; i <= 90; i++) {
                alfabeto.push(String.fromCharCode(i))
@@ -140,24 +245,23 @@
           let aristas = []
 
           function actualizarRepresentaciones() {
+               globalDikstra = []
+               document.getElementById("camino").innerHTML = ""
+
                let nombres = nodos.map((x) => x.txt)
+               document.getElementById("conjunto").innerHTML = `V={${nombres.toString()}}`
+
                let listas = []
                for (const n of nodos) {
-                    let r = []
                     for (const c of n.conexiones) {
-                         r.push([n.txt, c.txt])
-                    }
-                    if (r.length) {
-                         listas.push(r)
+                         listas.push([n.txt, c.txt])
                     }
                }
-               document.getElementById("conjunto").innerHTML = `V={${nombres.toString()}}`
                document.getElementById("lista-de-aristas").innerHTML = `A=${JSON.stringify(listas)
                     .replaceAll("[", "{")
                     .replaceAll("]", "}")
-                    .replaceAll("{{", "{")
-                    .replaceAll("}}", "}")
                     }`
+
                let html = `<table style="margin:auto;"><tbody>`
                html += `<tr><td class="th"></td>`
                for (const n of nodos) {
@@ -166,14 +270,16 @@
                     html += `</td>`
                }
                html += `</tr>`
+               let i = 0
                for (const n of nodos) {
                     html += `<tr><td class="th">${n.txt}</td>`
                     for (const n2 of nodos) {
-                         html += `<td>`
+                         html += `<td style="${i % 2 == 0 ? "background:rgba(0,0,0,0.1);" : ""}">`
                          html += n.conexiones.includes(n2) ? 1 : 0
                          html += `</td>`
                     }
                     html += `</tr>`
+                    i++
                }
                html += `</tbody></table>`
                document.getElementById("matriz-de-adyacencia").innerHTML = html
@@ -211,12 +317,13 @@
                     html += `</td>`
                }
                for (const n of nodos) {
-                    html += `<tr><td class="th">${n.txt}</td>`
+                    html += `<tr ><td class="th">${n.txt}</td>`
                     for (const a of aristasProv) {
-                         html += `<td>`
+                         html += `<td style="${i % 2 == 0 ? "background:rgba(0,0,0,0.1);" : ""}">`
                          html += a.nodo1 == n || a.nodo2 == n ? 1 : 0
                          html += `</td>`
                     }
+                    i++
                     html += `</tr>`
                }
                html += `</tbody></table>`
@@ -232,7 +339,7 @@
                for (const n of nodos) {
                     html += `<tr><td class="th">${n.txt}</td>`
                     for (const n2 of nodos) {
-                         html += `<td>`
+                         html += `<td style="${i % 2 == 0 ? "background:rgba(0,0,0,0.1);" : ""}">`
                          if (n == n2) {
                               html += 0
                          } else {
@@ -245,6 +352,7 @@
                          }
                          html += `</td>`
                     }
+                    i++
                     html += `</tr>`
                }
                html += `</tbody></table>`
@@ -275,7 +383,11 @@
                     if (node == this) {
                          return
                     }
-                    this.conexiones.splice(this.conexiones.indexOf(node), 1)
+                    let i = this.conexiones.indexOf(node)
+                    if (i < 0) {
+                         return
+                    }
+                    this.conexiones.splice(i, 1)
                     actualizarRepresentaciones()
                }
 
@@ -316,6 +428,10 @@
                     }
                     strokeWeight(5)
                     stroke("#AD8B73")
+                    if (globalDikstra?.camino?.includes(this)) {
+                         stroke("#78AD73")
+                         fill("#ACCE93")
+                    }
                     this.shape.draw()
                     fill("black")
                     noStroke()
@@ -331,6 +447,17 @@
                               stroke("black")
                               fill("black")
                          }
+                         if (globalDikstra.camino) {
+                              let i1 = globalDikstra.camino.indexOf(this)
+                              let i2 = globalDikstra.camino.indexOf(c)
+                              if (i1 != -1 && i2 != -1) {
+                                   if (Math.abs(i1 - i2) == 1) {
+                                        stroke("green")
+                                        fill("#ACCE93")
+                                   }
+                              }
+                         }
+
                          let proy = determinarProyección(this.shape.center, c.shape.center, { x: TmouseX, y: TmouseY })
                          if (proy.d < 10 && proy.k > 0.1 && proy.k <= 0.9) {
                               nodeAconect = this
@@ -482,8 +609,8 @@
                               inputValue: n.txt,
                          })
                          if (valor) {
-                              n.txt = valor  
-                              actualizarRepresentaciones()   
+                              n.txt = valor
+                              actualizarRepresentaciones()
                          }
                          return
                     }
@@ -615,6 +742,7 @@
                TmouseY = mouseY - height / 2
 
                if (!nodos.length) {
+                    background(255)
                     fill(0)
                     text("Presiona clic derecho para desplegar las opciones", 0, 0)
                }
