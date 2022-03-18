@@ -64,12 +64,14 @@
                color: white;
           }
 
+          #matriz-de-incidencia table,
           #matriz-de-adyacencia table {
                border: 1px solid rgba(0, 0, 0, 0.5);
                border-radius: 10px;
                overflow: hidden;
           }
 
+          #matriz-de-incidencia td,
           #matriz-de-adyacencia td {
                border: 1px solid rgba(0, 0, 0, 0.5);
                min-width: 40px;
@@ -106,7 +108,7 @@
           <a id="eliminar-nodo" onclick="eliminarNodo()">Eliminar Nodo</a>
      </span>
 
-     <div style="text-align: center;font-size: 150%;">
+     <div style="text-align: center;font-size: 120%;">
           <h3>Conjunto</h3>
           <div id="conjunto" style="padding: 10px;">
           </div>
@@ -133,7 +135,7 @@
                alfabeto.push(String.fromCharCode(i))
           }
 
-          let aristaN = 0
+          let aristas = []
 
           function actualizarRepresentaciones() {
                let nombres = nodos.map((x) => x.txt)
@@ -173,6 +175,45 @@
                }
                html += `</tbody></table>`
                document.getElementById("matriz-de-adyacencia").innerHTML = html
+
+               let aristaN = 0
+               let nodosUsados = []
+               aristas = []
+               for (const n of nodos) {
+                    for (const n2 of nodos) {
+                         if (n.conexiones.includes(n2)) {
+                              if (!nodosUsados.includes(n2) || !n2.conexiones.includes(n)) {
+                                   aristas.push({
+                                        nombre: "a" + aristaN++,
+                                        ponderación: 1,
+                                        nodo1: n,
+                                        nodo2: n2
+                                   })
+                              }
+                         }
+                    }
+                    nodosUsados.push(n)
+               }
+               console.log(aristas)
+
+               html = `<table style="margin:auto;"><tbody>`
+               html += `<tr><td class="th"></td>`
+               for (const a of aristas) {
+                    html += `<td class="th">`
+                    html += a.nombre
+                    html += `</td>`
+               }
+               for (const n of nodos) {
+                    html += `<tr><td class="th">${n.txt}</td>`
+                    for (const a of aristas) {
+                         html += `<td>`
+                         html += a.nodo1 == n || a.nodo2 == n ? a.ponderación : 0
+                         html += `</td>`
+                    }
+                    html += `</tr>`
+               }
+               html += `</tbody></table>`
+               document.getElementById("matriz-de-incidencia").innerHTML = html
           }
 
           class Nodo {
@@ -539,25 +580,16 @@
                fill(255)
                strokeWeight(1)
 
-               for (const n of nodos) {
-                    n.drawConections()
+               for (const a of aristas) {
+                    text(
+                         a.nombre + " = " + a.ponderación,
+                         (a.nodo1.shape.x + a.nodo2.shape.x) / 2,
+                         (a.nodo1.shape.y + a.nodo2.shape.y) / 2
+                    )
                }
 
-               let aristaN = 0
-               let nodosUsados = []
-               aristas = []
                for (const n of nodos) {
-                    for (const n2 of nodos) {
-                         if (n.conexiones.includes(n2) && !nodosUsados.includes(n2)) {
-                              aristas.push({
-                                   nombre: "a" + aristaN,
-                                   ponderación: 1,
-                                   nodo1: n,
-                                   nodo2: n2
-                              })
-                         }
-                    }
-                    nodosUsados.push(n)
+                    n.drawConections()
                }
 
                push()
