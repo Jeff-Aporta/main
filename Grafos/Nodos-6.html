@@ -5,7 +5,7 @@
      <meta charset="UTF-8">
      <meta http-equiv="X-UA-Compatible" content="IE=edge">
      <meta name="viewport" content="width=device-width, initial-scale=1.0">
-     <title>Nodos 5</title>
+     <title>Nodos 6</title>
 
      <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/css/bootstrap.min.css">
      <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
@@ -64,15 +64,13 @@
                color: white;
           }
 
-          #matriz-de-incidencia table,
-          #matriz-de-adyacencia table {
+          table {
                border: 1px solid rgba(0, 0, 0, 0.5);
                border-radius: 10px;
                overflow: hidden;
           }
 
-          #matriz-de-incidencia td,
-          #matriz-de-adyacencia td {
+          td {
                border: 1px solid rgba(0, 0, 0, 0.5);
                min-width: 40px;
           }
@@ -119,6 +117,10 @@
           <hr>
           <h3>Matriz de adyacencia</h3>
           <div id="matriz-de-adyacencia" style="padding: 10px;">
+          </div>
+          <hr>
+          <h3>Matriz de costos</h3>
+          <div id="matriz-de-costos" style="padding: 10px;">
           </div>
           <hr>
           <h3>Matriz de incidencia</h3>
@@ -178,14 +180,19 @@
 
                let aristaN = 0
                let nodosUsados = []
-               aristas = []
+               let aristasProv = []
                for (const n of nodos) {
                     for (const n2 of nodos) {
                          if (n.conexiones.includes(n2)) {
                               if (!nodosUsados.includes(n2) || !n2.conexiones.includes(n)) {
-                                   aristas.push({
+                                   let arista = buscarArista(n, n2)
+                                   let p = 1
+                                   if (arista) {
+                                        p = arista.ponderación
+                                   }
+                                   aristasProv.push({
                                         nombre: "a" + aristaN++,
-                                        ponderación: 1,
+                                        ponderación: p,
                                         nodo1: n,
                                         nodo2: n2
                                    })
@@ -194,26 +201,54 @@
                     }
                     nodosUsados.push(n)
                }
-               console.log(aristas)
+               aristas = aristasProv
 
                html = `<table style="margin:auto;"><tbody>`
                html += `<tr><td class="th"></td>`
-               for (const a of aristas) {
+               for (const a of aristasProv) {
                     html += `<td class="th">`
                     html += a.nombre
                     html += `</td>`
                }
                for (const n of nodos) {
                     html += `<tr><td class="th">${n.txt}</td>`
-                    for (const a of aristas) {
+                    for (const a of aristasProv) {
                          html += `<td>`
-                         html += a.nodo1 == n || a.nodo2 == n ? a.ponderación : 0
+                         html += a.nodo1 == n || a.nodo2 == n ? 1 : 0
                          html += `</td>`
                     }
                     html += `</tr>`
                }
                html += `</tbody></table>`
                document.getElementById("matriz-de-incidencia").innerHTML = html
+
+               html = `<table style="margin:auto;"><tbody>`
+               html += `<tr><td class="th"></td>`
+               for (const n of nodos) {
+                    html += `<td class="th">`
+                    html += n.txt
+                    html += `</td>`
+               }
+               for (const n of nodos) {
+                    html += `<tr><td class="th">${n.txt}</td>`
+                    for (const n2 of nodos) {
+                         html += `<td>`
+                         if (n == n2) {
+                              html += 0
+                         } else {
+                              let arista = buscarArista(n, n2)
+                              if (arista) {
+                                   html += arista.ponderación
+                              } else {
+                                   html += "∞"
+                              }
+                         }
+                         html += `</td>`
+                    }
+                    html += `</tr>`
+               }
+               html += `</tbody></table>`
+               document.getElementById("matriz-de-costos").innerHTML = html
           }
 
           class Nodo {
@@ -333,7 +368,18 @@
           let nodo2
           let nodoMove
 
+          function buscarArista(nodo1, nodo2) {
+               for (const a of aristas) {
+                    if (a.nodo1 == nodo1 || a.nodo1 == nodo2) {
+                         if (a.nodo2 == nodo1 || a.nodo2 == nodo2) {
+                              return a
+                         }
+                    }
+               }
+          }
+
           async function editarConexión(nodo1, nodo2) {
+               let arista = buscarArista(nodo1, nodo2)
                let { value: valor } = await Swal.fire({
                     html: `
                     <label>
@@ -345,11 +391,14 @@
                          <input type="checkbox" id="cbox2" ${nodo2.conexiones.includes(nodo1) ? "checked" : ""}>
                          ${nodo2.txt} → ${nodo1.txt}
                     </label>
+                    <br>
+                    <input type="number" id="input-number" value="${arista.ponderación}">
                     `,
                     preConfirm: () => {
                          return {
                               conexión1: document.getElementById("cbox1").checked,
-                              conexión2: document.getElementById("cbox2").checked
+                              conexión2: document.getElementById("cbox2").checked,
+                              ponderación: document.getElementById("input-number").value,
                          }
                     }
                })
@@ -364,8 +413,9 @@
                     } else {
                          nodo2.desconectar(nodo1)
                     }
+                    arista.ponderación = valor.ponderación
+                    actualizarRepresentaciones()
                }
-               console.log(valor)
           }
 
           function mouseDragged() {
