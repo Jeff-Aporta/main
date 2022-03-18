@@ -543,8 +543,22 @@
                     n.drawConections()
                }
 
-               aristaN = 0
-               nodosUsados = []
+               let aristaN = 0
+               let nodosUsados = []
+               aristas = []
+               for (const n of nodos) {
+                    for (const n2 of nodos) {
+                         if (n.conexiones.includes(n2) && !nodosUsados.includes(n2)) {
+                              aristas.push({
+                                   nombre: "a" + aristaN,
+                                   ponderación: 1,
+                                   nodo1: n,
+                                   nodo2: n2
+                              })
+                         }
+                    }
+                    nodosUsados.push(n)
+               }
 
                push()
                for (const n of nodos) {
