@@ -369,11 +369,10 @@
           let nodoMove
 
           function buscarArista(nodo1, nodo2) {
+               let n = [nodo1, nodo2]
                for (const a of aristas) {
-                    if (a.nodo1 == nodo1 || a.nodo1 == nodo2) {
-                         if (a.nodo2 == nodo1 || a.nodo2 == nodo2) {
-                              return a
-                         }
+                    if (n.includes(a.nodo1) && n.includes(a.nodo2)) {
+                         return a
                     }
                }
           }
@@ -398,11 +397,12 @@
                          return {
                               conexión1: document.getElementById("cbox1").checked,
                               conexión2: document.getElementById("cbox2").checked,
-                              ponderación: document.getElementById("input-number").value,
+                              ponderación: Number(document.getElementById("input-number").value),
                          }
                     }
                })
                if (valor) {
+                    arista.ponderación = valor.ponderación
                     if (valor.conexión1) {
                          nodo1.conectar(nodo2)
                     } else {
@@ -413,7 +413,6 @@
                     } else {
                          nodo2.desconectar(nodo1)
                     }
-                    arista.ponderación = valor.ponderación
                     actualizarRepresentaciones()
                }
           }
@@ -482,7 +481,10 @@
                               input: "text",
                               inputValue: n.txt,
                          })
-                         n.txt = valor
+                         if (valor) {
+                              n.txt = valor  
+                              actualizarRepresentaciones()   
+                         }
                          return
                     }
                }
@@ -648,7 +650,7 @@
                     let angle = Math.atan2(vy, vx)
                     rotate(vx < 0 ? angle + PI : angle)
                     text(
-                         a.nombre + " = " + a.ponderación,
+                         a.ponderación != 1 ? a.nombre + " = " + a.ponderación : a.nombre,
                          0,
                          0
                     )
