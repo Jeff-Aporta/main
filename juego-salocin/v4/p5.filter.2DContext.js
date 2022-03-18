@@ -136,8 +136,8 @@ function escalaGrises(xR, xG, xB) {
       let i = (c + f * width) * 4;
       let g = (IMG.data[i] + IMG.data[i + 1] + IMG.data[i + 2]) / 3;
       IMG.data[i] = (g - IMG.data[i]) * xR + IMG.data[i];
-      IMG.data[i + 1] = (g - IMG.data[i + 1]) * xR + IMG.data[i + 1];
-      IMG.data[i + 2] = (g - IMG.data[i + 2]) * xR + IMG.data[i + 2];
+      IMG.data[i + 1] = (g - IMG.data[i + 1]) * xG + IMG.data[i + 1];
+      IMG.data[i + 2] = (g - IMG.data[i + 2]) * xB + IMG.data[i + 2];
     }
   }
   drawingContext.putImageData(IMG, 0, 0);

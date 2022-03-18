@@ -61,6 +61,16 @@ function proporciónDeChoque(a, b, c, d) {
   function determinante(a, b) {
     return a.x * b.y - a.y * b.x;
   }
-  
   return determinante(V2, V3) / determinante(V1, V2);
+}
+
+function determinarProyección(a, b, c) {
+  let U = { x: c.x - a.x, y: c.y - a.y };
+  let V = { x: b.x - a.x, y: b.y - a.y };
+  let k = (U.x * V.x + U.y * V.y) / (V.x ** 2 + V.y ** 2);
+  let Qx = k * V.x + a.x;
+  let Qy = k * V.y + a.y;
+  let dd = { x: Qx - c.x, y: Qy - c.y };
+  let d = (dd.x ** 2 + dd.y ** 2) ** 0.5;
+  return { x: Qx, y: Qy, k, d };
 }

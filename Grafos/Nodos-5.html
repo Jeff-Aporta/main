@@ -14,9 +14,10 @@
      <script src="https://cdnjs.cloudflare.com/ajax/libs/p5.js/1.4.1/p5.min.js"></script>
 
      <script src="../00Libs/rect-circle-p5-js/lib.js"></script>
+     <script src="../00Libs/mate-jeff.js"></script>
 </head>
 
-<body>
+<body oncontextmenu="return false;">
      <style>
           body {
                margin: 0;
@@ -52,6 +53,27 @@
           canvas {
                border: 2px solid black;
           }
+
+          h3 {
+               text-transform: uppercase;
+               font-weight: lighter;
+          }
+
+          .th {
+               background-color: black;
+               color: white;
+          }
+
+          #matriz-de-adyacencia table {
+               border: 1px solid rgba(0, 0, 0, 0.5);
+               border-radius: 10px;
+               overflow: hidden;
+          }
+
+          #matriz-de-adyacencia td {
+               border: 1px solid rgba(0, 0, 0, 0.5);
+               min-width: 40px;
+          }
      </style>
 
      <div
@@ -65,15 +87,42 @@
 
      <br>
 
+     <div style="padding: 20px;">
+          Los grafos tiene aplicaciones importantes en redes, bioinformática, ingeniería de software, diseño web y de
+          bases de
+          datos, aprendizaje automático y en interfaces visuales para otros dominios técnicos.
+          <br>
+          <br>
+          Está aplicación es sólo material didactico para abordar el tema de grafos.
+     </div>
+     <br>
+
      <div id="contenedor-canvas" style="text-align: center;">
      </div>
 
      <span id="rmenu">
-          <a id="agregar-nodos-iniciales">Agregar nodos iniciales</a>
+          <a id="agregar-nodos-iniciales" onclick="ingresarNodosIniciales()">Agregar nodos iniciales</a>
           <a onclick="crearNodo(newNodeX,newNodeY)">Agregar nodo</a>
-          <a id="eliminar-nodo">Eliminar Nodo</a>
-          <a>Borrar todos los nodos</a>
+          <a id="eliminar-nodo" onclick="eliminarNodo()">Eliminar Nodo</a>
      </span>
+
+     <div style="text-align: center;font-size: 150%;">
+          <h3>Conjunto</h3>
+          <div id="conjunto" style="padding: 10px;">
+          </div>
+          <hr>
+          <h3>Lista de aristas</h3>
+          <div id="lista-de-aristas" style="padding: 10px;">
+          </div>
+          <hr>
+          <h3>Matriz de adyacencia</h3>
+          <div id="matriz-de-adyacencia" style="padding: 10px;">
+          </div>
+          <hr>
+          <h3>Matriz de incidencia</h3>
+          <div id="matriz-de-incidencia" style="padding: 10px;">
+          </div>
+     </div>
 
      <script>
 
@@ -82,6 +131,48 @@
           let alfabeto = []
           for (let i = 65; i <= 90; i++) {
                alfabeto.push(String.fromCharCode(i))
+          }
+
+          let aristaN = 0
+
+          function actualizarRepresentaciones() {
+               let nombres = nodos.map((x) => x.txt)
+               let listas = []
+               for (const n of nodos) {
+                    let r = []
+                    for (const c of n.conexiones) {
+                         r.push([n.txt, c.txt])
+                    }
+                    if (r.length) {
+                         listas.push(r)
+                    }
+               }
+               document.getElementById("conjunto").innerHTML = `V={${nombres.toString()}}`
+               document.getElementById("lista-de-aristas").innerHTML = `A=${JSON.stringify(listas)
+                    .replaceAll("[", "{")
+                    .replaceAll("]", "}")
+                    .replaceAll("{{", "{")
+                    .replaceAll("}}", "}")
+                    }`
+               let html = `<table style="margin:auto;"><tbody>`
+               html += `<tr><td class="th"></td>`
+               for (const n of nodos) {
+                    html += `<td class="th">`
+                    html += n.txt
+                    html += `</td>`
+               }
+               html += `</tr>`
+               for (const n of nodos) {
+                    html += `<tr><td class="th">${n.txt}</td>`
+                    for (const n2 of nodos) {
+                         html += `<td>`
+                         html += n.conexiones.includes(n2) ? 1 : 0
+                         html += `</td>`
+                    }
+                    html += `</tr>`
+               }
+               html += `</tbody></table>`
+               document.getElementById("matriz-de-adyacencia").innerHTML = html
           }
 
           class Nodo {
@@ -101,6 +192,15 @@
                          }
                     }
                     this.conexiones = []
+                    actualizarRepresentaciones()
+               }
+
+               desconectar(node) {
+                    if (node == this) {
+                         return
+                    }
+                    this.conexiones.splice(this.conexiones.indexOf(node), 1)
+                    actualizarRepresentaciones()
                }
 
                conectar(node) {
@@ -111,6 +211,7 @@
                          return
                     }
                     this.conexiones.push(node)
+                    actualizarRepresentaciones()
                }
 
                conectarDoble(node) {
@@ -131,10 +232,13 @@
                draw() {
                     if (this.mouseOver) {
                          fill("#E3CAA5")
+                         if (keyIsDown(CONTROL)) {
+                              cursor(MOVE)
+                         }
                     } else {
                          fill("#CEAB93")
                     }
-                    strokeWeight(2)
+                    strokeWeight(5)
                     stroke("#AD8B73")
                     this.shape.draw()
                     fill("black")
@@ -150,6 +254,11 @@
                          } else {
                               stroke("black")
                               fill("black")
+                         }
+                         let proy = determinarProyección(this.shape.center, c.shape.center, { x: TmouseX, y: TmouseY })
+                         if (proy.d < 10 && proy.k > 0.1 && proy.k <= 0.9) {
+                              nodeAconect = this
+                              nodeBconect = c
                          }
                          line(this.shape.x, this.shape.y, c.shape.x, c.shape.y)
                          push()
@@ -169,17 +278,54 @@
 
                          beginShape()
                          vertex(0, 0)
-                         vertex(-5, 2.5)
-                         vertex(-5, -2.5)
+                         vertex(-10, 2.5)
+                         vertex(-10, -2.5)
                          endShape(CLOSE)
                          pop()
                     }
                }
           }
 
+          let nodeAconect
+          let nodeBconect
           let nodo1
           let nodo2
           let nodoMove
+
+          async function editarConexión(nodo1, nodo2) {
+               let { value: valor } = await Swal.fire({
+                    html: `
+                    <label>
+                         <input type="checkbox" id="cbox1" ${nodo1.conexiones.includes(nodo2) ? "checked" : ""}>
+                         ${nodo1.txt} → ${nodo2.txt}
+                    </label>
+                    <br>
+                    <label>
+                         <input type="checkbox" id="cbox2" ${nodo2.conexiones.includes(nodo1) ? "checked" : ""}>
+                         ${nodo2.txt} → ${nodo1.txt}
+                    </label>
+                    `,
+                    preConfirm: () => {
+                         return {
+                              conexión1: document.getElementById("cbox1").checked,
+                              conexión2: document.getElementById("cbox2").checked
+                         }
+                    }
+               })
+               if (valor) {
+                    if (valor.conexión1) {
+                         nodo1.conectar(nodo2)
+                    } else {
+                         nodo1.desconectar(nodo2)
+                    }
+                    if (valor.conexión2) {
+                         nodo2.conectar(nodo1)
+                    } else {
+                         nodo2.desconectar(nodo1)
+                    }
+               }
+               console.log(valor)
+          }
 
           function mouseDragged() {
                if (nodoMove) {
@@ -231,8 +377,7 @@
                          } else {
                               nodo1.conectar(n)
                          }
-                         nodo1 = undefined
-                         return
+                         break
                     }
                }
                nodo1 = undefined
@@ -250,12 +395,16 @@
                          return
                     }
                }
+               if (nodeAconect && nodeBconect) {
+                    editarConexión(nodeAconect, nodeBconect)
+                    return
+               }
           }
 
-          let newNodeX, newNodeY
+          let newNodeX, newNodeY, nodoEliminar
 
           function windowResized() {
-               s = 0.99 * windowWidth / width;
+               s = 0.95 * windowWidth / width;
                if (s > 1) {
                     s = 1
                }
@@ -280,33 +429,103 @@
                     menu.style.top = e.pageY + "px"
                     newNodeX = TmouseX
                     newNodeY = TmouseY
+                    for (const n of nodos) {
+                         if (n.mouseOver) {
+                              nodoEliminar = n
+                              break
+                         }
+                    }
+                    actualizarMenúContextual()
                     e.preventDefault();
                }, false);
                document.addEventListener("click", () => {
                     menu = document.getElementById("rmenu")
                     if (menu.style.display == "flex") {
                          menu.style.display = "none"
+                         nodoEliminar = undefined
                     }
+                    actualizarMenúContextual()
                })
                nodosGenerar = 7
                nodos = []
-               /*  for (let i = 0; i < nodosGenerar; i++) {
-                     let a = i * 2 * PI / nodosGenerar
-                     nodos.push(new Nodo(250 * cos(a), 250 * sin(a)))
-                } */
+          }
+
+          async function ingresarNodosIniciales() {
+               let { value: nodosGenerar } = await Swal.fire({
+                    title: "Cantidad de nodos Iniciales",
+                    input: "number",
+                    inputAttributes: {
+                         min: 2,
+                         max: 12,
+                         step: 1
+                    },
+                    inputValue: 5,
+               })
+               if (!nodosGenerar || nodosGenerar < 2) {
+                    return
+               }
+               if (nodosGenerar > 12) {
+                    nodosGenerar = 12
+               }
+               for (let i = 0; i < nodosGenerar; i++) {
+                    let a = i * 2 * PI / nodosGenerar
+                    nodos.push(new Nodo(250 * cos(a), 250 * sin(a)))
+               }
+               actualizarMenúContextual()
           }
 
           function crearNodo(x, y) {
                nodos.push(new Nodo(x, y))
+               actualizarMenúContextual()
+          }
+
+          function eliminarNodo() {
+               nodos.splice(nodos.indexOf(nodoEliminar), 1)
+               for (const n of nodos) {
+                    n.conexiones.splice(n.conexiones.indexOf(nodoEliminar), 1)
+               }
+          }
+
+          function actualizarMenúContextual() {
+               if (nodos.length) {
+                    document.getElementById("agregar-nodos-iniciales").style.display = "none"
+               } else {
+                    document.getElementById("agregar-nodos-iniciales").style.display = "block"
+               }
+               if (nodoEliminar) {
+                    document.getElementById("eliminar-nodo").style.display = "block"
+               } else {
+                    document.getElementById("eliminar-nodo").style.display = "none"
+               }
           }
 
           function draw() {
-               background("#FFFBE9")
+               clear()
                translate(width / 2, height / 2)
-               
+
+               cursor(ARROW)
+
+               if (nodeAconect && nodeBconect) {
+                    stroke("BurlyWood")
+                    strokeWeight(5)
+                    line(
+                         nodeAconect.shape.x,
+                         nodeAconect.shape.y, nodeBconect.shape.x, nodeBconect.shape.y
+                    )
+                    cursor(HAND)
+               }
+
+               nodeAconect = undefined
+               nodeBconect = undefined
+
                TmouseX = mouseX - width / 2
                TmouseY = mouseY - height / 2
-               
+
+               if (!nodos.length) {
+                    fill(0)
+                    text("Presiona clic derecho para desplegar las opciones", 0, 0)
+               }
+
 
                if (nodo1) {
                     if (keyIsDown(SHIFT)) {
@@ -319,17 +538,22 @@
                stroke(255)
                fill(255)
                strokeWeight(1)
+
                for (const n of nodos) {
                     n.drawConections()
                }
+
+               aristaN = 0
+               nodosUsados = []
+
                push()
                for (const n of nodos) {
                     n.draw()
                }
                pop()
 
-               fill("black")
-               circle(TmouseX, TmouseY, 10)
+               /* fill("black")
+               circle(TmouseX, TmouseY, 5) */
           }
      </script>
 
