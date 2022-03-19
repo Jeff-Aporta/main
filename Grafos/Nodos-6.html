@@ -19,6 +19,10 @@
 
 <body oncontextmenu="return false;">
      <style>
+          * {
+               transition: all 0.25s;
+          }
+
           body {
                margin: 0;
                padding: 0;
@@ -54,9 +58,9 @@
                border: 2px solid burlywood;
           }
 
-          h3 {
+          h5 {
                text-transform: uppercase;
-               font-weight: lighter;
+               font-weight: normal;
           }
 
           .th {
@@ -72,6 +76,21 @@
                border: 1px solid rgba(0, 0, 0, 0.5);
                min-width: 50px;
           }
+
+          .key {
+               background: rgb(56, 56, 56);
+               color: white;
+               padding: 5px;
+               border-radius: 5px;
+               border: black 1px solid;
+               box-shadow: inset 3px 3px rgba(255, 255, 255, 0.205), inset -3px -3px rgba(0, 0, 0, 0.205);
+               font-weight: lighter;
+               font-size: 80%;
+          }
+
+          .hide {
+               display: none;
+          }
      </style>
 
      <div
@@ -83,25 +102,70 @@
           </div>
      </div>
 
-     <br>
-
      <div style="padding: 20px;">
           Forma sencilla y ágil de modelar grafos desde una interfaz gráfica para computadora, no es compatible con
           dispositivos tátciles por los controles con el mouse y el teclado.
      </div>
-     <br>
 
      <div style="text-align: center;">
-          <span>
-               Diametro
-               <br>
-               <input type="number" min="50" max="100" onchange="cambiarDiametro(Number(this.value));">
-          </span>
+          <a class="btn btn-primary" onclick="
+               if (document.getElementById('tutorial').style.display!='none') {
+                    document.getElementById('tutorial').style.opacity = '0';
+                    setTimeout(() => {
+                         document.getElementById('tutorial').classList.toggle('hide')
+                         document.getElementById('tutorial').style.opacity = '1';
+                    }, 250);
+               }else{
+                    document.getElementById('tutorial').classList.toggle('hide')
+               }
+               ">
+               <i class="fas fa-chalkboard-teacher"></i> Tutorial
+          </a>
+     </div>
+
+     <div style="padding: 20px;" id="tutorial" class="hide">
+          <h3 style="text-align: center;">
+               TUTORIAL
+          </h3>
+          <strong>¿Cómo agregar nodos?</strong>
+          Da clic derecho sobre el área rectangular de abajo para seleccionar las opciones de:
+          <ul>
+               <li><strong>Agregar nodos iniciales</strong> para agregar varios nodos distribuidos en forma circular
+                    <i>(Sólo disponible mientras no hayan nodos en el área).</i>
+               </li>
+               <li><strong>Agregar nodo</strong> para empezar agregando un único nodo.</li>
+          </ul>
+          <strong>¿Cómo mover un nodo?</strong>
+          Con <span class="key">CTRL</span> presionado y el mouse sobre el nodo que deseas mover podrás dar clic y
+          arrastrar a la nueva posición que le quieras dar al nodo. Los nodos no se pueden salir del área rectángular ni
+          reposicionarse encima de otro nodo.
+          <br>
+          <strong>¿Cómo vincular un nodo con otro por medio de una arista?</strong> pon el mouse sobre el nodo, y da
+          clic izquierdo, sin soltar el clic arrastra hasta el nuevo nodo a vincular. para indicar que la arista es
+          bidireccional deja presionada la tecla <span class="key">SHIFT</span> hasta soltar la arista al nodo a
+          vincular.
+          <br>
+          <strong>¿Cómo cambiar la etiqueta de un nodo?</strong> da doble clic sobre el nodo y se abrirá el menú de
+          renombramiento.
+          <br>
+          <strong>¿Cómo reponderar una arista?</strong> ubica el mouse sobre la arista, hasta que esta se recubra de un
+          borde cafecito, cuando esto suceda podrás dar doble clic para que se abra el menú de opciones de arista, ahí
+          aparecerá el input para reponderar la arista
      </div>
 
      <br>
 
-     <div id="contenedor-canvas" style="text-align: center;">
+     <div style="text-align: center;">
+          <div style="display: inline-block;vertical-align: top;margin: 20px;">
+               <span>
+                    Diametro
+                    <br>
+                    <input type="number" min="50" max="100" value="50" onchange="cambiarDiametro(Number(this.value));">
+               </span>
+          </div>
+
+          <div id="contenedor-canvas" style="display: inline-block;">
+          </div>
      </div>
 
      <span id="rmenu">
@@ -113,7 +177,7 @@
      <div style="text-align: center;font-size: 120%;">
 
           <hr>
-          <h3>Camino más corto</h3>
+          <h5>Camino más corto</h5>
 
           <span style="display: inline-block;">
                <input type="text" id="ndk1" placeholder="Partida">
@@ -124,7 +188,7 @@
 
           <a class="btn btn-primary" style="transform: translateY(-5px);"
                onclick="_Dijkstra(document.getElementById('ndk1').value,document.getElementById('ndk2').value)">
-               Dijkstra
+               Dijkstra <i class="fas fa-play"></i>
           </a>
 
           <br>
@@ -132,23 +196,23 @@
           <span id="camino"></span>
 
           <hr>
-          <h3>Conjunto</h3>
+          <h5>Conjunto</h5>
           <div id="conjunto" style="padding: 10px;">
           </div>
           <hr>
-          <h3>Lista de aristas</h3>
+          <h5>Lista de aristas</h5>
           <div id="lista-de-aristas" style="padding: 10px;">
           </div>
           <hr>
-          <h3>Matriz de adyacencia</h3>
+          <h5>Matriz de adyacencia</h5>
           <div id="matriz-de-adyacencia" style="padding: 10px;">
           </div>
           <hr>
-          <h3>Matriz de costos</h3>
+          <h5>Matriz de costos</h5>
           <div id="matriz-de-costos" style="padding: 10px;">
           </div>
           <hr>
-          <h3>Matriz de incidencia</h3>
+          <h5>Matriz de incidencia</h5>
           <div id="matriz-de-incidencia" style="padding: 10px;">
           </div>
      </div>
@@ -180,16 +244,20 @@
                globalDikstra = globalDikstra.filter((x) => {
                     return x.costo == costo_minimo
                })[0]
-               const y = document.getElementById("defaultCanvas0").getBoundingClientRect().top + window.scrollY;
-               window.scroll({
-                    top: y - 30,
-                    behavior: 'smooth'
-               });
 
                let camino = ""
-               for (let i = 0; i < globalDikstra.camino.length; i++) {
-                    const element = globalDikstra.camino[i];
-                    camino += element.txt + (i < globalDikstra.camino.length-1 ? "→" : "")
+               if (globalDikstra) {
+                    for (let i = 0; i < globalDikstra.camino.length; i++) {
+                         const element = globalDikstra.camino[i];
+                         camino += element.txt + (i < globalDikstra.camino.length - 1 ? "→" : "")
+                    }
+                    const y = document.getElementById("defaultCanvas0").getBoundingClientRect().top + window.scrollY;
+                    window.scroll({
+                         top: y - 30,
+                         behavior: 'smooth'
+                    });
+               } else {
+                    camino = "No hay camino"
                }
                document.getElementById("camino").innerHTML = camino
           }
@@ -344,7 +412,7 @@
                               html += 0
                          } else {
                               let arista = buscarArista(n, n2)
-                              if (arista) {
+                              if (arista && n.conexiones.includes(n2)) {
                                    html += arista.ponderación
                               } else {
                                    html += "∞"
@@ -447,7 +515,7 @@
                               stroke("black")
                               fill("black")
                          }
-                         if (globalDikstra.camino) {
+                         if (globalDikstra?.camino) {
                               let i1 = globalDikstra.camino.indexOf(this)
                               let i2 = globalDikstra.camino.indexOf(c)
                               if (i1 != -1 && i2 != -1) {
