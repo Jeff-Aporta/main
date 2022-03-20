@@ -92,13 +92,16 @@
           <br>
           <br>
           <hr>
+          <strong style="color: lightseagreen; font-size: 120%;">Ecuaciones</strong>
+          <br>
+          <br>
           Distribución de Poisson
           <br>
           <br>
           <img id="f-latex">
           <br>
           <br>
-          Distribución de Poisson Normalizada (No oficial)
+          Distribución de Poisson Ampliada (No oficial)
           <br>
           <br>
           <img id="N-latex">
@@ -109,7 +112,7 @@
 
      <script>
 
-          ESCALA = 30
+          ESCALA = 50
           TX = 0
           TY = 0
           focusCanvas = false
@@ -120,7 +123,7 @@
 
                if (lambda) {
                     TX = width / 2 - ESCALA * Number(document.getElementById("lambda").value);
-                    if (x) {
+                    if (!Number.isNaN(x)) {
                          try {
                               f = Number(nerdamer(`P(${x},${lambda})`).evaluate())
 
@@ -132,11 +135,11 @@
                               n = Number(nerdamer(`J(${x},${lambda})`).evaluate())
 
                               document.getElementById("N-resultado").src = `
-                              https://latex.codecogs.com/svg.image?&space;N(${x})=` + nerdamer(`J(${x},${lambda})`).toTeX() + `= `
+                              https://latex.codecogs.com/svg.image?&space;N(${x})=` + nerdamer(`diff(J(${x},${lambda}))`).toTeX() + `= `
                                    +
                                    Math.floor(n * 10000) / 10000 + " (" + Math.floor(n * 10000) / 100 + "%)"
                          } catch (error) {
-                              consoel.log(error)
+                              console.log(error)
                          }
                     }
                }
@@ -153,17 +156,14 @@
                TX = width * 0.1
                TY = height * 0.5
 
-               nerdamer.setVar("k", "0")
-               nerdamer.setFunction("P", ["x", "u"], "(e^(-u)*u^(x+k))/(x+k)!");
-               console.log(nerdamer("P(x,u)").toTeX())
-               nerdamer.setFunction("J", ["x", "u"], nerdamer("P(x,u)/P(u,u)").text());
+               nerdamer.setFunction("P", ["x", "u"], "(e^(-u)*u^x)/x!");
+               nerdamer.setFunction("J", ["x", "u"], nerdamer("P(x-0.5,u)/P(u-0.5,u)").text());
 
                document.getElementById("f-latex").src = `
-               https://latex.codecogs.com/svg.image?\\LARGE&space;f(x)=` + nerdamer("P(x,u)").toTeX()
-               console.log(nerdamer("factorial(13.5)").evaluate().text())
+               https://latex.codecogs.com/svg.image?\\large&space;f(x)=` + nerdamer("P(x,u)").toTeX()
 
                document.getElementById("N-latex").src = `
-               https://latex.codecogs.com/svg.image?\\LARGE&space;N(x)=` + nerdamer("J(x,u)").toTeX()
+               https://latex.codecogs.com/svg.image?\\large&space;N(x)=` + nerdamer("J(x,u)").toTeX()
           }
 
           function mousePressed() {
@@ -277,7 +277,7 @@
                stroke("red")
                noFill()
                beginShape()
-               for (let i = xmin; i <= xmax; i += 0.2) {
+               for (let i = xmin; i <= xmax+1; i += (xmax+1 - xmin) / 100) {
                     try {
                          let v = TL_point(i, Number(nerdamer(`P(${i},${lambda})`).evaluate().text()))
                          vertex(v.x, v.y)
@@ -287,7 +287,7 @@
                endShape()
                stroke("blue")
                beginShape()
-               for (let i = xmin; i <= xmax; i += 0.2) {
+               for (let i = xmin; i <= xmax + 1; i += (xmax + 1 - xmin) / 100) {
                     try {
                          let v = TL_point(i, Number(nerdamer(`J(${i},${lambda})`).evaluate().text()))
                          vertex(v.x, v.y)

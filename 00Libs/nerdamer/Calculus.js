@@ -426,27 +426,14 @@ if (typeof module !== "undefined" && typeof nerdamer === "undefined") {
       return retval;
     },
     diff: function (entrada, var_derivación, orden_derivada, subderivada = 0) {
-      nerdamer.escribirProced(
-        "<div class='cajon'> "+"Se inicia el tutorial para derivar " +
-          nerdamer.obtenerLaTeXHTML(nerdamer(entrada).toTeX(), 130),
-        subderivada
-      );
       if (core.Utils.isVector(entrada)) {
         var vector = new core.Vector([]);
-        nerdamer.escribirProced(
-          "Es un vector, se derivará cada una de sus componentes",
-          subderivada
-        );
         entrada.each(function (x) {
           vector.elements.push(__.diff(x, var_derivación, orden_derivada));
         });
         return vector;
       } else if (core.Utils.isMatrix(entrada)) {
         var matrix = new core.Matrix();
-        nerdamer.escribirProced(
-          "Es una matriz, se derivará cada uno de sus elementos",
-          subderivada
-        );
         entrada.each(function (x, i, j) {
           matrix.set(i, j, __.diff(x, var_derivación, orden_derivada));
         });
@@ -474,20 +461,11 @@ if (typeof module !== "undefined" && typeof nerdamer === "undefined") {
           VARIABLE_DERIVACIÓN = core.Utils.variables(entrada)[0];
         }
         if (nerdamer.procedimiento) {
-          nerdamer.escribirProced(
-              nerdamer.obtenerLaTeXHTML(VARIABLE_DERIVACIÓN, 130) +
-              " es la variable de derivación"
-          );
         }
       }
 
       //unwrap sqrt
       if (entrada.group === ES_FUNCIÓN && entrada.fname === SQRT) {
-        nerdamer.escribirProced(
-          "La función está dentro de una raíz cuadrada " +
-            nerdamer.obtenerLaTeXHTML("\\sqrt{x}", 130),
-          subderivada
-        );
         var argumento = entrada.args[0];
         let potencia = entrada.power.clone();
         //these groups go to zero anyway so why waste time?
@@ -505,102 +483,27 @@ if (typeof module !== "undefined" && typeof nerdamer === "undefined") {
           argumento.multiplier = argumento.multiplier.multiply(
             entrada.multiplier
           );
-          nerdamer.escribirProced(
-            "no es un número, tampoco tiene potencia fraccionaria",
-            subderivada
-          );
-          nerdamer.escribirProced(
-            "Se expresará como: (" +
-              argumento.multiplier +
-              ")^(" +
-              argumento.power +
-              ")",
-            subderivada
-          );
         }
         entrada = argumento;
       }
 
       if (entrada.group === ES_FUNCIÓN && !isSymbol(entrada.power)) {
-        nerdamer.escribirProced(
-          "La expresión se considera una función, prepararse para aplicar la regla de la cadena",
-          subderivada
-        );
-        nerdamer.escribirProced(
-          "se deriva la función general: " +
-            nerdamer.obtenerLaTeXHTML(nerdamer(entrada).toTeX()),
-          subderivada
-        );
         var a = derive(_.parse(entrada));
-        nerdamer.escribirProced(
-          "Resultado de la derivada externa: " +
-            nerdamer.obtenerLaTeXHTML(nerdamer(a).toTeX()),
-          subderivada
-        );
-        nerdamer.escribirProced(
-          "A continuación la derivada interna.",
-          subderivada
-        );
         var b = __.diff(
           entrada.args[0].clone(),
           VARIABLE_DERIVACIÓN,
           1,
           subderivada + 1
         );
-        nerdamer.escribirProced(
-          "Resultado de la derivada interna: " +
-            nerdamer.obtenerLaTeXHTML(nerdamer(b).toTeX()),
-          subderivada
-        );
-        let latex1 = nerdamer(a).toTeX();
-        let latex2 = nerdamer(b).toTeX();
-        nerdamer.escribirProced(
-          "Se multiplica derivada interna con externa: " +
-            nerdamer.obtenerLaTeXHTML(
-              (latex1.includes("\\frac") ? "\\bigg" : "") +
-                "(" +
-                latex1 +
-                (latex1.includes("\\frac") ? "\\bigg" : "") +
-                ")\\cdot" +
-                (latex2.includes("\\frac") ? "\\bigg" : "") +
-                "(" +
-                nerdamer(b).toTeX() +
-                (latex2.includes("\\frac") ? "\\bigg" : "") +
-                ")"
-            ),
-          subderivada
-        );
         entrada = _.multiply(a, b); //chain rule
-        nerdamer.escribirProced(
-          "Resultado: " + nerdamer.obtenerLaTeXHTML(nerdamer(entrada).toTeX()),
-          subderivada
-        );
       } else {
         entrada = derive(entrada, subderivada + 1);
-        nerdamer.escribirProced(
-          "Derivada directa, no es necesario aplicar la regla de la cadena: " +
-            nerdamer.obtenerLaTeXHTML(nerdamer(entrada).toTeX()),
-          subderivada
-        );
       }
 
       if (orden_derivada > 1) {
-        nerdamer.escribirProced(
-          "aún no se ha determinado la derivada faltan " +
-            orden_derivada +
-            " iteraciones, se derivará otra vez",
-          subderivada
-        );
         orden_derivada--;
         entrada = __.diff(entrada, var_derivación, orden_derivada);
       }
-
-      nerdamer.escribirProced(
-        "Resultado final: " +
-          nerdamer.obtenerLaTeXHTML(nerdamer(entrada).toTeX()) +
-          "</div>",
-        subderivada
-      );
 
       return entrada;
 
@@ -634,16 +537,7 @@ if (typeof module !== "undefined" && typeof nerdamer === "undefined") {
         ) {
           symbol = Symbol(0);
         } else if (g === ES_SIMPLE_VARIABLE) {
-          nerdamer.escribirProced(
-            "Se aplica la regla de derivación: " +
-              nerdamer.obtenerLaTeXHTML("x^n=n\\cdot x^{n-1}"),
-            subderivada
-          );
           symbol = DERIVADA_POTENCIA(symbol);
-          nerdamer.escribirProced(
-            "Resultado: " + nerdamer.obtenerLaTeXHTML(nerdamer(symbol).toTeX()),
-            subderivada
-          );
         } else if (g === ES_MULTIPLICACIÓN) {
           var COHEFICIENTE = symbol.multiplier.clone();
           symbol.toUnitMultiplier();
@@ -652,14 +546,6 @@ if (typeof module !== "undefined" && typeof nerdamer === "undefined") {
             DERIVADA_POTENCIA(symbol)
           );
           retval.multiplier = retval.multiplier.multiply(COHEFICIENTE);
-          nerdamer.escribirProced(
-            "Se derivará según la regla del producto: " +
-              nerdamer.obtenerLaTeXHTML(
-                "f'(x)\\cdot g(x) = f'(x)\\cdot g(x)+f(x)\\cdot g'(x)"
-              ),
-            subderivada
-          );
-          console.log(origin + " -> " + retval.text());
           return retval;
         } else if (g === ES_FUNCIÓN && symbol.power.equals(1)) {
           // Table of known derivatives
@@ -667,7 +553,6 @@ if (typeof module !== "undefined" && typeof nerdamer === "undefined") {
             case LOG:
               cp = symbol.clone();
               symbol = symbol.args[0].clone(); //get the arguments
-              console.log("Derivada de Log(a) = 1/a; a = " + symbol);
               symbol.power = symbol.power.negate();
               symbol.multiplier = cp.multiplier.divide(symbol.multiplier);
               break;
