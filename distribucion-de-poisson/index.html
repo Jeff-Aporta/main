@@ -1,0 +1,309 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+     <meta charset="UTF-8">
+     <meta http-equiv="X-UA-Compatible" content="IE=edge">
+     <meta name="viewport" content="width=device-width, initial-scale=1.0">
+     <title>Distribución de Poisson</title>
+
+
+     <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/css/bootstrap.min.css">
+     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
+
+     <script src="https://cdnjs.cloudflare.com/ajax/libs/p5.js/1.4.1/p5.min.js"></script>
+
+     <script src="../00Libs/nerdamer/nerdamer.core.js"></script>
+     <script src="../00Libs/nerdamer/Algebra.js"></script>
+     <script src="../00Libs/nerdamer/Calculus.js"></script>
+     <script src="../00Libs/nerdamer/Solve.js"></script>
+     <script src="../00Libs/nerdamer/Extra.js"></script>
+     <script src="../00Libs/nerdamer/nerdamer_español.js"></script>
+</head>
+
+<body>
+
+     <style>
+          body {
+               text-align: center;
+          }
+
+          .stop-scrolling {
+               height: 100%;
+               overflow: hidden;
+          }
+
+          canvas {
+               border: 2px solid black;
+          }
+     </style>
+
+     <div
+          style="display: flex;flex-wrap: wrap;justify-content: space-between;align-items: center;padding: 30px;color: white;text-shadow: 1px 1px black;background: linear-gradient( to top right, black, darkcyan);">
+          <h1 style="line-height: 120%;text-align: right;">
+               <span style="font-size: 120%;">
+                    Distribución <span style="font-weight: lighter;">de</span>
+                    <br>
+                    <strong style="font-size: 200%;">Poisson</strong>
+               </span>
+          </h1>
+          <div style="text-align: center;">
+               <img src="https://i.ibb.co/GPNZQkZ/poisson.png"
+                    style="width: 200px;filter: invert(1) hue-rotate(180deg) brightness(2);">
+          </div>
+     </div>
+
+     <div style="padding: 20px;display: inline-block;text-align: left;">
+          <strong style="color: crimson;">Probabilidad de ocurrencia</strong>
+          <br>
+          es la misma para cualquiera de los intervalos de igual longitud
+          <br>
+          <br>
+          <img src="https://latex.codecogs.com/svg.image?\Huge&space;\lambda&space;">
+          =
+          <input type="number" step="0.1" min="0" max="45" id="lambda" onchange="repos()" onkeyup="repos()">
+          <br>
+          <br>
+          por limitaciones computacionales, no ingrese números mayores a 45.
+          <br>
+          ya que 13.5! es apróximadamente:
+          <br>
+          23092317922.314238952536824877
+          <br>
+          esto rebasa la capacidad de representación númerica normal en los ordenadores
+          <br>
+          <br>
+          <hr>
+          <strong style="color: crimson;">Variable aleatoria</strong>
+          <br>
+          Número de veces que ocurre un evento <strong style="color: deepskyblue;">Durante un intervalo
+               definido</strong>
+          <br>
+          <br>
+          <img src="https://latex.codecogs.com/svg.image?\Huge&space;x&space;">
+          =
+          <input type="number" step="1" min="0" id="x" onchange="repos()" onkeyup="repos()">
+          <br>
+          <br>
+          <img id="F-resultado" src="https://latex.codecogs.com/svg.image?\large&space;f(x)=\_\_\_">
+          <br>
+          <br>
+          <img id="N-resultado" src="https://latex.codecogs.com/svg.image?\large&space;N(x)=\_\_\_">
+          <br>
+          <br>
+          <hr>
+          Distribución de Poisson
+          <br>
+          <br>
+          <img id="f-latex">
+          <br>
+          <br>
+          Distribución de Poisson Normalizada (No oficial)
+          <br>
+          <br>
+          <img id="N-latex">
+     </div>
+
+     <div style="display: inline-block;vertical-align: top; padding: 20px;" id="contenedor-canvas">
+     </div>
+
+     <script>
+
+          ESCALA = 30
+          TX = 0
+          TY = 0
+          focusCanvas = false
+
+          function repos() {
+               x = Number(document.getElementById("x").value)
+               lambda = Number(document.getElementById("lambda").value)
+
+               if (lambda) {
+                    TX = width / 2 - ESCALA * Number(document.getElementById("lambda").value);
+                    if (x) {
+                         try {
+                              f = Number(nerdamer(`P(${x},${lambda})`).evaluate())
+
+                              document.getElementById("F-resultado").src = `
+                              https://latex.codecogs.com/svg.image?&space;f(${x})=` + nerdamer(`P(${x},${lambda})`).toTeX() + `= `
+                                   +
+                                   Math.floor(f * 10000) / 10000 + " (" + Math.floor(f * 10000) / 100 + "%)"
+
+                              n = Number(nerdamer(`J(${x},${lambda})`).evaluate())
+
+                              document.getElementById("N-resultado").src = `
+                              https://latex.codecogs.com/svg.image?&space;N(${x})=` + nerdamer(`J(${x},${lambda})`).toTeX() + `= `
+                                   +
+                                   Math.floor(n * 10000) / 10000 + " (" + Math.floor(n * 10000) / 100 + "%)"
+                         } catch (error) {
+                              consoel.log(error)
+                         }
+                    }
+               }
+          }
+
+          function setup() {
+               canvas = createCanvas(500, 500)
+               canvas.parent("contenedor-canvas")
+               canvas.style("max-width", "500px")
+               canvas.style("width", "100%")
+               canvas.style("max-height", "500px")
+               canvas.style("height", "100%")
+
+               TX = width * 0.1
+               TY = height * 0.5
+
+               nerdamer.setVar("k", "0")
+               nerdamer.setFunction("P", ["x", "u"], "(e^(-u)*u^(x+k))/(x+k)!");
+               console.log(nerdamer("P(x,u)").toTeX())
+               nerdamer.setFunction("J", ["x", "u"], nerdamer("P(x,u)/P(u,u)").text());
+
+               document.getElementById("f-latex").src = `
+               https://latex.codecogs.com/svg.image?\\LARGE&space;f(x)=` + nerdamer("P(x,u)").toTeX()
+               console.log(nerdamer("factorial(13.5)").evaluate().text())
+
+               document.getElementById("N-latex").src = `
+               https://latex.codecogs.com/svg.image?\\LARGE&space;N(x)=` + nerdamer("J(x,u)").toTeX()
+          }
+
+          function mousePressed() {
+               if (mouseInCanvas()) {
+                    focusCanvas = true
+                    disableScroll()
+               }
+          }
+          function mouseReleased() {
+               if (!mouseInCanvas()) {
+                    focusCanvas = false
+                    enableScroll()
+               }
+          }
+
+          function mouseDragged() {
+               focusCanvas = true
+               if (mouseInCanvas()) {
+                    disableScroll()
+                    TX += mouseX - pmouseX
+                    TY += mouseY - pmouseY
+               }
+          }
+
+          function mouseInCanvas() {
+               return mouseX > 0 && mouseY > 0 && mouseX < width && mouseY < height
+          }
+
+          function disableScroll() {
+               document.body.classList.add("stop-scrolling");
+          }
+
+          function enableScroll() {
+               document.body.classList.remove("stop-scrolling");
+          }
+
+          function draw() {
+               background("white")
+               lambda = Number(document.getElementById("lambda").value)
+
+               translate(TX, TY)
+               if (focusCanvas) {
+                    if (keyIsDown(RIGHT_ARROW)) {
+                         TX += 2
+                    }
+                    if (keyIsDown(LEFT_ARROW)) {
+                         TX -= 2
+                    }
+                    if (keyIsDown(UP_ARROW)) {
+                         TY -= 2
+                    }
+                    if (keyIsDown(DOWN_ARROW)) {
+                         TY += 2
+                    }
+               }
+
+               stroke("black")
+               fill("black")
+               line(-TX, 0, -TX + width, 0)
+               line(0, -TY, 0, height - TY)
+
+               let ymin = -ceil((height - TY) / ESCALA)
+               let ymax = -Math.floor(-TY / ESCALA)
+
+               let coef_escala = ESCALA < 20 ? ESCALA < 10 ? 5 : 2 : 1
+
+               textAlign(RIGHT, CENTER)
+
+               for (let i = ymin; i <= ymax; i += coef_escala) {
+                    let p = TL_point(0, i)
+                    push()
+                    noStroke()
+                    circle(p.x, p.y, 5)
+                    if (i != 0) {
+                         text(
+                              round(-p.y / ESCALA),
+                              TX - 15 <= 0 ? 15 - TX : TX >= width ? width - TX - 15 : p.x - 15,
+                              p.y
+                         )
+                    }
+                    pop()
+                    push()
+                    stroke(0, 0, 0, 30)
+                    if (i != 0) {
+                         line(-TX, p.y, -TX + width, p.y)
+                    }
+                    pop()
+               }
+               xmin = Math.floor(-TX / ESCALA)
+               xmax = Math.floor((width - TX) / ESCALA)
+               for (let i = xmin; i <= xmax; i += coef_escala) {
+                    let p = TL_point(i, 0)
+                    push()
+                    noStroke()
+                    circle(p.x, p.y, 5)
+                    if (i != 0) {
+                         text(
+                              round(p.x / ESCALA),
+                              p.x,
+                              TY <= 0 ? - TY + 15 : TY >= height ? height - TY - 15 : p.y + 15
+                         )
+                    }
+                    pop()
+                    push()
+                    stroke(0, 0, 0, 30)
+                    if (i != 0) {
+                         line(p.x, -TY, p.x, height - TY)
+                    }
+                    pop()
+               }
+               stroke("red")
+               noFill()
+               beginShape()
+               for (let i = xmin; i <= xmax; i += 0.2) {
+                    try {
+                         let v = TL_point(i, Number(nerdamer(`P(${i},${lambda})`).evaluate().text()))
+                         vertex(v.x, v.y)
+                    } catch (error) {
+                    }
+               }
+               endShape()
+               stroke("blue")
+               beginShape()
+               for (let i = xmin; i <= xmax; i += 0.2) {
+                    try {
+                         let v = TL_point(i, Number(nerdamer(`J(${i},${lambda})`).evaluate().text()))
+                         vertex(v.x, v.y)
+                    } catch (error) {
+                    }
+               }
+               endShape()
+          }
+
+          function TL_point(x, y) {
+               let v = createVector(x, y)
+               v.mult(ESCALA, -ESCALA)
+               return v
+          }
+     </script>
+
+</body>
+
+</html>
