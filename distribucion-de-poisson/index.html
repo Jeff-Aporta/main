@@ -85,7 +85,7 @@
           <input type="number" step="1" min="0" id="x" onchange="repos()" onkeyup="repos()">
           <br>
           <br>
-          <img id="F-resultado" src="https://latex.codecogs.com/svg.image?\large&space;f(x)=\_\_\_">
+          <img id="F-resultado" src="https://latex.codecogs.com/svg.image?\large&space;P(x)=\_\_\_">
           <br>
           <br>
           <img id="N-resultado" src="https://latex.codecogs.com/svg.image?\large&space;N(x)=\_\_\_">
@@ -128,7 +128,7 @@
                               f = Number(nerdamer(`P(${x},${lambda})`).evaluate())
 
                               document.getElementById("F-resultado").src = `
-                              https://latex.codecogs.com/svg.image?&space;f(${x})=` + nerdamer(`P(${x},${lambda})`).toTeX() + `= `
+                              https://latex.codecogs.com/svg.image?&space;P(${x})=` + nerdamer(`P(${x},${lambda})`).toTeX() + `= `
                                    +
                                    Math.floor(f * 10000) / 10000 + " (" + Math.floor(f * 10000) / 100 + "%)"
 
@@ -160,7 +160,7 @@
                nerdamer.setFunction("J", ["x", "u"], nerdamer("P(x-0.5,u)/P(u-0.5,u)").text());
 
                document.getElementById("f-latex").src = `
-               https://latex.codecogs.com/svg.image?\\large&space;f(x)=` + nerdamer("P(x,u)").toTeX()
+               https://latex.codecogs.com/svg.image?\\large&space;P(x)=` + nerdamer("P(x,u)").toTeX()
 
                document.getElementById("N-latex").src = `
                https://latex.codecogs.com/svg.image?\\large&space;N(x)=` + nerdamer("J(x,u)").toTeX()
