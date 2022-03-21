@@ -1,3 +1,5 @@
+console.log("libreria mate-jeff.js FUNCIONANDO")
+
 PI = Math.PI;
 E = Math.E;
 
