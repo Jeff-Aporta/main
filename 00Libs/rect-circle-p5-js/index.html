@@ -35,9 +35,9 @@
 
           document.write(
                readText("../../00frag-menu-pegajoso.html")
+               .replace(`href="librerias.html" style="text-decoration: none;"`,`href="librerias.html" style="text-decoration: none;border-bottom:2px solid hotpink;"`)
                .replace("index.html","../../index.html")
                .replace("jeff-aporta.html","../../jeff-aporta.html")
-               .replace(`href="librerias.html" style="text-decoration: none;"`,`href="librerias.html" style="text-decoration: none;border-bottom:2px solid hotpink;"`)
                .replace("librerias.html","../../librerias.html")
                .replace("jeff-dibuja.html","../../jeff-dibuja.html")
           )

@@ -102,6 +102,28 @@
           </div>
      </div>
 
+     <script>
+          document.write(
+               readText("../00frag-menu-pegajoso.html")
+                    .replace(`href="jeff-aporta.html" style="text-decoration: none;"`, `href="../jeff-aporta.html" style="text-decoration: none;border-bottom:2px solid hotpink;"`)
+                    .replace("index.html", "../index.html")
+                    .replace("jeff-aporta.html", "../jeff-aporta.html")
+                    .replace("librerias.html", "../librerias.html")
+                    .replace("jeff-dibuja.html", "../jeff-dibuja.html")
+          )
+
+          function readText(ruta_local) {
+               var texto = null;
+               var xmlhttp = new XMLHttpRequest();
+               xmlhttp.open("GET", ruta_local, false);
+               xmlhttp.send();
+               if (xmlhttp.status == 200) {
+                    texto = xmlhttp.responseText;
+               }
+               return texto;
+          }
+     </script>
+
      <div style="padding: 20px;">
           Forma sencilla y ágil de modelar grafos desde una interfaz gráfica para computadora, no es compatible con
           dispositivos tátciles por los controles con el mouse y el teclado.
@@ -214,6 +236,22 @@
           <hr>
           <h5>Matriz de incidencia</h5>
           <div id="matriz-de-incidencia" style="padding: 10px;">
+          </div>
+
+          <div
+               style="background-image: url(https://i.ibb.co/sjFtsgt/output-onlinegiftools.gif);background-position: center;background-repeat: no-repeat;background-size: cover;">
+               <div
+                    style="background-color: rgba(0, 0, 0, 0.5);backdrop-filter: blur(3px);color: white;padding: 30px;font-weight: bolder;font-size: 130%;">
+                    <span style="font-weight: lighter;">Desarrollado por</span>
+                    <a href="../index.html" style="text-decoration: none;color: inherit;margin: 5px;">
+                         Jeffrey Agudelo
+                    </a>
+                    <br>
+                    <a class="btn btn-light" target="_blank" href="https://www.youtube.com/c/JeffAportaa"
+                         style="text-decoration: none;color: black;font-weight: normal;box-shadow: 3px 3px 3px rgba(0, 0, 0, 0.5);margin: 5px;">
+                         <i class="fab fa-youtube" style="color: red;"></i> Jeff Aporta
+                    </a>
+               </div>
           </div>
      </div>
 

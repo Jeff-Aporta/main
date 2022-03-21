@@ -12,6 +12,7 @@
      <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/animate.css/4.1.1/animate.min.css">
 
      <script src="00Libs/Lightbox/2/lightbox2.js"></script>
+     <script src="header-auto-hide.js"></script>
      <script src="img-LaTeX.js"></script>
      <script src="mapa-programas.js"></script>
      <link rel="stylesheet" href="main.css">
@@ -27,8 +28,11 @@
 <body>
 
      <style>
-          .youtube-frame {
+          .frame-app{
                width: 100%;
+               height: 90vh;
+          }
+          .youtube-frame {
                max-width: 300px;
                height: 180px;
           }
@@ -58,6 +62,7 @@
 
           .miniatura-cuadrada {
                max-width: 250px;
+               max-height: 200px;
                cursor: pointer;
                border-radius: 10px;
                left: 0;
@@ -80,7 +85,7 @@
                padding: 10px;
                display: inline-block;
                margin: 5px;
-               width: 30vw;
+               width: 350px;
                vertical-align: top;
                font-size: 90%;
                border-radius: 10px;
@@ -159,33 +164,35 @@
      
                               &nbsp;
      
-                              <a href="${url}" target="_blank">
+                              <a href="${url}" target="_blank" title="Abre la aplicación en una nueva pestaña">
                                    <span class="btn btn-primary">
                                         Abrir <i class="fa-solid fa-globe"></i>
                                    </span>
                               </a>
      
-                              <span class="btn btn-primary" id="mostrar-app-${i_app}" onclick="
-                              document.getElementById('app-${i_app}').innerHTML = \`<iframe src='${url}'></iframe>\`;
+                              <span class="btn btn-primary" id="mostrar-app-${i_app}" title="Incrusta la aplicación en la página actual" onclick="
+                              document.getElementById('app-${i_app}').innerHTML = \`<iframe class='frame-app' src='${url}'></iframe>\`;
 
                               document.getElementById('app-container-${i_app}').style.display = 'table';
                               document.getElementById('app-container-${i_app}').style.width = '100%';
      
-                              const y = this.getBoundingClientRect().top + window.scrollY;
-                              window.scroll({
-                              top: y-30,
-                              behavior: 'smooth'
-                              });
-     
                               this.style.display = 'none';
                               document.getElementById('ocultar-app-${i_app}').style.display='';
+
+                              setTimeout(()=>{
+                                   const y = document.getElementById('app-container-${i_app}').getBoundingClientRect().top + window.scrollY;
+                                   window.scroll({
+                                   top: y-10,
+                                   behavior: 'smooth'
+                                   });
+                              },250)
 
                               ">
                                    Ver <i class="fa-solid fa-eye"></i>
                               </span>
 
      
-                              <span class="btn btn-danger" style="display:none;" id="ocultar-app-${i_app}" onclick="
+                              <span class="btn btn-danger" style="display:none;" id="ocultar-app-${i_app}"  title="Desincrusta la aplicación de la página" onclick="
                               element = document.getElementById('app-${i_app}');
                               element.innerHTML ='';
                               this.style.display = 'none';

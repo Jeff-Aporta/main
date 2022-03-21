@@ -18,7 +18,14 @@ let mapa_programas = [
             `\\vec{x_n} = \\vec{x_{n-1}} M`,
             ``,
             "Cadenas de markov"
-          ),
+          ) +
+          `
+          <br>
+          <br>
+          <div style="text-align:center;">
+            <img src="https://upload.wikimedia.org/wikipedia/commons/thumb/2/2b/Markovkate_01.svg/1024px-Markovkate_01.svg.png" data-lightbox-group="Regresión lineal"  class="miniatura-cuadrada">
+          </div>
+          `,
         URL: "cadenas-de-markov/",
       },
       {
@@ -28,26 +35,35 @@ let mapa_programas = [
         lineal, pero que no están alineados. Este algoritmo es usado en fisica o estadistica
         para reducir margenes de error.
         <br>
-        ${
-          HTMLlightboxLaTeX(
-            "a=\\frac{n\\sum xy-\\sum x\\sum y}{n\\sum x^2-(\\sum x)^2}",
-            ``,
-            "Regresión lineal"
-          ) +
-          "<br>" +
-          HTMLlightboxLaTeX(
-            "b = \\frac{\\sum y-a\\sum x}{n}",
-            ``,
-            "Regresión lineal"
-          ) +
-          "<br>" +
-          HTMLlightboxLaTeX("y = ax+b", ``, "Regresión lineal")
-        }
+        <br>
+        ${HTMLlightboxLaTeX("y = ax+b", ``, "Regresión lineal")}
+        <br>
+        <br>
         <div style="text-align:center;">
           <img src="https://upload.wikimedia.org/wikipedia/commons/thumb/3/3a/Linear_regression.svg/350px-Linear_regression.svg.png" data-lightbox-group="Regresión lineal"  class="miniatura-cuadrada">
         </div>
         `,
         URL: "regresion-lineal/",
+      },
+      {
+        LABEL: "Distribución de Poisson",
+        HTML: `
+        Es una técnica usada en algunos casos para poder predecir una variable aleatoria x, con respecto
+        a una media µ.
+        <br>
+        <br>
+        ${HTMLlightboxLaTeX(
+          "P(x) = \\frac{e^-\\mu\\cdot\\mu^x}{x!}",
+          ``,
+          "Distribución de Poisson"
+        )}
+        <br>
+        <br>
+        <div style="text-align:center;">
+          <img src="https://i.ibb.co/GPNZQkZ/poisson.png" data-lightbox-group="Distribución de Poisson"  class="miniatura-cuadrada">
+        </div>
+        `,
+        URL: "distribucion-de-poisson/",
       },
     ],
   },
@@ -86,6 +102,20 @@ let mapa_programas = [
         </div>
         `,
         URL: "estructura-de-datos/arboles-binarios-Torres-de-hanoi/",
+      },
+      {
+        LABEL: "Modelador de Grafos y Dijkstra",
+        HTML: `
+        Con está aplicación, se podrá modelar gráficamente grafos, obtener sus elementos caracteristicos 
+        y además podrás ejecutar el algoritmo de Dijkstra para poder encontrar el camino más corto entre 
+        un nodo y otro 
+        <br>
+        <br>
+        <div style="text-align:center;position:relative;">
+          <img src="https://i.ibb.co/s2DzBCY/Nodos-6.png" data-lightbox-group="torres de hanoi" class="miniatura-cuadrada">
+        </div>
+        `,
+        URL: "Grafos/",
       },
     ],
   },
