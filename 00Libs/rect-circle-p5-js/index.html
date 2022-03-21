@@ -15,6 +15,12 @@
      <script src="https://cdn.jsdelivr.net/gh/google/code-prettify@master/loader/run_prettify.js"></script>
 
      <title>Rectángulos y circulos</title>
+
+     <meta property="og:site_name" content="Jeffrey Agudelo">
+     <meta property="og:title" content="Jeffrey Agudelo">
+     <meta property="og:description" content="0,1,1,2,3,5,8,13,21,34,...">
+     <meta property="og:image" content="https://i.ibb.co/3vg4KNb/softyo-001.png">
+     <link rel="icon" type="image/png" href="https://i.ibb.co/3vg4KNb/softyo-001.png">
 </head>
 
 <body>
@@ -26,32 +32,34 @@
                height: 50vh;
                margin: auto;
           }
+
+          .code-1 {
+               display: flex;
+               background-color: rgba(0, 0, 0, 0.15);
+               padding: 20px;
+               margin: 20px;
+          }
      </style>
 
+     <div
+          style="background-image: url(https://i.ibb.co/sCbJVg6/rect-circle.gif);background-position: 50% 50%;background-size: cover;">
+          <div
+               style="background: rgba(0, 0, 0, 0.5);height: 90vh;display: flex;justify-content: center;align-items: center;color: white;flex-direction: column;">
+
+               <h1 style="font-size: calc(max(6vw,50px));text-align: center;">RECTÁNGULOS Y CÍRCULOS</h1>
+               <span>
+                    Libreria básica para el manejo de colisiones
+               </span>
+          </div>
+     </div>
+
      <script>
-          document.write(
-               readText("../../00frag_encabezado.html")
-          )
-
-          document.write(
-               readText("../../00frag-menu-pegajoso.html")
-               .replace(`href="librerias.html" style="text-decoration: none;"`,`href="librerias.html" style="text-decoration: none;border-bottom:2px solid hotpink;"`)
-               .replace("index.html","../../index.html")
-               .replace("jeff-aporta.html","../../jeff-aporta.html")
-               .replace("librerias.html","../../librerias.html")
-               .replace("jeff-dibuja.html","../../jeff-dibuja.html")
-          )
-
-          function readText(ruta_local) {
-               var texto = null;
-               var xmlhttp = new XMLHttpRequest();
-               xmlhttp.open("GET", ruta_local, false);
-               xmlhttp.send();
-               if (xmlhttp.status == 200) {
-                    texto = xmlhttp.responseText;
-               }
-               return texto;
-          }
+          deep = "../../"
+          document.write(`<script src="` + deep + `utilidades.js"></` + 'script>')
+     </script>
+     <script>
+          //document.write(readText(deep + "00frag_encabezado.html"))
+          document.write(`<script src="` + deep + `insertar-menú-pegajoso.js"></` + 'script>')
      </script>
 
      <div style="padding: 20px;">
@@ -68,11 +76,10 @@
           <br>
           <br>
 
-          <div style="background: rgba(255, 255, 255, 0.15);padding: 20px;">
+          <div style="background: rgba(0, 0, 0, 0.15);padding: 20px;">
                <a href="https://p5js.org/es/download/" target="_blank">https://p5js.org/es/download/</a>
           </div>
 
-          <br>
           <br>
 
           <h1>
@@ -91,7 +98,7 @@
           <br>
 
 
-          <div style="background: rgba(255, 255, 255, 0.15);padding: 5px;">
+          <div style="background: rgba(0, 0, 0, 0.15);padding: 5px;">
                CDN
                <code class="code-1">
                     <script>

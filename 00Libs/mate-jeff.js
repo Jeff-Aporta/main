@@ -44,6 +44,10 @@ function sen(angle) {
   return sin(angle);
 }
 
+function distancia(x1 = 0, y1 = 0, z1 = 0, x2 = 0, y2 = 0, z2 = 0) {
+  return ((x1 - x2) ** 2 + (y1 - y2) ** 2 + (z1 - z2) ** 2) ** 0.5;
+}
+
 function distancia3D(vector1, vector2) {
   return (
     ((vector1.x - vector2.x) ** 2 +

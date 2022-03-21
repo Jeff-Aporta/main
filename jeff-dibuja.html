@@ -12,6 +12,8 @@
      <script src="00Libs/Lightbox/2/lightbox2.js"></script>
      <link rel="stylesheet" href="main.css">
 
+     <script src="header-auto-hide.js"></script>
+
      <meta property="og:site_name" content="Jeffrey Agudelo">
      <meta property="og:title" content="Jeffrey Agudelo">
      <meta property="og:description" content="0,1,1,2,3,5,8,13,21,34,...">
@@ -33,7 +35,7 @@
                object-fit: cover;
                cursor: pointer;
                border-radius: 10px;
-               border: 2px solid white;
+               border: 2px solid black;
           }
 
           .miniatura-redonda:hover {
@@ -41,29 +43,17 @@
           }
 
           h1 {
-               color: white;
+               color: black;
                text-transform: uppercase;
           }
      </style>
      <script>
-          document.write(readText("00frag_encabezado.html"))
-
-          document.write(
-               readText("00frag-menu-pegajoso.html")
-               .replace(`href="jeff-dibuja.html" style="text-decoration: none;"`,`href="#" style="text-decoration: none;border-bottom:2px solid hotpink;"`)
-          )
-
-
-          function readText(ruta_local) {
-               var texto = null;
-               var xmlhttp = new XMLHttpRequest();
-               xmlhttp.open("GET", ruta_local, false);
-               xmlhttp.send();
-               if (xmlhttp.status == 200) {
-                    texto = xmlhttp.responseText;
-               }
-               return texto;
-          }
+          deep = ""
+          document.write(`<script src="`+deep+`utilidades.js"></` + 'script>')
+     </script>
+     <script>
+          document.write(readText(deep + "00frag_encabezado.html"))
+          document.write(`<script src="`+deep+`insertar-menú-pegajoso.js"></` + 'script>')
      </script>
 
      <div style="padding: 20px;">

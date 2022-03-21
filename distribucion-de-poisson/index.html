@@ -19,11 +19,16 @@
      <script src="../00Libs/nerdamer/Solve.js"></script>
      <script src="../00Libs/nerdamer/Extra.js"></script>
      <script src="../00Libs/nerdamer/nerdamer_español.js"></script>
+
 </head>
 
 <body>
 
      <style>
+          * {
+               transition: all 0.25s;
+          }
+
           body {
                text-align: center;
                margin: 0;
@@ -40,7 +45,7 @@
           }
 
           .fondo {
-               background-image: url(https://i.ibb.co/sjFtsgt/output-onlinegiftools.gif);
+               background-image: url(https://i.ibb.co/LnBWS1R/0-LQwjc-Ay-APf-DYtjxv.gif);
                background-position: center;
                background-repeat: no-repeat;
                background-size: cover;
@@ -50,8 +55,8 @@
      <div class="fondo">
           <div style="color: white;text-shadow: 2px 2px black;">
                <div
-                    style="background: rgba(0, 0, 0, 0.5);backdrop-filter: blur(3px);display: flex;flex-wrap: wrap;justify-content: space-between;align-items: center;padding: 30px;">
-                    <h1 style="line-height: 120%;text-align: center;">
+                    style="background: rgba(0, 0, 0, 0.5);backdrop-filter: blur(3px);display: flex;flex-direction: column;justify-content: center;align-items: center;height: 90vh;">
+                    <h1 style="line-height: 120%;text-align: center;padding: 20px;">
                          <span style="font-size: 120%;">
                               Distribución <span style="font-weight: lighter;">de</span>
                               <br>
@@ -67,84 +72,71 @@
      </div>
 
      <script>
-          document.write(
-               readText("../00frag-menu-pegajoso.html")
-                    .replace(`href="jeff-aporta.html" style="text-decoration: none;"`, `href="../jeff-aporta.html" style="text-decoration: none;border-bottom:2px solid hotpink;"`)
-                    .replace("index.html", "../index.html")
-                    .replace("jeff-aporta.html", "../jeff-aporta.html")
-                    .replace("librerias.html", "../librerias.html")
-                    .replace("jeff-dibuja.html", "../jeff-dibuja.html")
-          )
-
-          function readText(ruta_local) {
-               var texto = null;
-               var xmlhttp = new XMLHttpRequest();
-               xmlhttp.open("GET", ruta_local, false);
-               xmlhttp.send();
-               if (xmlhttp.status == 200) {
-                    texto = xmlhttp.responseText;
-               }
-               return texto;
-          }
+          deep = "../"
+          document.write(`<script src="` + deep + `utilidades.js"></` + 'script>')
+     </script>
+     <script>
+          //document.write(readText(deep + "00frag_encabezado.html"))
+          document.write(`<script src="` + deep + `insertar-menú-pegajoso.js"></` + 'script>')
      </script>
 
-     <div style="padding: 20px;display: inline-block;text-align: left;">
-          <strong style="color: crimson;">Probabilidad de ocurrencia</strong>
-          <br>
-          es la misma para cualquiera de los intervalos de igual longitud
-          <br>
-          <br>
-          <img src="https://latex.codecogs.com/svg.image?\Huge&space;\lambda&space;">
-          =
-          <input type="number" step="0.1" min="0" max="16" id="lambda" onchange="repos()" onkeyup="repos()">
-          <br>
-          <br>
-          por limitaciones computacionales, no ingrese números mayores a 16.
-          <br>
-          ya que 16! es apróximadamente:
-          <br>
-          20922789888000
-          <br>
-          esto rebasa la capacidad de representación númerica normal en los ordenadores
-          <br>
-          <br>
-          <hr>
-          <strong style="color: crimson;">Variable aleatoria</strong>
-          <br>
-          Número de veces que ocurre un evento <strong style="color: deepskyblue;">Durante un intervalo
-               definido</strong>
-          <br>
-          <br>
-          <img src="https://latex.codecogs.com/svg.image?\Huge&space;x&space;">
-          =
-          <input type="number" step="1" min="0" id="x" onchange="repos()" onkeyup="repos()">
-          <br>
-          <br>
-          <img id="F-resultado" src="https://latex.codecogs.com/svg.image?\large&space;P(x)=\_\_\_">
-          <br>
-          <br>
-          <hr>
-          <strong style="color: lightseagreen; font-size: 120%;">Ecuaciones</strong>
-          <br>
-          <br>
-          Distribución de Poisson
-          <br>
-          <br>
-          <img id="f-latex">
-          <br>
-          <br>
-     </div>
-
-     <div style="display: inline-block;vertical-align: top; padding: 20px;" id="contenedor-canvas">
+     <div style="padding: 30px;">
+          <div style="margin: 20px;display: inline-block;text-align: left;width: 400px;">
+               <strong style="color: crimson;">Probabilidad de ocurrencia</strong>
+               <br>
+               es la misma para cualquiera de los intervalos de igual longitud
+               <br>
+               <br>
+               <img src="https://latex.codecogs.com/svg.image?\Huge&space;\lambda&space;">
+               =
+               <input type="number" step="0.1" min="0" max="16" id="lambda" onchange="repos()" onkeyup="repos()">
+               <br>
+               <br>
+               por limitaciones computacionales, no ingrese números mayores a 16.
+               <br>
+               ya que 16! es apróximadamente:
+               <br>
+               20922789888000
+               <br>
+               esto rebasa la capacidad de representación númerica normal en los ordenadores
+               <br>
+               <br>
+               <hr>
+               <strong style="color: crimson;">Variable aleatoria</strong>
+               <br>
+               Número de veces que ocurre un evento <strong style="color: deepskyblue;">Durante un intervalo
+                    definido</strong>
+               <br>
+               <br>
+               <img src="https://latex.codecogs.com/svg.image?\Huge&space;x&space;">
+               =
+               <input type="number" step="1" min="0" id="x" onchange="repos()" onkeyup="repos()">
+               <br>
+               <br>
+               <img id="F-resultado" src="https://latex.codecogs.com/svg.image?\large&space;P(x)=\_\_\_">
+               <br>
+               <br>
+               <hr>
+               <strong style="color: lightseagreen; font-size: 120%;">Ecuación</strong>
+               <br>
+               <img id="f-latex">
+               <br>
+               <br>
+          </div>
+     
+          <div style="display: inline-block;vertical-align: top; padding: 20px;" id="contenedor-canvas">
+          </div>
      </div>
 
      <div class="fondo">
           <div
-               style="background-color: rgba(0, 0, 0, 0.5);backdrop-filter: blur(3px);color: white;padding: 30px;font-weight: bolder;font-size: 130%;">
-               <span style="font-weight: lighter;">Desarrollado por</span>
-               <a href="../index.html" style="text-decoration: none;color: inherit;margin: 5px;">
-                    <strong>Jeffrey Agudelo</strong>
-               </a>
+               style="background-color: rgba(0, 0, 0, 0.5);backdrop-filter: blur(3px);color: white;padding: 30px;height: 50vh;font-weight: bolder;font-size: 130%;display: flex;flex-direction: column;justify-content: center;align-items: center;">
+               <span>
+                    <span style="font-weight: lighter;">Desarrollado por</span>
+                    <a href="../index.html" style="text-decoration: none;color: inherit;margin: 5px;">
+                         <strong>Jeffrey Agudelo</strong>
+                    </a>
+               </span>
                <br>
                <a class="btn btn-light" target="_blank" href="https://www.youtube.com/c/JeffAportaa"
                     style="text-decoration: none;color: black;font-weight: normal;box-shadow: 3px 3px 3px rgba(0, 0, 0, 0.5);margin: 5px;">

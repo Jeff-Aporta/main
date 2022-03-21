@@ -32,7 +32,7 @@
 
           .item {
                position: relative;
-               border: 2px solid lightgray;
+               border: 2px solid lightgreen;
                box-shadow: 5px 5px 5px rgba(0, 0, 0, 0.3);
                padding: 20px;
                padding-bottom: 50px;
@@ -57,19 +57,14 @@
           document.write(`<script src="` + deep + `utilidades.js"></` + 'script>')
      </script>
      <script>
-          document.write(
-               readText(deep + "00frag_encabezado2.html")
-                    .replaceAll("#FONDO", "https://i.ibb.co/7z2tHkN/giphy.gif")
-                    .replaceAll("#TITULO", "Librerias")
-                    .replaceAll("#DESCRIPCIÓN", "Conoce el código programado por mi")
-          )
+          document.write(readText(deep + "00frag_encabezado.html"))
           document.write(`<script src="` + deep + `insertar-menú-pegajoso.js"></` + 'script>')
      </script>
 
      <div style="padding: 20px;">
-
-          A lo largo de mi experiencia como programador 
-
+          <h1 style="text-align: center;">
+               Mis librerias
+          </h1>
           <hr class="subrayado-titulo-h1-blanco">
 
           <div class="items">

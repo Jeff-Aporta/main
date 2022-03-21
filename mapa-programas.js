@@ -53,7 +53,7 @@ let mapa_programas = [
         <br>
         <br>
         ${HTMLlightboxLaTeX(
-          "P(x) = \\frac{e^-\\mu\\cdot\\mu^x}{x!}",
+          "P(x) = \\frac{e^{-\\mu}\\cdot\\mu^x}{x!}",
           ``,
           "Distribución de Poisson"
         )}
