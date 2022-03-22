@@ -144,13 +144,15 @@ let lightbox3_currentImage;
 
 function lightbox3_setImg(img) {
   if (img.dataset.depth) {
-    console.log("tiene depth");
     document.getElementById("lightbox3-current-image").style.display = "none";
     document.getElementById("lightbox3-iframe").style.display = "flex";
     document.getElementById("lightbox3-iframe").src =
-      "https://jeff-aporta.github.io/main/00Libs/Lightbox/3/map-depth.html?img=" + img.src + "&map=" + img.dataset.depth;
+      "https://jeff-aporta.github.io/main/00Libs/Lightbox/3/map-depth.html?img=" +
+      img.src +
+      "&map=" +
+      img.dataset.depth +
+      "&auto=no";
   } else {
-    console.log("no tiene depth");
     document.getElementById("lightbox3-current-image").src = img.src;
     document.getElementById("lightbox3-current-image").style.display = "flex";
     document.getElementById("lightbox3-iframe").style.display = "none";

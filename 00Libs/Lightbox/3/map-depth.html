@@ -27,6 +27,7 @@
           const urlParams = new URLSearchParams(queryString);
           const get_img = urlParams.get('img') ?? "img.jpg"
           const get_map = urlParams.get('map') ?? "depth.jpg"
+          const get_auto = urlParams.get('auto') ?? "true"
 
           let imagenhtml = new Image()
           imagenhtml.src = get_img
@@ -54,19 +55,20 @@
 
                displacementFilter = new PIXI.filters.DisplacementFilter(depthMap);
                app.stage.filters = [displacementFilter];
-               let v = {
-                    x: 300,
-                    y: 0
+               if (get_auto == "true") {
+                    let v = {
+                         x: 300,
+                         y: 0
+                    }
+                    for (let i = 0; i < 90; i++) {
+                         setTimeout(() => {
+                              displacementFilter.scale.x = (window.innerWidth / 2 - v.x) / 19;
+                              displacementFilter.scale.y = (window.innerHeight / 2 - v.y) / 19;
+                              v.x = Math.cos(i * 2 * Math.PI / 30) * 400 + window.innerWidth / 2
+                              v.y = Math.sin(i * 2 * Math.PI / 30) * 400 + window.innerHeight / 2
+                         }, 20 * i);
+                    }
                }
-               for (let i = 0; i < 90; i++) {
-                    setTimeout(() => {
-                         displacementFilter.scale.x = (window.innerWidth / 2 - v.x) / 19;
-                         displacementFilter.scale.y = (window.innerHeight / 2 - v.y) / 19;
-                         v.x = Math.cos(i * 2 * Math.PI / 30) * 400 + window.innerWidth / 2
-                         v.y = Math.sin(i * 2 * Math.PI / 30) * 400 + window.innerHeight / 2
-                    }, 20 * i);
-               }
-
                css_canvas()
           }
 
