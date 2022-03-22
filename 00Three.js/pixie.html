@@ -12,25 +12,38 @@
 
 <body>
      <script>
-          let app = new PIXI.Application({ width: window.innerWidth, height: window.innerHeight });
+          let app = new PIXI.Application({ width: 1024, height: 576 });
           document.body.appendChild(app.view);
 
-          let img = new PIXI.Sprite.from("pikachu.jpg");
-          img.width = window.innerWidth;
-          img.height = window.innerHeight;
-          app.stage.addChild(img);
+          texture01 = PIXI.Texture.from("pikachu.jpg");
+          texture02 = PIXI.Texture.from("pikachu-map.png");
 
-          depthMap = new PIXI.Sprite.from("pikachu-map.png");
-          depthMap.width = window.innerWidth;
-          depthMap.height = window.innerHeight;
+          img = new PIXI.Sprite(texture01);
+
+          depthMap = new PIXI.Sprite(texture02);
+
           app.stage.addChild(depthMap);
+          app.stage.addChild(img);
 
           displacementFilter = new PIXI.filters.DisplacementFilter(depthMap);
           app.stage.filters = [displacementFilter];
+          let v = {
+               x: 300,
+               y: 0
+          }
+          for (let i = 0; i < 60; i++) {
+               setTimeout(() => {
+                    displacementFilter.scale.x = (window.innerWidth / 2 - v.x) / 19;
+                    displacementFilter.scale.y = (window.innerHeight / 2 - v.y) / 19;
+                    v.x = Math.cos(i*2*Math.PI/30)*300+window.innerWidth / 2
+                    v.y = Math.sin(i*2*Math.PI/30)*300+window.innerHeight / 2
+               }, 50 * i);
+          }
+
 
           window.onmousemove = function (e) {
-               displacementFilter.scale.x = (window.innerWidth / 2 - e.clientX) / 20;
-               displacementFilter.scale.y = (window.innerHeight / 2 - e.clientY) / 20;
+               displacementFilter.scale.x = (window.innerWidth / 2 - e.clientX) / 19;
+               displacementFilter.scale.y = (window.innerHeight / 2 - e.clientY) / 19;
           };
      </script>
 </body>

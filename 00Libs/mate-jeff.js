@@ -1,4 +1,22 @@
-console.log("libreria mate-jeff.js FUNCIONANDO")
+let color1 = "deepskyblue";
+let color2 = "lightcyan";
+
+var args = [
+  "%c %c %c Jeff Aporta - \u2730 Mate-Jeff.js \u2730 %c  %c \n%c  %c  https://jeff-aporta.github.io/main/  %c %c \u2665%c\u2665%c\u2665%c<(￣︶￣)> \n\n",
+  "background: " + color1 + "; padding:5px 0;",
+  "background: " + color1 + "; padding:5px 0;",
+  "color: white; background: black; padding:5px 0;",
+  "background: " + color1 + "; padding:5px 0;",
+  "background: " + color2 + "; padding:5px 0;",
+  "background: " + color1 + "; padding:5px 0;",
+  "background: " + color2 + "; padding:5px 0;",
+  "background: " + color1 + "; padding:5px 0;",
+  "color: #ff2424; background: #fff; padding:5px 0;",
+  "color: #ff2424; background: #fff; padding:5px 0;",
+  "color: #ff2424; background: #fff; padding:5px 0;",
+  "color: black; background: #fff; padding:5px 0;",
+];
+(_a = self.console).log.apply(_a, args);
 
 PI = Math.PI;
 E = Math.E;

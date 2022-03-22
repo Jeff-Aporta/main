@@ -1,0 +1,126 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+     <meta charset="UTF-8">
+     <meta http-equiv="X-UA-Compatible" content="IE=edge">
+     <meta name="viewport" content="width=device-width, initial-scale=1.0">
+     <title>Pixie js</title>
+
+     <script src="pixi.js"></script>
+</head>
+
+<body>
+     <style>
+          body {
+               margin: 0;
+               padding: 0;
+               display: flex;
+               justify-content: center;
+               align-items: center;
+               overflow: hidden;
+          }
+     </style>
+
+     <script>
+          const queryString = window.location.search;
+          const urlParams = new URLSearchParams(queryString);
+          const get_img = urlParams.get('img')
+          const get_map = urlParams.get('map')
+
+          let imagenhtml = new Image()
+          imagenhtml.src = get_img
+
+          let app = new PIXI.Application({ width: 1280, height: 720 });
+          document.body.appendChild(app.view);
+
+          loadTextures()
+
+          async function loadTextures() {
+               texture01 = PIXI.Texture.from(get_img, {
+                    resourceOptions: { autoLoad: false }
+               });
+               texture02 = PIXI.Texture.from(get_map, {
+                    resourceOptions: { autoLoad: false }
+               });
+               await texture01.baseTexture.resource.load();
+               await texture02.baseTexture.resource.load();
+
+               img = new PIXI.Sprite(texture01);
+               depthMap = new PIXI.Sprite(texture02);
+
+               app.stage.addChild(depthMap);
+               app.stage.addChild(img);
+
+               displacementFilter = new PIXI.filters.DisplacementFilter(depthMap);
+               app.stage.filters = [displacementFilter];
+               let v = {
+                    x: 300,
+                    y: 0
+               }
+               for (let i = 0; i < 60; i++) {
+                    setTimeout(() => {
+                         displacementFilter.scale.x = (window.innerWidth / 2 - v.x) / 19;
+                         displacementFilter.scale.y = (window.innerHeight / 2 - v.y) / 19;
+                         v.x = Math.cos(i * 2 * Math.PI / 30) * 300 + window.innerWidth / 2
+                         v.y = Math.sin(i * 2 * Math.PI / 30) * 300 + window.innerHeight / 2
+                    }, 20 * i);
+               }
+
+               css_canvas()
+          }
+
+          window.addEventListener("resize", () => {
+               css_canvas()
+          })
+
+          function css_canvas() {
+               let horizontal = window.innerWidth > window.innerHeight
+
+               let w, h;
+
+               if (horizontal) {
+                    h = window.innerHeight;
+                    w = h * imagenhtml.width / imagenhtml.height;
+               } else {
+                    w = window.innerWidth;
+                    h = w * imagenhtml.height / imagenhtml.width;
+               }
+
+               let x = (window.innerWidth - imagenhtml.width) / 2;
+               let y = (window.innerHeight - imagenhtml.height) / 2;
+
+               app.resize(imagenhtml.width, imagenhtml.height)
+               app.view.style.width = imagenhtml.width + "px"
+               app.view.style.height = imagenhtml.height + "px"
+               app.view.width = imagenhtml.width
+               app.view.height = imagenhtml.height
+               app.view.style.position = "absolute"
+               app.view.style.left = x + "px";
+               app.view.style.top = y + "px";
+
+               let sx = window.innerWidth / imagenhtml.width;
+               let sy = window.innerHeight / imagenhtml.height;
+               s = Math.min(sx, sy);
+               if (!Number.isFinite(s)) {
+                    setTimeout(() => {
+                         css_canvas()
+                    }, 250);
+               }
+
+               app.view.style.transform = "scale(" + s + ")"
+               app.view.style.transformOrigin = "center center"
+
+          }
+
+          window.onmousemove = function (e) {
+               try {
+                    displacementFilter.scale.x = (window.innerWidth / 2 - e.clientX) / 20;
+                    displacementFilter.scale.y = (window.innerHeight / 2 - e.clientY) / 20;
+               } catch (error) {
+               }
+          };
+     </script>
+</body>
+
+</html>

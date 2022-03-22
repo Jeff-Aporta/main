@@ -1,3 +1,21 @@
+var args = [
+  "%c %c %c Jeff Aporta " + " - \u2730 " + "Rectángulos y Círculos" + " \u2730 %c  %c \n%c  %c  https://jeff-aporta.github.io/main/  %c %c \u2665%c\u2665%c\u2665%c٩(◕‿◕｡)۶ \n\n",
+  'background: #ff66a5; padding:5px 0;',
+  'background: #ff66a5; padding:5px 0;',
+  'color: white; background: #030307; padding:5px 0;',
+  'background: #ff66a5; padding:5px 0;',
+  'background: #ffc3dc; padding:5px 0;',
+  'background: #ff66a5; padding:5px 0;',
+  'background: #ffc3dc; padding:5px 0;',
+  'background: #ff66a5; padding:5px 0;',
+  'color: #ff2424; background: #fff; padding:5px 0;',
+  'color: #ff2424; background: #fff; padding:5px 0;',
+  'color: #ff2424; background: #fff; padding:5px 0;', 
+  'color: black; background: #fff; padding:5px 0;', 
+];
+(_a = self.console).log.apply(_a, args);
+
+
 class Circle {
   constructor(x, y, d) {
     this.x = x;
