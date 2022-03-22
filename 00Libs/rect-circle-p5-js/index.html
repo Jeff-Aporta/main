@@ -88,7 +88,7 @@
 
           <hr class="subrayado-titulo-h1-blanco">
 
-          En esta librería encontrarás herramientas sufifientes para trabajar con rectángulos y circulos, de forma
+          En esta librería encontrarás herramientas suficientes para trabajar con rectángulos y circulos, de forma
           sencilla, haciendo uso de algoritmos programados y desarrollados por mi. una vez creados los elementos podrás
           moverlos, redimensionarlos, calcular sus colisiones, uniones e intersecciones, todo desde código. Esta
           librería está principalmente orientada para la creación de juegos básicos, para lo que normalmente denominan
@@ -99,10 +99,15 @@
 
 
           <div style="background: rgba(0, 0, 0, 0.15);padding: 5px;">
-               CDN
+               <a href="#" target="_blank" id="open-lib" style="text-decoration: none;">
+                    CDN
+                    <i class="fas fa-eye"></i>
+               </a>
                <code class="code-1">
                     <script>
-                         document.write(location.href.replace("index.html", "") + "lib.js")
+                         let url = location.href.replace("index.html", "").replace("//00", "/00") + "lib.js"
+                         document.write(url)
+                         document.getElementById("open-lib").href = url
                     </script>
                </code>
           </div>
