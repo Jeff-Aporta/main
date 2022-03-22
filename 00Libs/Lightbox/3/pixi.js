@@ -4570,23 +4570,6 @@ var PIXI = (function (exports) {
          if (saidHello) {
              return;
          }
-         if (navigator.userAgent.toLowerCase().indexOf('chrome') > -1) {
-             var args = [
-                 "\n %c %c %c PixiJS " + VERSION + " - \u2730 " + type + " \u2730  %c  %c  http://www.pixijs.com/  %c %c \u2665%c\u2665%c\u2665 \n\n",
-                 'background: #ff66a5; padding:5px 0;',
-                 'background: #ff66a5; padding:5px 0;',
-                 'color: #ff66a5; background: #030307; padding:5px 0;',
-                 'background: #ff66a5; padding:5px 0;',
-                 'background: #ffc3dc; padding:5px 0;',
-                 'background: #ff66a5; padding:5px 0;',
-                 'color: #ff2424; background: #fff; padding:5px 0;',
-                 'color: #ff2424; background: #fff; padding:5px 0;',
-                 'color: #ff2424; background: #fff; padding:5px 0;' ];
-             (_a = self.console).log.apply(_a, args);
-         }
-         else if (self.console) {
-             self.console.log("PixiJS " + VERSION + " - " + type + " - http://www.pixijs.com/");
-         }
          saidHello = true;
      }
    

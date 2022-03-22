@@ -25,13 +25,13 @@
      <script>
           const queryString = window.location.search;
           const urlParams = new URLSearchParams(queryString);
-          const get_img = urlParams.get('img')
-          const get_map = urlParams.get('map')
+          const get_img = urlParams.get('img')??"img.jpg"
+          const get_map = urlParams.get('map')??"depth.png"
 
           let imagenhtml = new Image()
           imagenhtml.src = get_img
 
-          let app = new PIXI.Application({ width: 1280, height: 720 });
+          let app = new PIXI.Application({ width: 3000, height: 3000 });
           document.body.appendChild(app.view);
 
           loadTextures()
