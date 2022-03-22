@@ -49,11 +49,16 @@
      </style>
      <script>
           deep = ""
-          document.write(`<script src="`+deep+`utilidades.js"></` + 'script>')
+          document.write(`<script src="` + deep + `utilidades.js"></` + 'script>')
      </script>
      <script>
-          document.write(readText(deep + "00frag_encabezado.html"))
-          document.write(`<script src="`+deep+`insertar-menú-pegajoso.js"></` + 'script>')
+          document.write(
+               readText(deep + "00frag_encabezado2.html")
+                    .replaceAll("#FONDO", "https://i.ibb.co/7z2tHkN/giphy.gif")
+                    .replaceAll("#TITULO", "Mis dibujos")
+                    .replaceAll("#DESCRIPCIÓN", "Conoce más de mi, a través de mis dibujos")
+          )
+          document.write(`<script src="` + deep + `insertar-menú-pegajoso.js"></` + 'script>')
      </script>
 
      <div style="padding: 20px;">
