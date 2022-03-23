@@ -1,0 +1,379 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+  <meta charset="utf-8">
+  <title>Interprete para números telefónicos</title>
+  <script src="betterCallSaul.min.js"></script>
+  <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/css/bootstrap.min.css">
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
+
+  <link rel="stylesheet" href="../../main.css">
+
+  <script src="https://cdn.jsdelivr.net/gh/google/code-prettify@master/loader/run_prettify.js"></script>
+  <link rel="stylesheet" href="../prettyprint/night-blue.css">
+</head>
+
+<body>
+
+  <style>
+    .numberdata {
+      margin: 5px;
+      display: inline-block;
+      width: 355px;
+      border-radius: 10px;
+      border: 1px solid black;
+      padding: 20px;
+    }
+
+    .item {
+      border-top: rgba(0, 0, 0, 0.2) 1px solid;
+      border-bottom: rgba(0, 0, 0, 0.2) 1px solid;
+      padding: 5px;
+      display: flex;
+      flex-wrap: nowrap;
+      align-items: center;
+      justify-content: center;
+    }
+
+    .item div {
+      width: 50%;
+    }
+
+    #resultados-prueba {
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      flex-wrap: wrap;
+    }
+
+    #resultados-texto{
+      display: flex;
+      justify-content: center;
+      flex-wrap: wrap;
+    }
+  </style>
+
+  <script>
+    function convertNumberToHTML(input) {
+      if (!input) {
+        return ""
+      }
+      return `
+        <div class="numberdata">
+          <div class="item">
+            <div style="text-align:left">codeCountry:</div> 
+            <div style="text-align:right">${input.codeCountry}</div>
+          </div>
+          <div class="item">
+            <div style="text-align:left">codeCall:</div> 
+            <div style="text-align:right">${input.codeCall}</div>
+          </div>
+          <div class="item">
+            <div style="text-align:left">numberWithoutCodeCall:</div> 
+            <div style="text-align:right">${input.numberWithoutCodeCall}</div>
+          </div>
+          <div class="item">
+            <div style="text-align:left">complete :</div> 
+            <div style="text-align:right">${input.complete}</div>
+          </div>
+          <div class="item">
+            <div style="text-align:left">nameCountry:</div> 
+            <div style="text-align:right">${input.nameCountry}</div>
+          </div>
+          <div class="item">
+            <div style="text-align:left">nameCountryES:</div> 
+            <div style="text-align:right">${input.nameCountryES}</div>
+          </div>
+          <div class="item">
+            <div style="text-align:left">formatNational:</div> 
+            <div style="text-align:right">${input.formatNational}</div>
+          </div>
+          <div class="item">
+            <div style="text-align:left">formatInternational:</div> 
+            <div style="text-align:right">${input.formatInternational}</div>
+          </div>
+          <div class="item">
+            <div style="text-align:left">formatRFC3966:</div> 
+            <div style="text-align:right">${input.formatRFC3966}</div>
+          </div>
+          <div class="item">
+            <div style="text-align:left">type:</div> 
+            <div style="text-align:right">${input.type}</div>
+          </div>
+          <div class="item">
+            <div style="text-align:left">isPosible:</div> 
+            <div style="text-align:right">${input.isPosible}</div>
+          </div>
+          <div class="item">
+            <div style="text-align:left">flagSVG_1x1:</div> 
+            <div style="text-align:right;text;word-break: break-all;">${input.flagSVG_1x1}</div>
+          </div>
+          <div class="item">
+            <div style="text-align:left">html img flagSVG_1x1:</div> 
+            <div style="text-align:right"><img src="${input.flagSVG_1x1}" width="50px"></div>
+          </div>
+          <div class="item">
+            <div style="text-align:left">flagSVG_4x3:</div> 
+            <div style="text-align:right;text;word-break: break-all;">${input.flagSVG_4x3}</div>
+          </div>
+          <div class="item">
+            <div style="text-align:left">html img flagSVG_4x3:</div> 
+            <div style="text-align:right"><img src="${input.flagSVG_4x3}" width="50px"></div>
+          </div>
+        </div>
+        `
+    }
+
+    function probar() {
+      let result = _getInfoInNumber(document.getElementById("number").value)
+      let html = convertNumberToHTML(result)
+      document.getElementById("resultados-prueba").innerHTML = html
+
+      if (result) {
+        document.getElementById("img-prueba").src = result.flagSVG_4x3
+      } else {
+        document.getElementById("img-prueba").src = ""
+      }
+    }
+
+    function texto() {
+      let results = _findPhoneNumbers(document.getElementById("text").value)
+      let html = ""
+      for (const result of results) {
+        html += convertNumberToHTML(result)
+      }
+      document.getElementById("resultados-texto").innerHTML = html
+    }
+
+    i_code = 0
+
+    function insertarCódigo(c) {
+      c = c.split("\n")
+      html = c.map((x) => x.replaceAll(c[c.length - 1], ""))
+      html.pop()
+      html = html.join("<br>")
+      document.write(`
+        <div style="position:relative;">
+              <a onclick="navigator.clipboard.writeText(document.getElementById('code-${i_code}').innerText);if(!this.innerText.includes('copiado')) this.innerHTML+=' copiado'" style="position:absolute;right:30px;transform:translateY(10px);cursor:pointer;color:white;">
+                  <i class="fas fa-copy"></i>
+              </a>
+              <pre class="prettyprint languaje-js linenums:1" id="code-${i_code}">`
+        + html + `
+              </pre>
+        </div>`
+      )
+      i_code++
+    }
+  </script>
+
+  <script>
+    deep = "../../"
+    document.write(`<script src="` + deep + `utilidades.js"></` + 'script>')
+  </script>
+  <script>
+    document.write(
+      readText(deep + "00frag_encabezado2.html")
+        .replaceAll("#FONDO", "https://i.ibb.co/25tyYJK/banner.gif")
+        .replaceAll("#TITULO", "betterCallSaul.js")
+        .replaceAll("#DESCRIPCIÓN", "Para números de teléfono internacionales")
+    )
+    document.write(`<script src="` + deep + `insertar-menú-pegajoso.js"></` + 'script>')
+  </script>
+
+  <div style="padding: 30px;">
+    <h1 style="text-align: center;">
+      Empieza ahora
+    </h1>
+    Los números de teléfono varían en forma y se manejan de manera diferente de un país a otro. el módulo de
+    betterCallSaul.js puede ayudarnos a formatear correctamente los números de teléfono junto
+    con los códigos de países y también validar campos en interfaces.
+    <br>
+    <br>
+    <div style="background: rgba(0, 0, 0, 0.15);padding: 15px;">
+      <a href="#" target="_blank" id="open-lib" style="text-decoration: none;">
+        CDN
+        <i class="fas fa-eye"></i>
+      </a>
+
+      <code style="display: block;text-align: center;background: rgba(0, 0, 0, 0.15);padding: 10px;">
+           <script>
+            let url = location.href.replace("index.html", "").replace("//00", "/00") + "betterCallSaul.min.js"
+            document.write(url)
+            document.getElementById("open-lib").href = url
+          </script>
+      </code>
+    </div>
+    <br>
+    <h1 style="text-align: center;">
+      Hasta no ver, no creer
+    </h1>
+    <h3>pruébalo a continuación</h3>
+    digita un número de telefono internacional en el input de aquí abajo para ver cómo extraé los datos del número
+    <br>
+
+    <br>
+    <div style="text-align: center;">
+      <img src="" id="img-prueba" width="50px">
+      <input style="cursor: text;padding: 5px;vertical-align: top;" type="text" id="number"
+        placeholder="Número a comprobar" onchange="probar()" onkeyup="probar()">
+    </div>
+    <br>
+    <div id="resultados-prueba">
+    </div>
+    <br>
+    <hr>
+    <h3 style="text-transform: uppercase;font-weight: lighter;">
+      Buscar números en texto
+    </h3>
+    <div style="text-align: center;">
+      <textarea style="padding: 10px;text-align: left;cursor: text;width: 50%;height: 200px;"
+        id="text">
+Hola amigos, mi nombre es Jeffrey Agudelo y mi número es +573107257814, el número de mi madre es +7 8005553535 y el de mi padre es (+91)9098765432, el de mi tio es +3-161-3355460 y el de mi tía es +52 8886732311
+
+es importante destacar que los números escritos anteriormente tienen diferentes formatos, espacios, guiones y parentesis, esta función los encontrará y los extraerá.</textarea>
+      <button class="btn btn-primary" style="vertical-align: top;" onclick="texto()">Buscar</button>
+      <br>
+      <div id="resultados-texto">
+      </div>
+    </div>
+    <hr>
+    <h3 style="text-transform: uppercase;font-weight: lighter;">
+      Analizando un número de teléfono
+    </h3>
+    <br>
+    Veamos cómo podemos usar el <code>_getInfoInNumber()</code>, para que nos retorne un objeto con la información,
+    debemos pasarle de argumento el número de teléfono completo, incluido el código del país.
+    <script>
+      insertarCódigo(`
+      let result = _getInfoInNumber("+573107257814") //{codeCountry: "CO",codeCall: "57",...
+      `)
+    </script>
+    <strong>La función devuelve los siguientes datos:</strong> el código del país (<code>codeCountry</code>), el código
+    de llamada
+    del país (<code>codeCall</code>), el número sin el código de llamada del país (<code>numberWithoutCodeCall</code>),
+    el número de completo (<code>complete</code>),
+    el nombre del país en inglés (<code>nameCountry</code>) y en español (<code>nameCountryES</code>), el formato
+    nacional del número (<code>formatNational</code>),
+    el formato internacional (<code>formatInternational</code>), el formato rfc 3966 (<code>formatRFC3966</code>), el
+    tipo de línea (<code>type</code>), estima en falso
+    o verdadero de si es posible o no el número (<code>isPosible</code>) y además busca rutas de imágenes
+    representativas para el país, una en
+    relación 1:1 (<code>flagSVG_1x1</code>) y la otra en 4:3 (<code>flagSVG_4x3</code>).
+    <script>
+      insertarCódigo(`
+      {
+          codeCountry: "CO",
+          codeCall: "57",
+          numberWithoutCodeCall: "3107257814",
+          complete: "+573107257814",
+          nameCountry: "Colombia",
+          nameCountryES: "Colombia",
+          formatNational: "310 7257814",
+          formatInternational: "+57 310 7257814",
+          formatRFC3966: "tel:+573107257814",
+          type: "MOBILE",
+          isPosible: true,
+          flagSVG_4x3: "https://flagicons.lipis.dev/flags/4x3/co.svg",
+          flagSVG_1x1: "https://flagicons.lipis.dev/flags/1x1/co.svg"
+      }
+      `)
+    </script>
+
+    <br>
+    <hr>
+
+    <h1 style="text-align: center;">
+      ¿Cómo funciona?
+    </h1>
+    Esto lo hace por medio de expresiones regulares, y algoritmos, pudiendo retornar así un objeto con la información
+    que puede extraer del número, para que quede claro, les voy a explicar con un ejemplo lo que hace internamente el
+    programas.
+    <br>
+    Hablemos en el caso de Colombia, los telefonos tienen 8, 10 y 11 digitos, debe existir una función que una vez
+    reconocido el indicativo del país, extraiga el resto del número para hacer las correspondientes verificaciones.
+    En el caso de los números con 10 digitos
+    <br>
+    <br>
+    <ul>
+      <li>
+        La expresión regular es la siguiente:
+        <script>
+          insertarCódigo(`
+              let E10 = new RegExp("3333(?:0(?:0\\d|1[0-5])|[4-9]\\d\\d)\\d{3}|33(?:00|3[0-24-9])\\d{6}|3(?:0[0-5]|1\\d|2[0-3]|5[01]|70)\\d{7}")
+              `)
+        </script>
+        y con esto podremos comprobar si un número de al menos 10 digitos, está bien o mal escrito, ejemplo:
+        <br>
+        <br>
+        Número bien escrito con formato colombiano
+        <script>
+          insertarCódigo(`
+              E10.test("3107234567") //true
+              `)
+        </script>
+        Número escrito escrito con formato colombiano, no tiene el mínimo de 10 digitos
+        <script>
+          insertarCódigo(`
+              E10.test("310723456") //false
+              `)
+        </script>
+        También hay que analizar que los números de 10 digitos en colombia, aparte de iniciar
+        por 3 sus siguientes 2 digitos tienen restricciones, los primeros 3 digitos para esta
+        clase de números son algunos de estos:
+        <br>
+        <br>
+        300, 301, 302, 304, 305 (Tigo)
+        <br>
+        303 (Uff Móvil)
+        <br>
+        304 (UNE)
+        <br>
+        305 (ETB)
+        <br>
+        310, 311, 312, 313, 314, 320, 321, 322, 323 Claro anteriormente conocido como Comcel
+        <br>
+        315, 316, 317, 318 Movistar
+        <br>
+        319 Virgin Mobile
+        <br>
+        350, 351 Avantel
+        <br>
+        <br>
+        lo que significa que la expresión regular anteriormente descrita debe ser capaz de excluir cualquier otro número
+        que no empiece por alguno de estos números, siendo así entonces vamos a probar.
+        <script>
+          insertarCódigo(`
+          E10.test("3011234567") //true
+          E10.test("3031234567") //true
+          E10.test("3061234567") //false
+          E10.test("3071234567") //false
+          E10.test("3101234567") //true
+          E10.test("3601234567") //false
+          `)
+        </script>
+        <br>
+        Como se puede observar, los números que no inicien por estos indicativos, no son números válidos para números de
+        10 digitos de colombia
+      </li>
+      <li>
+        De esta misma manera, se pueden generar las expresiones regulares para los números colombianos de 8 y 11
+        digitos:
+        <script>
+          insertarCódigo(`
+          let E8 = new RegExp("[124-8][2-9]\\d{6}")
+          let E11 = new RegExp("1800\\d{7}")
+          let E11_2 = new RegExp("19(?:0[01]|4[78])\\d{7}")
+          `)
+        </script>
+        Estas expresiones son más cortas, puesto que las restricciones son menores.
+      </li>
+    </ul>
+    Y bueno, en escencia así es la lógica con la que trabaja el programa
+    <br>
+
+  </div>
+
+</body>
+
+</html>

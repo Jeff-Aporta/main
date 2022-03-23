@@ -147,7 +147,7 @@ function lightbox3_setImg(img) {
     document.getElementById("lightbox3-current-image").style.display = "none";
     document.getElementById("lightbox3-iframe").style.display = "flex";
     document.getElementById("lightbox3-iframe").src =
-      "https://jeff-aporta.github.io/main/00Libs/Lightbox/3/map-depth.html?img=" +
+      "https://jeff-aporta.github.io/main/00Libs/Lightbox/3/efecto-de-profundidad.html?img=" +
       img.src +
       "&map=" +
       img.dataset.depth +

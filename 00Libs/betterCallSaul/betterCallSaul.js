@@ -1,11 +1,17 @@
+/* 
+
+Jeffrey Agudelo, Autor Parcial.
+
+
+*/
+
 !(function (d, t) {
   "object" == typeof exports && "undefined" != typeof module
     ? t(exports)
     : "function" == typeof define && define.amd
     ? define(["exports"], t)
-    : t(((d = d || self).libphonenumber = {}));
+    : t(((d = d || self).interprete_números = {}));
 })(this, function (d) {
-  "use strict";
   var t = {
     version: 4,
     country_calling_codes: {
@@ -7789,11 +7795,11 @@
           (function (d) {
             if (!d)
               throw new Error(
-                "[libphonenumber-js] `metadata` argument not passed. Check your arguments."
+                "`metadata` argument not passed. Check your arguments."
               );
             if (!y(d) || !y(d.countries))
               throw new Error(
-                "[libphonenumber-js] `metadata` argument was passed but it's not a valid metadata. Must be an object having `.countries` child object property. Got ".concat(
+                "`metadata` argument was passed but it's not a valid metadata. Must be an object having `.countries` child object property. Got ".concat(
                   y(d)
                     ? "an object of shape: { " +
                         Object.keys(d).join(", ") +
@@ -11340,7 +11346,7 @@
     }),
     (d.parseDigits = F),
     (d.parseIncompletePhoneNumber = k),
-    (d.parsePhoneNumber = se),
+    (d.interprete_números = se),
     (d.parsePhoneNumberCharacter = A),
     (d.parsePhoneNumberFromString = ce),
     (d.parsePhoneNumberWithError = se),
@@ -11354,45 +11360,93 @@
     Object.defineProperty(d, "__esModule", { value: !0 });
 });
 
-function getInfoInNumber(input) {
-  let output = libphonenumber.parsePhoneNumber(input);
-
-  let regionNames = new Intl.DisplayNames(["en"], { type: "region" });
-
+function _getInfoInNumber(input) {
   try {
+    let output = interprete_números.interprete_números(input);
+    let regionNames = new Intl.DisplayNames(["en"], { type: "region" });
+    let regionNamesES = new Intl.DisplayNames(["es"], { type: "region" });
+
     return {
       codeCountry: output.country,
       codeCall: output.countryCallingCode,
       numberWithoutCodeCall: output.nationalNumber,
-      input: output.number,
+      complete: output.number,
       nameCountry: regionNames.of(output.country),
+      nameCountryES: regionNamesES.of(output.country),
       formatNational: output.format("NATIONAL"),
       formatInternational: output.format("INTERNATIONAL"),
       formatRFC3966: output.format("RFC3966"),
       type: output.getType(),
       isPosible: output.isPossible(),
+      flagSVG_4x3:
+        "https://flagicons.lipis.dev/flags/4x3/" +
+        output.country.toLowerCase() +
+        ".svg",
+      flagSVG_1x1:
+        "https://flagicons.lipis.dev/flags/1x1/" +
+        output.country.toLowerCase() +
+        ".svg",
     };
   } catch (error) {
-    return {
-      codeCountry: output.country,
-      codeCall: output.countryCallingCode,
-      numberWithoutCodeCall: output.nationalNumber,
-      input: output.number,
-      nameCountry: "error",
-      formatNational: output.format("NATIONAL"),
-      formatInternational: output.format("INTERNATIONAL"),
-      formatRFC3966: output.format("RFC3966"),
-      type: output.getType(),
-      isPosible: output.isPossible(),
-    };
+    try {
+      let output = interprete_números.interprete_números(input);
+
+      return {
+        codeCountry: output.country,
+        codeCall: output.countryCallingCode,
+        numberWithoutCodeCall: output.nationalNumber,
+        complete: output.number,
+        nameCountry: "error",
+        formatNational: output.format("NATIONAL"),
+        formatInternational: output.format("INTERNATIONAL"),
+        formatRFC3966: output.format("RFC3966"),
+        type: output.getType(),
+        isPosible: output.isPossible(),
+        flagSVG_4x3:
+          "https://flagicons.lipis.dev/flags/4x3/" +
+          output.country.toLowerCase() +
+          ".svg",
+        flagSVG_1x1:
+          "https://flagicons.lipis.dev/flags/1x1/" +
+          output.country.toLowerCase() +
+          ".svg",
+      };
+    } catch (error) {
+      return undefined;
+    }
   }
 }
 
-function findPhoneNumbers(text) {
-  let result = libphonenumber.findPhoneNumbersInText(text, libphonenumber.getCountries());
+function _findPhoneNumbers(text) {
+  let result = interprete_números.findPhoneNumbersInText(
+    text,
+    interprete_números.getCountries()
+  );
   let out = [];
   for (const n of result) {
-    out.push(getInfoInNumber(n.number.number));
+    out.push(_getInfoInNumber(n.number.number));
   }
   return out;
 }
+
+try {
+  let color1 = "gold";
+  let color2 = "lightyellow";
+  var args = [
+    "\n\n%c %c %c Jeff Aporta - \u2730 betterCallSaul.js \u2730 %c  %c \n%c  %c  https://jeff-aporta.github.io/main/ %c %c %c \u2665%c\u2665%c\u2665%c (≧◡≦)\n\n",
+    "background: " + color1 + "; padding:5px 0;",
+    "background: " + color1 + "; padding:5px 0;",
+    "color: white; background: black; padding:5px 0;",
+    "background: " + color1 + "; padding:5px 0;",
+    "background: " + color2 + "; padding:5px 0;",
+    "background: " + color1 + "; padding:5px 0;",
+    "background: " + color2 + "; padding:5px 0;",
+    "background: " + color1 + "; padding:5px 0;",
+    "background: " + color1 + "; padding:5px 0;",
+    "color: #ff2424; background: #fff; padding:5px 0;",
+    "color: #ff2424; background: #fff; padding:5px 0;",
+    "color: #ff2424; background: #fff; padding:5px 0;",
+    "color: black; background: #fff; padding:5px 0;",
+  ];
+  (_a = self.console).log.apply(_a, args);
+} catch (error) {}
