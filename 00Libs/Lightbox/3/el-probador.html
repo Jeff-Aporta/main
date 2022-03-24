@@ -12,10 +12,6 @@
 
 <body>
      <style>
-          *{
-               transition: all 0.25s;
-          }
-
           body {
                margin: 0;
                padding: 0;
@@ -30,7 +26,7 @@
           const queryString = window.location.search;
           const urlParams = new URLSearchParams(queryString);
           const get_img = urlParams.get('img') ?? "img.jpg"
-          const get_map = urlParams.get('map') ?? "map.jpg"
+          const get_map = urlParams.get('map') ?? "depth.jpg"
           const get_auto = urlParams.get('auto') ?? "true"
 
           let imagenhtml = new Image()

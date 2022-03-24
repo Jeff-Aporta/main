@@ -47,7 +47,7 @@
       flex-wrap: wrap;
     }
 
-    #resultados-texto{
+    #resultados-texto {
       display: flex;
       justify-content: center;
       flex-wrap: wrap;
@@ -206,9 +206,9 @@
     </div>
     <br>
     <h1 style="text-align: center;">
-      Hasta no ver, no creer
+      Ejecución
     </h1>
-    <h3>pruébalo a continuación</h3>
+    <h3>Extracción de un sólo número</h3>
     digita un número de telefono internacional en el input de aquí abajo para ver cómo extraé los datos del número
     <br>
 
@@ -227,8 +227,7 @@
       Buscar números en texto
     </h3>
     <div style="text-align: center;">
-      <textarea style="padding: 10px;text-align: left;cursor: text;width: 50%;height: 200px;"
-        id="text">
+      <textarea style="padding: 10px;text-align: left;cursor: text;width: 50%;height: 200px;" id="text">
 Hola amigos, mi nombre es Jeffrey Agudelo y mi número es +573107257814, el número de mi madre es +7 8005553535 y el de mi padre es (+91)9098765432, el de mi tio es +3-161-3355460 y el de mi tía es +52 8886732311
 
 es importante destacar que los números escritos anteriormente tienen diferentes formatos, espacios, guiones y parentesis, esta función los encontrará y los extraerá.</textarea>
@@ -283,6 +282,27 @@ es importante destacar que los números escritos anteriormente tienen diferentes
     <br>
     <hr>
 
+    <h3>
+      Analizando cadenas con ruido.
+    </h3>
+
+    Se le denomina ruido a toda a toda perturbación textual que haya en el input a analizar que no corresponda con un
+    número de telefono, datos que para el interprete no tienen ningún sentido, puesto que no fue entrenado para esto. El
+    interprete es capaz de extraer sólo los números de telefono (formato internacional).
+    <br><br>
+    Para la cadena <code>Mi número es (+57)310-725 7814, me llamo Jeff</code>, el número a extraer es +573107257814, tiene
+    ruido por la derecha y por la izquierda,
+
+    <br>
+    <script>
+      insertarCódigo(`
+      let results = _findPhoneNumbers("Mi número es +573107257814, me llamo Jeff")
+      `)
+    </script>
+
+    <br>
+    <hr>
+
     <h1 style="text-align: center;">
       ¿Cómo funciona?
     </h1>
@@ -292,7 +312,7 @@ es importante destacar que los números escritos anteriormente tienen diferentes
     <br>
     Hablemos en el caso de Colombia, los telefonos tienen 8, 10 y 11 digitos, debe existir una función que una vez
     reconocido el indicativo del país, extraiga el resto del número para hacer las correspondientes verificaciones.
-    En el caso de los números con 10 digitos
+    En el caso de los números con 10 digitos.
     <br>
     <br>
     <ul>
