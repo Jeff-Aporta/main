@@ -10,7 +10,7 @@
      <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
      <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/animate.css/4.1.1/animate.min.css">
 
-     <script src="00Libs/Lightbox/2/lightbox2.js"></script>
+     <script src="00Libs/Lightbox/3/lightbox3.js"></script>
 
      <meta property="og:site_name" content="Jeffrey Agudelo">
      <meta property="og:title" content="Jeffrey Agudelo">
@@ -19,7 +19,7 @@
      <link rel="icon" type="image/png" href="https://i.ibb.co/3vg4KNb/softyo-001.png">
 
      <script src="img-LaTeX.js"></script>
-     
+
 </head>
 
 <body>
@@ -209,7 +209,8 @@
           <div class="vidrio-borroso" style="padding: 20px;">
                <img src="https://i.ibb.co/Vp3zHSf/hdv.png" style="width: 90%;max-width: 700px;">
 
-               <div style="padding: 20px;color: white;background-color: rgba(0, 0, 0, 0.5);text-align: left;font-weight: lighter;">
+               <div
+                    style="padding: 20px;color: white;background-color: rgba(0, 0, 0, 0.5);text-align: left;font-weight: lighter;">
                     <h1 class="titulo-datos-personales">
                          DATOS PERSONALES
                     </h1>
@@ -283,7 +284,7 @@
      <script>
           document.write(
                readText("00frag-menu-pegajoso.html")
-               .replace(`href="index.html" style="font-size: 180%;text-decoration: none;"`,`href="#" style="font-size: 180%;text-decoration: none;border-bottom:2px solid hotpink;"`)
+                    .replace(`href="index.html" style="font-size: 180%;text-decoration: none;"`, `href="#" style="font-size: 180%;text-decoration: none;border-bottom:2px solid hotpink;"`)
           )
 
           function readText(ruta_local) {
@@ -379,22 +380,30 @@
                <br>
                <br>
 
+               <script>
+                    lightbox_update_style({
+                         background: "rgba(0,0,0,0.5)",
+                         colorBorder: "rgba(0,0,0,1)",
+                         background2: "rgba(0,0,0,0.7)",
+                         colorButtons: "white"
+                    })
+               </script>
+
                <div style="text-align: center;">
 
-                    <img class="miniatura-redonda" src="https://i.ibb.co/QcdBdBC/Ecuaciones-008.png"
-                         data-lightbox-group="dibujos">
-
                     <img class="miniatura-redonda" src="https://i.ibb.co/V2bg296/Ecuaciones-001.jpg"
-                         data-lightbox-group="dibujos">
+                         data-lightbox-group="dibujos" data-depth="https://i.ibb.co/bJFq7dy/depth.png" data-auto="true">
 
                     <img class="miniatura-redonda" src="https://i.ibb.co/y5sgCM5/Ecuaciones-002.jpg"
-                         data-lightbox-group="dibujos">
+                         data-lightbox-group="dibujos" data-depth="https://i.ibb.co/19zSnxf/depth.png" data-auto="true">
 
                     <img class="miniatura-redonda" src="https://i.ibb.co/jMhnPnL/Ecuaciones-003.jpg"
-                         data-lightbox-group="dibujos">
+                         data-lightbox-group="dibujos" data-depth="https://i.ibb.co/RQYXxdJ/Ecuaciones-003.jpg"
+                         data-auto="true">
 
                     <img class="miniatura-redonda" src="https://i.ibb.co/x6VKGDs/Ecuaciones-004.jpg"
-                         data-lightbox-group="dibujos">
+                         data-lightbox-group="dibujos" data-depth="https://i.ibb.co/zrjmRW1/Ecuaciones-004-depth.jpg"
+                         data-auto="true">
 
                     <img class="miniatura-redonda" src="https://i.ibb.co/wN21gGP/Ecuaciones-005.jpg"
                          data-lightbox-group="dibujos">
@@ -404,6 +413,15 @@
 
                     <img class="miniatura-redonda" src="https://i.ibb.co/25XpW5H/Ecuaciones-007.png"
                          data-lightbox-group="dibujos">
+
+                    <img class="miniatura-redonda" src="https://i.ibb.co/ngpWmyP/Miedo-2.jpg"
+                         data-depth="https://i.ibb.co/S6GBZpX/depth.jpg"
+                         data-lightbox="https://i.ibb.co/ngpWmyP/Miedo-2.jpg" data-lightbox-group="dibujos"
+                         data-auto="true">
+
+                    <img class="miniatura-redonda" src="https://i.ibb.co/DKfmCcz/inframundo-3.jpg"
+                         data-depth="https://i.ibb.co/zHvHCp8/inframundo-3-depth.jpg" data-lightbox-group="dibujos"
+                         data-lightbox="https://i.ibb.co/DKfmCcz/inframundo-3.jpg" data-auto="true">
 
                     <br>
                     <br>
@@ -482,7 +500,7 @@
                <a href="jeff-aporta.html" class="btn btn-dark" style="font-size: 200%;">
                     <i class="fas fa-code"></i> Ver programas
                </a>
-               
+
                <a href="jeff-aporta.html" class="btn btn-dark" style="font-size: 200%;">
                     <i class="fa-solid fa-book"></i> Ver Librerías
                </a>

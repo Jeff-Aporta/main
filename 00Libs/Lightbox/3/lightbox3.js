@@ -1,12 +1,12 @@
 window.addEventListener("load", () => {
-  lightbox_load();
+  lightbox3_load();
 });
 
 let style = document.createElement("style");
 
-lightbox_update_style({});
+lightbox3_update_style({});
 
-function lightbox_update_style(obj) {
+function lightbox3_update_style(obj) {
   style.innerHTML = `
              #lightbox3-modal {
                   display: none;
@@ -78,7 +78,7 @@ function lightbox_update_style(obj) {
         `;
 }
 
-function lightbox_load() {
+function lightbox3_load() {
   document.head.appendChild(style);
 
   let div = document.createElement("div");
@@ -118,9 +118,9 @@ function lightbox_load() {
     document.getElementById("lightbox3-current-image").src = img.src;
   }
 
-  document.addEventListener("keyup", controles_lightbox_teclas);
+  document.addEventListener("keyup", controles_lightbox3_teclas);
 
-  function controles_lightbox_teclas(event) {
+  function controles_lightbox3_teclas(event) {
     if (div.style.display != "none") {
       switch (event.key) {
         case "ArrowLeft":
@@ -151,7 +151,8 @@ function lightbox3_setImg(img) {
       img.src +
       "&map=" +
       img.dataset.depth +
-      "&auto=no";
+      "&auto=" +
+      (img.dataset.auto ?? "no");
   } else {
     document.getElementById("lightbox3-current-image").src = img.src;
     document.getElementById("lightbox3-current-image").style.display = "flex";

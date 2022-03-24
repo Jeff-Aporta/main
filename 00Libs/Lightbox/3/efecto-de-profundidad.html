@@ -64,9 +64,9 @@
                          setTimeout(() => {
                               displacementFilter.scale.x = (window.innerWidth / 2 - v.x) / 19;
                               displacementFilter.scale.y = (window.innerHeight / 2 - v.y) / 19;
-                              v.x = Math.cos(i * 2 * Math.PI / 30) * 400 + window.innerWidth / 2
-                              v.y = Math.sin(i * 2 * Math.PI / 30) * 400 + window.innerHeight / 2
-                         }, 20 * i);
+                              v.x = (Math.cos(i * 2 * Math.PI / 30) + 1) * window.innerWidth / 2
+                              v.y = (Math.sin(i * 2 * Math.PI / 30) + 1) * window.innerHeight / 2
+                         }, 30 * i);
                     }
                }
                css_canvas()

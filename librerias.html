@@ -12,7 +12,7 @@
 
      <link rel="stylesheet" href="main.css">
 
-     <script src="00Libs/Lightbox/2/lightbox2.js"></script>
+     <script src="00Libs/Lightbox/3/lightbox3.js"></script>
 
      <meta property="og:site_name" content="Jeffrey Agudelo">
      <meta property="og:title" content="Jeffrey Agudelo">
@@ -53,6 +53,12 @@
           }
      </style>
      <script>
+          lightbox3_update_style({
+               background: "rgba(0,0,0,0.5)",
+               colorBorder: "rgba(0,0,0,1)",
+               background2: "rgba(0,0,0,0.7)",
+               colorButtons: "white"
+          })
           deep = ""
           document.write(`<script src="` + deep + `utilidades.js"></` + 'script>')
      </script>
@@ -61,14 +67,15 @@
                readText(deep + "00frag_encabezado2.html")
                     .replaceAll("#FONDO", "https://i.ibb.co/7z2tHkN/giphy.gif")
                     .replaceAll("#TITULO", "Librerias")
-                    .replaceAll("#DESCRIPCIÓN", "Conoce el código programado por mi")
+                    .replaceAll("#DESCRIPCIÓN", "Conoce librerias programadas por mi")
           )
           document.write(`<script src="` + deep + `insertar-menú-pegajoso.js"></` + 'script>')
      </script>
 
      <div style="padding: 20px;">
 
-          A lo largo de mi experiencia como programador 
+          A lo largo de mi experiencia como programador he desarrollado diferentes tipos de web y de escritorio, aquí
+          encontrarás de forma gratuita código que he realizado.
 
           <hr class="subrayado-titulo-h1-blanco">
 
@@ -102,8 +109,55 @@
                     <h4>
                          Lightbox v2
                     </h4>
-                    Esta librería está diseñada para cualquier web que requiera presentar imágenes, tiene un diseño
-                    responsive, lo que la hace compatible para celulares
+                    Presenta imágenes estáticas, de forma responsive en tu sitio web.
+                    <br>
+                    <br>
+                    <div style="text-align: center;">
+                         <a href="#" class="btn btn-success"
+                              style="position: absolute;bottom: 10px;left:50%;transform: translateX(-50%);">
+                              Ver documentación
+                         </a>
+                    </div>
+               </div>
+
+               <div class="item">
+                    <div
+                         style="background: lightgray;width: 300px;height: 300px;display: flex;justify-content: center;align-items: center;">
+                         <img width="85%"
+                              style="box-shadow: 10px 10px 3px rgba(0, 0, 0, 0.4);border: 2px solid white;cursor: pointer;"
+                              class="miniatura" src="https://i.ibb.co/ngpWmyP/Miedo-2.jpg"
+                              data-depth="https://i.ibb.co/S6GBZpX/depth.jpg"
+                              data-lightbox="https://i.ibb.co/ngpWmyP/Miedo-2.jpg" data-lightbox-group="2"
+                              data-auto="true">
+                    </div>
+                    <br>
+                    <h4>
+                         Lightbox v3
+                    </h4>
+                    Esta librería cuenta con la posibilidad extra de insertar imágenes con efecto 3D que reaccionan con
+                    el mouse.
+                    <br>
+                    <br>
+                    <div style="text-align: center;">
+                         <a href="#" class="btn btn-success"
+                              style="position: absolute;bottom: 10px;left:50%;transform: translateX(-50%);">
+                              Ver documentación
+                         </a>
+                    </div>
+               </div>
+
+               <div class="item">
+                    <div
+                         style="background: lightgray;width: 300px;height: 300px;display: flex;justify-content: center;align-items: center;">
+                         <img width="85%" style="box-shadow: 10px 10px 3px rgba(0, 0, 0, 0.4);border: 2px solid white;"
+                              class="miniatura" src="https://i.ibb.co/k4D8R6Y/better-Call-Saul.gif">
+                    </div>
+                    <br>
+                    <h4>
+                         Lightbox v3
+                    </h4>
+                    Esta librería cuenta con la posibilidad extra de insertar imágenes con efecto 3D que reaccionan con
+                    el mouse.
                     <br>
                     <br>
                     <div style="text-align: center;">

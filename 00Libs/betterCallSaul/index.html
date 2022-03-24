@@ -52,6 +52,19 @@
       justify-content: center;
       flex-wrap: wrap;
     }
+
+    textarea::-webkit-scrollbar {
+      width: 1em;
+    }
+
+    textarea::-webkit-scrollbar-track {
+      -webkit-box-shadow: inset 0 0 6px rgba(0, 0, 0, 0.3);
+    }
+
+    textarea::-webkit-scrollbar-thumb {
+      background-color: darkgrey;
+      outline: 1px solid slategrey;
+    }
   </style>
 
   <script>
@@ -150,7 +163,7 @@
 
     function insertarCódigo(c) {
       c = c.split("\n")
-      html = c.map((x) => x.replaceAll(c[c.length - 1], ""))
+      html = c.map((x) => x.replace(c[c.length - 1], ""))
       html.pop()
       html = html.join("<br>")
       document.write(`
@@ -174,8 +187,8 @@
   <script>
     document.write(
       readText(deep + "00frag_encabezado2.html")
-        .replaceAll("#FONDO", "https://i.ibb.co/25tyYJK/banner.gif")
-        .replaceAll("#TITULO", "betterCallSaul.js")
+        .replaceAll("#FONDO", "https://i.ibb.co/SVrGsjM/banner3.gif")
+        .replaceAll("#TITULO", "<img src='https://i.ibb.co/b73VmbP/better-Call-Saul.png' width='200px' style='border-radius:15px;box-shadow: 10px 10px 10px rgba(0,0,0,0.5);'>")
         .replaceAll("#DESCRIPCIÓN", "Para números de teléfono internacionales")
     )
     document.write(`<script src="` + deep + `insertar-menú-pegajoso.js"></` + 'script>')
@@ -183,6 +196,8 @@
 
   <div style="padding: 30px;">
     <h1 style="text-align: center;">
+      <img width="300px" src="https://i.ibb.co/k4D8R6Y/better-Call-Saul.gif">
+      <br>
       Empieza ahora
     </h1>
     Los números de teléfono varían en forma y se manejan de manera diferente de un país a otro. el módulo de
@@ -190,13 +205,13 @@
     con los códigos de países y también validar campos en interfaces.
     <br>
     <br>
-    <div style="background: rgba(0, 0, 0, 0.15);padding: 15px;">
+    <div style="background: rgba(0, 0, 0, 0.075);padding: 15px;">
       <a href="#" target="_blank" id="open-lib" style="text-decoration: none;">
         CDN
         <i class="fas fa-eye"></i>
       </a>
 
-      <code style="display: block;text-align: center;background: rgba(0, 0, 0, 0.15);padding: 10px;">
+      <code style="display: block;text-align: center;background: rgba(0, 0, 0, 0.75);padding: 10px;">
            <script>
             let url = location.href.replace("index.html", "").replace("//00", "/00") + "betterCallSaul.min.js"
             document.write(url)
@@ -206,9 +221,9 @@
     </div>
     <br>
     <h1 style="text-align: center;">
-      Ejecución
+      En ejecución
     </h1>
-    <h3>Extracción de un sólo número</h3>
+    <h3>Interpretación de un número</h3>
     digita un número de telefono internacional en el input de aquí abajo para ver cómo extraé los datos del número
     <br>
 
@@ -226,17 +241,26 @@
     <h3 style="text-transform: uppercase;font-weight: lighter;">
       Buscar números en texto
     </h3>
+    Escribe textos en lenguaje natural que contengan números de telefóno con formato internacional.
+    <br><br>
     <div style="text-align: center;">
       <textarea style="padding: 10px;text-align: left;cursor: text;width: 50%;height: 200px;" id="text">
-Hola amigos, mi nombre es Jeffrey Agudelo y mi número es +573107257814, el número de mi madre es +7 8005553535 y el de mi padre es (+91)9098765432, el de mi tio es +3-161-3355460 y el de mi tía es +52 8886732311
+Hola amigos, mi nombre es Jeffrey Agudelo y mi número es +573107257814, el número de mi madre es +7 8005553535 y el de mi padre es (+91)9098765432, el de mi tío es +3-161-3355460 y el de mi tía es +52 8886732311
 
-es importante destacar que los números escritos anteriormente tienen diferentes formatos, espacios, guiones y parentesis, esta función los encontrará y los extraerá.</textarea>
+es importante destacar que los números escritos anteriormente tienen diferentes formatos, espacios, guiones y paréntesis, esta función los encontrará y los extraerá.</textarea>
       <button class="btn btn-primary" style="vertical-align: top;" onclick="texto()">Buscar</button>
       <br>
       <div id="resultados-texto">
       </div>
     </div>
     <hr>
+    <h1 style="text-align: center;">
+      Tutorial
+    </h1>
+    Una vez importada la librería en el head, ya sea con la CDN o si descargaste el archivo, podrás ejecutar el código
+    que se presentará a continuación:
+    <br>
+    <br>
     <h3 style="text-transform: uppercase;font-weight: lighter;">
       Analizando un número de teléfono
     </h3>
@@ -248,7 +272,8 @@ es importante destacar que los números escritos anteriormente tienen diferentes
       let result = _getInfoInNumber("+573107257814") //{codeCountry: "CO",codeCall: "57",...
       `)
     </script>
-    <strong>La función devuelve los siguientes datos:</strong> el código del país (<code>codeCountry</code>), el código
+    <strong>La función _getInfoInNumber() devuelve los siguientes datos:</strong> el código del país
+    (<code>codeCountry</code>), el código
     de llamada
     del país (<code>codeCall</code>), el número sin el código de llamada del país (<code>numberWithoutCodeCall</code>),
     el número de completo (<code>complete</code>),
@@ -290,13 +315,42 @@ es importante destacar que los números escritos anteriormente tienen diferentes
     número de telefono, datos que para el interprete no tienen ningún sentido, puesto que no fue entrenado para esto. El
     interprete es capaz de extraer sólo los números de telefono (formato internacional).
     <br><br>
-    Para la cadena <code>Mi número es (+57)310-725 7814, me llamo Jeff</code>, el número a extraer es +573107257814, tiene
-    ruido por la derecha y por la izquierda,
+    Para la cadena <code>"Mi número es (+57)310-725 7814, me llamo Jeff"</code>, el número a extraer es +573107257814,
+    tiene ruido por la derecha, por la izquierda y en medio, sin embargo el siguiente código extraerá y retornará los
+    datos de todos los números con formato internacional que encuentre en la cadena suministrada
 
     <br>
     <script>
       insertarCódigo(`
-      let results = _findPhoneNumbers("Mi número es +573107257814, me llamo Jeff")
+      let results = _findPhoneNumbers("Mi número es (+57)310-725 7814, me llamo Jeff")
+      `)
+    </script>
+
+    <strong>La función _findPhoneNumbers() devuelve un arreglo con el _getInfoInNumber() de todos los números
+      encontrados</strong>
+    <br>
+    <br>
+    Salida esperada:
+
+    <script>
+      insertarCódigo(`
+      [
+          {
+              codeCountry: "CO",
+              codeCall: "57",
+              numberWithoutCodeCall: "3107257814",
+              complete: "+573107257814",
+              nameCountry: "Colombia",
+              nameCountryES: "Colombia",
+              formatNational: "310 7257814",
+              formatInternational: "+57 310 7257814",
+              formatRFC3966: "tel:+573107257814",
+              type: "MOBILE",
+              isPosible: true,
+              flagSVG_4x3: "https://flagicons.lipis.dev/flags/4x3/co.svg",
+              flagSVG_1x1: "https://flagicons.lipis.dev/flags/1x1/co.svg"
+          }
+      ]
       `)
     </script>
 
