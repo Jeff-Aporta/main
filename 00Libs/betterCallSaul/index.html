@@ -3,7 +3,7 @@
 
 <head>
   <meta charset="utf-8">
-  <title>Interprete para números telefónicos</title>
+  <title>intérprete para números telefónicos</title>
   <script src="betterCallSaul.min.js"></script>
   <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/css/bootstrap.min.css">
   <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
@@ -12,6 +12,12 @@
 
   <script src="https://cdn.jsdelivr.net/gh/google/code-prettify@master/loader/run_prettify.js"></script>
   <link rel="stylesheet" href="../prettyprint/night-yellow.css">
+
+  <meta property="og:site_name" content="Jeffrey Agudelo">
+  <meta property="og:title" content="Jeffrey Agudelo">
+  <meta property="og:description" content="0,1,1,2,3,5,8,13,21,34,...">
+  <meta property="og:image" content="https://i.ibb.co/3vg4KNb/softyo-001.png">
+  <link rel="icon" type="image/png" href="https://i.ibb.co/3vg4KNb/softyo-001.png">
 </head>
 
 <body>
@@ -22,6 +28,7 @@
       display: inline-block;
       width: 355px;
       border-radius: 10px;
+      font-size: 90%;
       border: 1px solid black;
       padding: 20px;
     }
@@ -187,21 +194,28 @@
   <script>
     document.write(
       readText(deep + "00frag_encabezado2.html")
-        .replaceAll("#FONDO", "https://i.ibb.co/SVrGsjM/banner3.gif")
-        .replaceAll("#TITULO", "<img src='https://i.ibb.co/b73VmbP/better-Call-Saul.png' width='200px' style='border-radius:15px;box-shadow: 10px 10px 10px rgba(0,0,0,0.5);'>")
-        .replaceAll("#DESCRIPCIÓN", "Para números de teléfono internacionales")
+        .replaceAll("#FONDO", "https://i.ibb.co/z4bxF6k/banner3.gif")
+        .replaceAll("#TITULO", "<img src='https://i.ibb.co/XjRxk6G/better-Call-Saul2.png' style='background-color:rgba(0,0,0,0.2);width:calc(min(200px,40%));border-radius:15px;box-shadow: 10px 10px 10px rgba(0,0,0,0.3);'>")
+        .replaceAll("#DESCRIPCIÓN", `<code style='color:white;font-size:calc(max(2vw,16px));'>
+          <div style="font-weight:7vw">&nbsp;</div>
+          Para números de teléfono internacionales
+          </code>`)
     )
     document.write(`<script src="` + deep + `insertar-menú-pegajoso.js"></` + 'script>')
   </script>
 
   <div style="padding: 30px;">
-    <h1 style="text-align: center;">
+    <div style="text-align: center;">
       <img width="300px" src="https://i.ibb.co/k4D8R6Y/better-Call-Saul.gif">
-      <br>
+      <br><br>
+    </div>
+    <h1 style="text-align: center;">
       Empieza ahora
     </h1>
+    <br>
     Los números de teléfono varían en forma y se manejan de manera diferente de un país a otro. el módulo de
-    betterCallSaul.js puede ayudarnos a formatear correctamente los números de teléfono junto
+    <code style="color: black;font-weight: bolder;">betterCallSaul.js</code> puede ayudarnos a formatear correctamente
+    los números de teléfono junto
     con los códigos de países y también validar campos en interfaces.
     <br>
     <br>
@@ -224,7 +238,7 @@
       En ejecución
     </h1>
     <h3>Interpretación de un número</h3>
-    digita un número de telefono internacional en el input de aquí abajo para ver cómo extraé los datos del número
+    digita un número de teléfono internacional en el input de aquí abajo para ver cómo extrae los datos del número
     <br>
 
     <br>
@@ -241,7 +255,7 @@
     <h3 style="text-transform: uppercase;font-weight: lighter;">
       Buscar números en texto
     </h3>
-    Escribe textos en lenguaje natural que contengan números de telefóno con formato internacional.
+    Escribe textos en lenguaje natural que contengan números de teléfono con formato internacional.
     <br><br>
     <div style="text-align: center;">
       <textarea style="padding: 10px;text-align: left;cursor: text;width: 50%;height: 200px;" id="text">
@@ -311,9 +325,9 @@ es importante destacar que los números escritos anteriormente tienen diferentes
       Analizando cadenas con ruido.
     </h3>
 
-    Se le denomina ruido a toda a toda perturbación textual que haya en el input a analizar que no corresponda con un
-    número de telefono, datos que para el interprete no tienen ningún sentido, puesto que no fue entrenado para esto. El
-    interprete es capaz de extraer sólo los números de telefono (formato internacional).
+    Se le denomina ruido a toda a toda perturbación textual que haya en el input, que no corresponda con un
+    número de teléfono, datos que para el intérprete no tienen ningún sentido, puesto que no fue entrenado para esto. El
+    intérprete es capaz de extraer los números de teléfono con formato internacional que hayan en una cadena.
     <br><br>
     Para la cadena <code>"Mi número es (+57)310-725 7814, me llamo Jeff"</code>, el número a extraer es +573107257814,
     tiene ruido por la derecha, por la izquierda y en medio, sin embargo el siguiente código extraerá y retornará los
@@ -364,9 +378,9 @@ es importante destacar que los números escritos anteriormente tienen diferentes
     que puede extraer del número, para que quede claro, les voy a explicar con un ejemplo lo que hace internamente el
     programas.
     <br>
-    Hablemos en el caso de Colombia, los telefonos tienen 8, 10 y 11 digitos, debe existir una función que una vez
+    Hablemos en el caso de Colombia, los teléfonos tienen 8, 10 y 11 dígitos, debe existir una función que una vez
     reconocido el indicativo del país, extraiga el resto del número para hacer las correspondientes verificaciones.
-    En el caso de los números con 10 digitos.
+    En el caso de los números con 10 dígitos.
     <br>
     <br>
     <ul>
@@ -377,7 +391,7 @@ es importante destacar que los números escritos anteriormente tienen diferentes
               let E10 = new RegExp("3333(?:0(?:0\\d|1[0-5])|[4-9]\\d\\d)\\d{3}|33(?:00|3[0-24-9])\\d{6}|3(?:0[0-5]|1\\d|2[0-3]|5[01]|70)\\d{7}")
               `)
         </script>
-        y con esto podremos comprobar si un número de al menos 10 digitos, está bien o mal escrito, ejemplo:
+        y con esto podremos comprobar si un número de al menos 10 dígitos, está bien o mal escrito, ejemplo:
         <br>
         <br>
         Número bien escrito con formato colombiano
@@ -386,14 +400,14 @@ es importante destacar que los números escritos anteriormente tienen diferentes
               E10.test("3107234567") //true
               `)
         </script>
-        Número escrito escrito con formato colombiano, no tiene el mínimo de 10 digitos
+        Número escrito escrito con formato colombiano, no tiene el mínimo de 10 dígitos
         <script>
           insertarCódigo(`
               E10.test("310723456") //false
               `)
         </script>
-        También hay que analizar que los números de 10 digitos en colombia, aparte de iniciar
-        por 3 sus siguientes 2 digitos tienen restricciones, los primeros 3 digitos para esta
+        También hay que analizar que los números de 10 dígitos en colombia, aparte de iniciar
+        por 3 sus siguientes 2 dígitos tienen restricciones, los primeros 3 dígitos para esta
         clase de números son algunos de estos:
         <br>
         <br>
@@ -428,11 +442,11 @@ es importante destacar que los números escritos anteriormente tienen diferentes
         </script>
         <br>
         Como se puede observar, los números que no inicien por estos indicativos, no son números válidos para números de
-        10 digitos de colombia
+        10 dígitos de colombia
       </li>
       <li>
         De esta misma manera, se pueden generar las expresiones regulares para los números colombianos de 8 y 11
-        digitos:
+        dígitos:
         <script>
           insertarCódigo(`
           let E8 = new RegExp("[124-8][2-9]\\d{6}")
@@ -443,7 +457,7 @@ es importante destacar que los números escritos anteriormente tienen diferentes
         Estas expresiones son más cortas, puesto que las restricciones son menores.
       </li>
     </ul>
-    Y bueno, en escencia así es la lógica con la que trabaja el programa
+    Y bueno, en esencia así es la lógica con la que trabaja el programa
     <br>
 
   </div>

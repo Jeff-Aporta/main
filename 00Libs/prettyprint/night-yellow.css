@@ -1,5 +1,5 @@
 pre.prettyprint {
-  background-color: rgb(59, 61, 35);
+  background-color: rgba(59, 61, 35);
   border: 2px solid black !important;
   border-radius: 5px;
   text-align: left;
@@ -18,7 +18,7 @@ pre .str {
 
 /* string*/
 pre .kwd {
-  color: mediumturquoise;
+  color: deepskyblue;
   font-weight: bold;
 }
 
@@ -38,7 +38,7 @@ pre .lit {
 
 /* literal - darkred */
 pre .pun {
-  color: #ffa0a0;
+  color: hotpink;
 }
 
 /* punctuation */

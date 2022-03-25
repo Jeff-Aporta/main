@@ -8,6 +8,7 @@ lightbox3_update_style({});
 
 function lightbox3_update_style(obj) {
   style.innerHTML = `
+
              #lightbox3-modal {
                   display: none;
                   background-color: ${
