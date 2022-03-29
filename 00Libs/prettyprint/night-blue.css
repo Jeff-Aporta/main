@@ -1,7 +1,7 @@
 pre.prettyprint {
   background-color: rgb(0, 30, 68);
   border: 2px solid black !important;
-  border-radius: 5px;
+  border-radius: 20px;
   text-align: left;
   margin: 20px;
 }

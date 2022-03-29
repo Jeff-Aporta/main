@@ -1,4 +1,4 @@
-let regiones = {
+let $regiones = {
   Afganistán: {
     code: "AF",
     flagSVG_4x3: "https://flagicons.lipis.dev/flags/4x3/af.svg",
@@ -135215,3 +135215,109 @@ let regiones = {
     estados: { Zimbabwe: { ciudades: { Harare: {}, Bulavayio: {} } } },
   },
 };
+
+function $paises() {
+  let paises = [];
+  for (const pais in $regiones) {
+    paises.push({
+      pais,
+      bandera: $regiones[pais].flagSVG_4x3,
+    });
+  }
+  paises.sort();
+  return paises;
+}
+
+function $optionPaises() {
+  let html = "";
+  let paises = [];
+  for (const pais in $regiones) {
+    paises.push({
+      pais,
+      bandera: $regiones[pais].flagSVG_4x3,
+    });
+  }
+  paises.sort();
+  let first = true;
+  for (const pais of paises) {
+    html += `
+    <option value="${pais.pais}" ${first ? "selected='selected'" : ""}>
+      ${pais.pais}
+    </option>
+    `;
+    first = false;
+  }
+  return html;
+}
+
+function $estados(pais) {
+  let estados = [];
+  for (const estado in $regiones[pais].estados) {
+    estados.push(estado);
+  }
+  estados.sort();
+  return estados;
+}
+
+function $optionEstados(pais) {
+  let estados = [];
+  for (const estado in $regiones[pais].estados) {
+    estados.push(estado);
+  }
+  estados.sort();
+  let first = true;
+  let html = "";
+  for (const estado of estados) {
+    html += `<option value="${estado}" ${
+      first ? "selected='selected'" : ""
+    }>${estado}</option>`;
+    first = false;
+  }
+  return html;
+}
+
+function $ciudades(pais, estado) {
+  let ciudades = []
+  for (const e in $regiones[pais]?.estados[estado]?.ciudades) {
+    ciudades.push(e)
+  }
+  ciudades.sort()
+  return ciudades
+}
+
+function $optionCiudades(pais, estado) {
+  let ciudades = []
+  for (const e in $regiones[pais]?.estados[estado]?.ciudades) {
+    ciudades.push(e)
+  }
+  ciudades.sort()
+  let first = true
+  let html = ""
+  for (const ciudad of ciudades) {
+    html += `<option value="${ciudad}" ${first ? "selected='selected'" : ""}>${ciudad}</option>`
+    first = false
+  }
+  return html
+}
+
+try {
+  let color1 = "darkcyan";
+  let color2 = "lightcyan";
+  var args = [
+    "\n\n%c %c %c Jeff Aporta - \u2730 sites.js \u2730 %c  %c \n%c  %c  https://jeff-aporta.github.io/main/ %c %c %c\n 🌞%c\u2665%c\u2665%c\n︵‿︵‿︵‿ヽ(°w° )ノ︵‿︵‿︵‿\n\n",
+    "background: " + color1 + "; padding:5px 0;",
+    "background: " + color1 + "; padding:5px 0;",
+    "color: white; background: black; padding:5px 0;",
+    "background: " + color1 + "; padding:5px 0;",
+    "background: " + color2 + "; padding:5px 0;",
+    "background: " + color1 + "; padding:5px 0;",
+    "background: " + color2 + "; padding:5px 0;",
+    "background: " + color1 + "; padding:5px 0;",
+    "background: " + color1 + "; padding:5px 0;",
+    "color: #ff2424; padding:5px;",
+    "color: #ff2424; padding:5px;",
+    "color: #ff2424; padding:5px;",
+    "color: black; padding:5px;",
+  ];
+  (_a = self.console).log.apply(_a, args);
+} catch (error) {}

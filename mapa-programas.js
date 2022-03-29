@@ -238,7 +238,7 @@ let mapa_programas = [
             <iframe class="youtube-frame" src="https://www.youtube.com/embed/ijqsaG5qp3Y" title="YouTube video player" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe>
         </div>
         `,
-        URL: "_p5.js/Planeta/",
+        URL: "00p5.js/Planeta/",
       },
     ],
   },
@@ -271,12 +271,12 @@ let mapa_programas = [
       {
         LABEL: "Espiral de Ulam",
         HTML: ``,
-        URL: "_p5.js/espiral-de-ulam/",
+        URL: "00p5.js/espiral-de-ulam/",
       },
       {
         LABEL: "Ruido de Perlin",
         HTML: ``,
-        URL: "_p5.js/perlin-noise/",
+        URL: "00p5.js/perlin-noise/",
       },
     ],
   },

@@ -1,13 +1,8 @@
 <style>
-     #menu-pegajoso {
-          background: rgba(0, 0, 0, 0.85);
+     #menu-principal {
+          color: white;
+          background: black;
           z-index: 10;
-          display: flex;
-          flex-wrap: wrap;
-          align-items: center;
-          justify-content: space-between;
-          color: rgba(255, 255, 255, 1);
-          text-align: left;
           font-weight: lighter;
           position: sticky;
           top: 0;
@@ -16,39 +11,181 @@
      .menu-pegajoso-hide {
           transform: translateY(-100%);
      }
-     .menu-pegajoso-show {
-          transform: translateY(0);
+
+     .nav-menu-principal{
+          margin: 0;
      }
 
-     #menu-pegajoso a {
-          padding: 10px;
-          color: white;
+     #menu-principal .nav-menu-principal {
+          display: flex;
+          flex-wrap: wrap;
+          justify-content: center;
+     }
+
+     #menu-principal ul {
+          display: inline-block;
+          list-style: none;
+          padding: 0;
+     }
+     
+     .nav-menu-principal>li {
+          float: left;
+     }
+
+     .nav-menu-principal li a[href$=".html"] {
+          cursor: pointer;
+     }
+
+     .nav-menu-principal li {
+          background-color: rgba(0, 0, 0, 0.9);
+     }
+
+
+     #menu-principal ul li {
+          margin: 0;
+     }
+
+     .nav-menu-principal li a {
           text-decoration: none;
+          display: block;
+          padding: 3px;
+          user-select: none;
      }
 
-     #menu-pegajoso a:hover {
-          background: rgba(0, 0, 255, 0.2);
-          color: lightgray;
+     .nav-menu-principal li a:hover {
+          background-color: rgba(255, 255, 255, 0.5);
+          color: inherit;
      }
 
-     @media (max-width: 700px) {
-          #menu-pegajoso {
-               position: inherit;
-          }
+     #menu-principal .nav-menu-principal li ul {
+          font-size: 90%;
+          display: none;
+          position: absolute;
+          min-width: 140px;
+     }
+
+     #menu-principal li:hover>ul {
+          display: block;
+     }
+
+     .nav-menu-principal li ul li {
+          position: relative;
+     }
+
+     .nav-menu-principal li ul li ul {
+          top: 0;
+          right: 0;
+          transform: translateX(100%);
      }
 </style>
 
-<div id="menu-pegajoso">
-     <a href="index.html" style="text-decoration: none;">
-          <i class="fas fa-home"></i> PRINCIPAL
-     </a>
-     <a href="jeff-aporta.html" style="text-decoration: none;">
-          <i class="fas fa-code"></i> PROGRAMACIÓN
-     </a>
-     <a href="librerias.html" style="text-decoration: none;">
-          <i class="fas fa-book"></i> LIBRERÍAS
-     </a>
-     <a href="jeff-dibuja.html" style="text-decoration: none;">
-          <i class="fas fa-pencil-alt"></i> DIBUJOS
-     </a>
+<div id="menu-principal">
+     <ul class="nav-menu-principal">
+          <li>
+               <a href="#DEEPindex.html" style="text-decoration: none;">
+                    <i class="fas fa-home"></i> Principal
+               </a>
+          </li>
+          &nbsp;&nbsp;<span style="color: rgb(70, 70, 70);">|</span>&nbsp;&nbsp;
+          <li>
+               <a href="#DEEPjeff-aporta.html" style="text-decoration: none;">
+                    Programación <i class="fas fa-chevron-down"></i>
+               </a>
+               <ul>
+                    <li>
+                         <a>Ciencia <i class="fas fa-chevron-right"></i></a>
+                         <ul>
+                              <li><a href="#DEEPcadenas-de-markov/" target="_blank">Cadenas de Markov</a></li>
+                              <li><a href="#DEEPregresion-lineal/" target="_blank">Regresión Lineal</a></li>
+                              <li><a href="#DEEPdistribucion-de-poisson/" target="_blank">Distribución de Poisson</a></li>
+                         </ul>
+                    </li>
+                    <li>
+                         <a>Estructura de datos <i class="fas fa-chevron-right"></i></a>
+                         <ul>
+                              <li><a href="#DEEPestructura-de-datos/arboles-binarios-recorridos/" target="_blank">Árboles binarios</a></li>
+                              <li><a href="#DEEPestructura-de-datos/arboles-binarios-Torres-de-hanoi/" target="_blank">Torres de Hanói</a></li>
+                              <li><a href="#DEEPGrafos/" target="_blank">Modelador de Grafos y Dijkstra</a></li>
+                         </ul>
+                    </li>
+                    <li>
+                         <a>Arte <i class="fas fa-chevron-right"></i></a>
+                         <ul>
+                              <li><a href="#DEEPpoligonometrismo/" target="_blank">Poligonometrismo</a></li>
+                         </ul>
+                    </li>
+                    <li>
+                         <a>Animaciones <i class="fas fa-chevron-right"></i></a>
+                         <ul>
+                              <li><a href="#DEEPStarfield/" target="_blank">Starfield</a></li>
+                              <li><a href="#DEEPEstanque-de-peces/" target="_blank">Estanque de peces</a></li>
+                              <li><a href="#DEEP00p5.js/Planeta/" target="_blank">Tierra y luna</a></li>
+                         </ul>
+                    </li>
+                    <li>
+                         <a>Algoritmos <i class="fas fa-chevron-right"></i></a>
+                         <ul>
+                              <li><a href="#DEEPliquido-ley-de-hooke/" target="_blank">Liquidos con Ley de Hooke</a></li>
+                              <li><a href="#DEEPjuego-de-la-vida-conway/" target="_blank">Juego de la vida de Conway</a></li>
+                              <li><a href="#DEEPArbol-recursivo/" target="_blank">Árboles recursivos</a></li>
+                              <li><a href="#DEEPMandelbrot-Set/" target="_blank">Conjunto de Mandelbrot</a></li>
+                              <li><a href="#DEEP00p5.js/espiral-de-ulam/" target="_blank">Espiral de Ulam</a></li>
+                              <li><a href="#DEEP00p5.js/perlin-noise/" target="_blank">Ruido de Perlin</a></li>
+                         </ul>
+                    </li>
+                    <li>
+                         <a>Utilidades <i class="fas fa-chevron-right"></i></a>
+                         <ul>
+                              <li><a href="#DEEPsimulador-de-dados/" target="_blank">Simulación de dados</a></li>
+                              <li><a href="#DEEPtemporizador-tipo-moneda/" target="_blank">Temporizador tipo moneda</a></li>
+                              <li><a href="#DEEPcubo-de-imagenes/" target="_blank">Cubo de imágenes</a></li>
+                         </ul>
+                    </li>
+                    <li>
+                         <a>Juegos Elementales <i class="fas fa-chevron-right"></i></a>
+                         <ul>
+                              <li><a href="#DEEPpong-solitario/" target="_blank">Pong solitario</a></li>
+                              <li><a href="#DEEPtetris/" target="_blank">Tetris</a></li>
+                              <li><a href="#DEEPjuego-de-preguntas/juego-de-preguntas-v1/" target="_blank">Juego de preguntas</a></li>
+                              <li><a href="#DEEPbuscaminas/" target="_blank">Buscaminas</a></li>
+                              <li><a href="#DEEPflappy-bird/" target="_blank">Flappy bird</a></li>
+                         </ul>
+                    </li>
+               </ul>
+          </li>
+          &nbsp;&nbsp;<span style="color: rgb(70, 70, 70);">|</span>&nbsp;&nbsp;
+          <li>
+               <a href="#DEEPlibrerias.html" style="text-decoration: none;">
+                    Librerías <i class="fas fa-chevron-down"></i>
+               </a>
+               <ul>
+                    <li>
+                         <a href="00Libs/rect-circle-p5-js/">
+                              Rectángulos y circulos
+                         </a>
+                    </li>
+                    <li>
+                              <a>Lightbox <i class="fas fa-chevron-right"></i></a>
+                              <ul>
+                                   <li>
+                                        <a href="00Libs/Lightbox/2/">
+                                             v2
+                                        </a>
+                                   </li>
+                                   <li>
+                                        <a href="00Libs/Lightbox/3/">
+                                             v3
+                                        </a>
+                                   </li>
+                              </ul>
+                    </li>
+               </ul>
+          </li>
+          &nbsp;&nbsp;<span style="color: rgb(70, 70, 70);">|</span>&nbsp;&nbsp;
+          <li>
+               <a href="#DEEPjeff-dibuja.html" style="text-decoration: none;">
+                    <i class="fas fa-pencil-alt"></i> Dibujos
+               </a>
+          </li>
+     </ul>
 </div>

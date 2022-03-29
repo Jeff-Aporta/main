@@ -1,0 +1,342 @@
+<!DOCTYPE html>
+<html lang="es">
+
+<head>
+     <title>Sites.js</title>
+
+     <meta charset="UTF-8">
+     <meta http-equiv="X-UA-Compatible" content="IE=edge">
+     <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+     <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/css/bootstrap.min.css">
+     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
+
+     <link rel="stylesheet" href="../../main.css">
+
+     <script src="https://cdn.jsdelivr.net/gh/google/code-prettify@master/loader/run_prettify.js"></script>
+     <link rel="stylesheet" href="../prettyprint/night-blue.css">
+
+     <script src="sites.min.js"></script>
+
+     <meta property="og:site_name" content="Sites.js">
+     <meta property="og:title" content="Sites.js">
+     <meta property="og:description" content="Base de datos de casi todas las regiones del mundo">
+     <meta property="og:image" content="https://i.ibb.co/3vg4KNb/softyo-001.png">
+     <link rel="icon" type="image/png" href="https://i.ibb.co/3vg4KNb/softyo-001.png">
+</head>
+
+<body>
+     <style>
+          * {
+               transition: all 0.25s;
+          }
+
+          body {
+               margin: 0;
+               padding: 0;
+          }
+
+          select {
+               padding: 10px;
+          }
+     </style>
+     <script>
+          deep = "../../"
+          document.write(`<script src="` + deep + `utilidades.js"></` + 'script>')
+     </script>
+     <script>
+          document.write(
+               readText(deep + "00frag_encabezado2.html")
+                    .replaceAll("#FONDO", "https://i.ibb.co/Wy7qnTV/banner.gif")
+                    .replaceAll("#TITULO", "Sites.js")
+                    .replaceAll("#DESCRIPCIÓN", `Para listar por paises, estados y ciudades`)
+          )
+          document.write(`<script src="` + deep + `insertar-menú-pegajoso.js"></` + 'script>')
+     </script>
+
+     <div style="padding: 20px;">
+          <h1 style="text-align: center;">
+               Empieza ahora
+          </h1>
+
+          Esta librería está actualizada hasta la fecha 27 de Marzo del 2022, cuenta con 214 Paises, 1998 Estados y
+          129191 Ciudades, es una gran base de datos, completa para poder incorporar en cualquier web.
+
+          <br>
+          <br>
+
+          <div style="background: rgba(0, 0, 0, 0.075);padding: 15px;">
+               <a href="#" target="_blank" id="open-lib" style="text-decoration: none;">
+                    CDN
+                    <i class="fas fa-eye"></i>
+               </a>
+
+               <code style="display: block;text-align: center;background: rgba(0, 0, 0, 0.75);padding: 10px;">
+                    <script>
+                         let url = location.href.replace("index.html", "").replace("//00", "/00") + "sites.js"
+                         document.write(url)
+                         document.getElementById("open-lib").href = url
+                    </script>
+               </code>
+          </div>
+
+          <br>
+
+          <h1 style="text-align: center;">
+               PRUEBAS
+          </h1>
+
+          Selecciona libremente cualquier país, estado o ciudad, verás que dependiendo de la selección los otros campos
+          cambiarán.
+
+          <br><br>
+
+          <div style="text-align: center;">
+               <div style="display: inline-block;text-align: left;">
+                    <div style="text-align: center;">
+                         País
+                    </div>
+                    <img src="" id="flag" width="60px" style="vertical-align: top;">
+                    <select id="paises"
+                         onchange="actualizarEstados();actualizarCiudades();actualizarBandera()"></select>
+               </div>
+               <div style="display: inline-block;text-align: left;">
+                    Estado
+                    <br>
+                    <select id="estados" onchange="actualizarCiudades()"></select>
+               </div>
+               <div style="display: inline-block;text-align: left;">
+                    Ciudad
+                    <br>
+                    <select id="ciudades"></select>
+               </div>
+          </div>
+
+          <script>
+               actualizarPaises()
+               actualizarBandera()
+               actualizarEstados()
+               actualizarCiudades()
+
+               function actualizarPaises() {
+                    document.getElementById("paises").innerHTML = $optionPaises()
+               }
+
+               function actualizarBandera() {
+                    let flag = document.getElementById("flag");
+                    pais = document.getElementById("paises").value;
+                    flag.src = $regiones[pais].flagSVG_4x3
+               }
+
+               function actualizarEstados() {
+                    let pais = document.getElementById("paises").value
+                    document.getElementById("estados").innerHTML = $optionEstados(pais)
+               }
+
+               function actualizarCiudades() {
+                    let pais = document.getElementById("paises").value
+                    let estado = document.getElementById("estados").value
+                    document.getElementById("ciudades").innerHTML = $optionCiudades(pais, estado)
+               }
+
+               i_code = 0
+
+               function insertarCódigo(c, lenguaje = "js") {
+                    c = c.split("\n")
+                    html = c.map((x) => x.replace(c[c.length - 1], ""))
+                    html.pop()
+                    html = html.join("<br>")
+                    document.write(`
+                    <div style="position:relative;">
+                         <a onclick="navigator.clipboard.writeText(document.getElementById('code-${i_code}').innerText);if(!this.innerText.includes('copiado')) this.innerHTML+=' copiado'" style="position:absolute;right:30px;transform:translateY(10px);cursor:pointer;color:white;">
+                              <i class="fas fa-copy"></i>
+                         </a>
+                         <pre class="prettyprint languaje-${lenguaje} linenums:1" id="code-${i_code}">`
+                         + html + `
+                         </pre>
+                    </div>`
+                    )
+                    i_code++
+               }
+          </script>
+
+          El código anterior corresponde a:
+
+          <br><br>
+
+          <h3>
+               HTML <i class="fab fa-html5"></i>
+          </h3>
+          <script>
+               insertarCódigo(`
+               <div style="display: inline-block;text-align: left;">
+                    <div style="text-align: center;">
+                         País
+                    </div>
+                    <img src="" id="flag" width="60px" style="vertical-align: top;"> 
+                    <select id="paises" onchange="actualizarEstados();actualizarCiudades();actualizarBandera()"></select>
+               </div>
+               <div style="display: inline-block;text-align: left;">
+                    Estado
+                    <br>
+                    <select id="estados" onchange="actualizarCiudades()"></select>
+               </div>
+               <div style="display: inline-block;text-align: left;">
+                    Ciudad
+                    <br>
+                    <select id="ciudades"></select>
+               </div>
+               `.replaceAll("<", "&lt;").replaceAll(">", "&gt;"), "html")
+          </script>
+
+          <h3>
+               Javascript <i class="fab fa-js-square"></i>
+          </h3>
+          <script>
+               insertarCódigo(`
+               actualizarPaises()
+               actualizarBandera()
+               actualizarEstados()
+               actualizarCiudades()
+
+               function actualizarPaises() {
+                    document.getElementById("paises").innerHTML = $optionPaises()
+               }
+
+               function actualizarBandera() {
+                    let flag = document.getElementById("flag");
+                    let pais = document.getElementById("paises").value;
+                    flag.src = $regiones[pais].flagSVG_4x3
+               }
+
+               function actualizarEstados() {
+                    let pais = document.getElementById("paises").value
+                    document.getElementById("estados").innerHTML = $optionEstados(pais)
+               }
+
+               function actualizarCiudades() {
+                    let pais = document.getElementById("paises").value
+                    let estado = document.getElementById("estados").value
+                    document.getElementById("ciudades").innerHTML = $optionCiudades(pais, estado)
+               }
+               `)
+          </script>
+          <h1 style="text-align: center;">
+               Explicación
+          </h1>
+          En el código HTML se estructuran divs y textos para la estética del programa, se incorpora una imágen que será
+          la que representará la bandera, tiene como id <code>"flag"</code> y se incorporan 3 selects sin opciones con
+          los ides en <code>"paises"</code>, <code>"estados"</code> y <code>"ciudades"</code>, de está manera se puede
+          controlar y capturar el correspondiente valor para cada select, además "paises" y "estados" tienen un evento
+          <code>onchange</code> que ejecutará a las funciones correspondientes para actualizar el estado de los
+          componentes anteriormente descritos, en el caso de <code>"paises"</code> son las funciones
+          <code>actualizarEstados();actualizarCiudades();actualizarBandera()</code> y en el caso de
+          <code>"estados"</code> es la función <code>actualizarCiudades()</code>.
+          <br><br>
+          En el código JS se describe la parte lógica de cada función, para actualizar los campos de bandera, paises,
+          estados y ciudades, se hace uso de <code>$optionPaises()</code> qué es una función propia de la librería
+          <code>sites.js</code>, lo que hace es retornar un modelo HTML con los elementos de los paises encapsulados en
+          elementos option, para poder establecer el cuerpo del elemento select correspondiente para representar a los
+          paises. también se hace uso de la función <code>$optionEstados(pais)</code> qué cumple una función similar a
+          la de <code>$optionPaises()</code> pero con referencia a los estados, recibe de argumento un país para generar
+          los estados correspondientes, y la función <code>$optionCiudades(pais, estado)</code> es similar, pero con
+          referencia a las ciudades, recibe un país y un estado para poder retornar las ciudades correspondientes.
+          <br><br>
+          Listo, como ven generar este efecto no es complicado, de hecho es bastante sencillo haciendo uso de la
+          librería <code>sites.js</code>, hay que explicar otras funciones de la librería:
+          <br>
+          <h1 style="text-align: center;">
+               Funciones
+          </h1>
+          <h3>
+               Funciones de retorno de cuerpos html
+          </h3>
+          <table class="table-dark table table-striped" style="border-radius: 10px;overflow: hidden;">
+               <thead>
+                    <tr>
+                         <th style="width: 40%;">
+                              Función
+                         </th>
+                         <th style="width: 60%;">
+                              Descripción
+                         </th>
+                    </tr>
+               </thead>
+               <tbody>
+                    <tr>
+                         <td>
+                              $optionPaises()
+                         </td>
+                         <td>
+                              Retorna un cuerpo HTML con todos los paises de la librería.
+                         </td>
+                    </tr>
+                    <tr>
+                         <td>
+                              $optionEstados(pais)
+                         </td>
+                         <td>
+                              Retorna un cuerpo HTML con todos los estados de un país especifíco de la librería.
+                         </td>
+                    </tr>
+                    <tr>
+                         <td>
+                              $optionCiudades(pais, estado)
+                         </td>
+                         <td>
+                              Retorna un cuerpo HTML con todas las ciudades del estado de un país especifíco de la
+                              librería.
+                         </td>
+                    </tr>
+               </tbody>
+          </table>
+          <h3>
+               Funciones de retorno de arreglos
+          </h3>
+          <table class="table table-dark table-striped" style="border-radius: 10px;overflow: hidden;">
+               <thead>
+                    <tr>
+                         <th style="width: 40%;">
+                              Función
+                         </th>
+                         <th style="width: 60%;">
+                              Descripción
+                         </th>
+                    </tr>
+               </thead>
+               <tbody>
+                    <tr>
+                         <td>
+                              $paises()
+                         </td>
+                         <td>
+                              Retorna el listado de todos los paises en un array organizados alfabeticamente.
+                         </td>
+                    </tr>
+                    <tr>
+                         <td>
+                              $estados(pais)
+                         </td>
+                         <td>
+                              Retorna el listado de todos los estados de un país en un array organizados
+                              alfabeticamente.
+                         </td>
+                    </tr>
+                    <tr>
+                         <td>
+                              $ciudades(pais, estado)
+                         </td>
+                         <td>
+                              Retorna el listado de todas las ciudades de un país y un estado especifíco en un array
+                              organizados alfabeticamente.
+                         </td>
+                    </tr>
+               </tbody>
+          </table>
+     </div>
+     <script>
+          document.write(readText(deep + "00frag_footer.html"))
+     </script>
+</body>
+
+</html>

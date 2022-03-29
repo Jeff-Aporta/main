@@ -62,7 +62,8 @@ description = "Gradio demo for MiDaS v2.1 which takes in a single image for comp
 article = "<p style='text-align: center'><a href='https://arxiv.org/abs/1907.01341v3'>Towards Robust Monocular Depth Estimation: Mixing Datasets for Zero-shot Cross-dataset Transfer</a> | <a href='https://github.com/intel-isl/MiDaS'>Github Repo</a></p>"
 
 
-folder = "00Libs/Lightbox/3/"
+#folder = "00Libs/Lightbox/3/"
+folder = ""
 
 examples = [
     folder+f for f in os.listdir("./"+folder)

@@ -53,26 +53,12 @@
                text-transform: uppercase;
           }
 
-          ul,
-          li {
-               list-style-type: none;
-               font-weight: lighter;
-               padding: 5px;
-               margin: 5px;
-               background: rgba(0, 200, 248, 0.1);
-          }
-
           .img-link-lightbox {
                display: inline-flex;
                flex-direction: column;
                justify-content: center;
                align-items: center;
                font-weight: bolder;
-          }
-
-          .img-LaTeX {
-               padding: 5px;
-               cursor: pointer;
           }
 
           .img-LaTeX:hover {
@@ -281,21 +267,11 @@
      </div>
 
      <script>
-          document.write(
-               readText("00frag-menu-pegajoso.html")
-                    .replace(`href="index.html" style="font-size: 180%;text-decoration: none;"`, `href="#" style="font-size: 180%;text-decoration: none;border-bottom:2px solid hotpink;"`)
-          )
-
-          function readText(ruta_local) {
-               var texto = null;
-               var xmlhttp = new XMLHttpRequest();
-               xmlhttp.open("GET", ruta_local, false);
-               xmlhttp.send();
-               if (xmlhttp.status == 200) {
-                    texto = xmlhttp.responseText;
-               }
-               return texto;
-          }
+          deep = ""
+          document.write(`<script src="` + deep + `utilidades.js"></` + 'script>')
+     </script>
+     <script>
+          document.write(`<script src="` + deep + `insertar-menú-pegajoso.js"></` + 'script>')
      </script>
      <div class="columnas-2">
 
@@ -380,7 +356,7 @@
                <br>
 
                <script>
-                    lightbox_update_style({
+                    lightbox3_update_style({
                          background: "rgba(0,0,0,0.5)",
                          colorBorder: "rgba(0,0,0,1)",
                          background2: "rgba(0,0,0,0.7)",
@@ -506,6 +482,10 @@
           </div>
 
      </div>
+
+     <script>
+          document.write(readText("00frag_footer.html"))
+     </script>
 
 
 </body>
