@@ -116,13 +116,20 @@
 
           }
 
-          function setup(){
+          function setup() {
                noCanvas()
           }
 
           function mouseMoved() {
                displacementFilter.scale.x = (window.innerWidth / 2 - 1.2 * mouseX) / 20;
                displacementFilter.scale.y = (window.innerHeight / 2 - 1.2 * mouseY) / 20;
+          }
+
+          function touchMoved() {
+               for (var i = 0; i < touches.length; i++) {
+                    displacementFilter.scale.x = (window.innerWidth / 2 - 1.2 * touches[0].x) / 20;
+                    displacementFilter.scale.y = (window.innerHeight / 2 - 1.2 * touches[0].y) / 20;
+               }
           }
 
      </script>
