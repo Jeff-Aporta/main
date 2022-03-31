@@ -12,6 +12,8 @@
      <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
 
      <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11.3.0/dist/sweetalert2.all.min.js"></script>
+     <script src="https://cdnjs.cloudflare.com/ajax/libs/p5.js/1.4.1/p5.min.js"></script>
+     <script src="rangos.js"></script>
 
      <meta property="og:site_name" content="Rangos">
      <meta property="og:title" content="Rangos">
@@ -32,14 +34,77 @@
           }
      </style>
 
+     Discretizar
+     <br>
+     <div id="p5-js-1">
+     </div>
+     Ajuste Circular
+     <br>
+     <div id="p5-js-2">
+     </div>
+
      <script>
-          function setup() {
-               createCanvas(100, 200)
-          }
+          console.log()
 
-          function draw() {
+          let rango = new Rango(0, 255)
 
-          }
+          new p5(sketch => {
+               sketch.windowResized = function () {
+                    sketch.resizeCanvas(sketch.windowWidth, 50)
+               }
+
+               sketch.setup = function () {
+                    sketch.createCanvas(sketch.windowWidth, 50)
+                    sketch.pixelDensity(1)
+               }
+
+
+               sketch.draw = function () {
+                    sketch.background("lightgray")
+                    sketch.loadPixels()
+                    for (let c = 0; c < sketch.width; c++) {
+                         for (let f = 0; f < sketch.height; f++) {
+                              let index = 4 * (f * sketch.width + c);
+                              let g = sketch.map(c,0,sketch.width,0,255)
+                              g = rango.discretize(g,7)
+                              sketch.pixels[index] = g
+                              sketch.pixels[index + 1] = g
+                              sketch.pixels[index + 2] = g
+                              sketch.pixels[index + 3] = 255
+                         }
+                    }
+                    sketch.updatePixels()
+               }
+          }, "p5-js-2");
+
+          new p5(sketch => {
+               sketch.windowResized = function () {
+                    sketch.resizeCanvas(sketch.windowWidth, 50)
+               }
+
+               sketch.setup = function () {
+                    sketch.createCanvas(sketch.windowWidth, 50)
+                    sketch.pixelDensity(1)
+               }
+
+
+               sketch.draw = function () {
+                    sketch.background("lightgray")
+                    sketch.loadPixels()
+                    for (let c = 0; c < sketch.width; c++) {
+                         for (let f = 0; f < sketch.height; f++) {
+                              let index = 4 * (f * sketch.width + c);
+                              let g = sketch.map(c,0,sketch.width,0,255)
+                              g = rango.discretize(g,7)
+                              sketch.pixels[index] = g
+                              sketch.pixels[index + 1] = g
+                              sketch.pixels[index + 2] = g
+                              sketch.pixels[index + 3] = 255
+                         }
+                    }
+                    sketch.updatePixels()
+               }
+          }, "p5-js-1");
      </script>
 
 </body>

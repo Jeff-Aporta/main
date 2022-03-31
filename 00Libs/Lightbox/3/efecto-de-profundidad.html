@@ -8,6 +8,7 @@
      <title>Efecto de profundidad</title>
 
      <script src="pixi.js"></script>
+     <script src="https://cdnjs.cloudflare.com/ajax/libs/p5.js/1.4.1/p5.min.js"></script>
 </head>
 
 <body>
@@ -115,13 +116,15 @@
 
           }
 
-          window.onmousemove = function (e) {
-               try {
-                    displacementFilter.scale.x = (window.innerWidth / 2 - 1.2 * e.clientX) / 20;
-                    displacementFilter.scale.y = (window.innerHeight / 2 - 1.2 * e.clientY) / 20;
-               } catch (error) {
-               }
-          };
+          function setup(){
+               noCanvas()
+          }
+
+          function mouseMoved() {
+               displacementFilter.scale.x = (window.innerWidth / 2 - 1.2 * mouseX) / 20;
+               displacementFilter.scale.y = (window.innerHeight / 2 - 1.2 * mouseY) / 20;
+          }
+
      </script>
 </body>
 

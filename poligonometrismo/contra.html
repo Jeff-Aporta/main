@@ -59,7 +59,7 @@
 
 
           curva = (t) => {
-               return { x: Math.cos(t)*(1-Math.cos(t)), y: Math.sin(t)*(1-Math.cos(t)) }
+               return { x: Math.cos(t)*(Math.cos(5*t)), y: Math.sin(t)*(Math.cos(5*t)) }
           }
 
           contra = (t, k, curva) => {
@@ -92,7 +92,7 @@
                beginShape()
                for (let i = 0; i < 5000; i++) {
                     let t = map(i, 0, 5000, tabMin, tabMax)
-                    let p = contra(t, frameCount / 3000, curva)
+                    let p = contra(t, frameCount / 5000, curva)
                     p = TL(p)
                     vertex(p.x, p.y)
                }
