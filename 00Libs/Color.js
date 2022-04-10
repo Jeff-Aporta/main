@@ -28,7 +28,7 @@ class Color {
   }
 
   static random() {
-    return new Color(random(255), random(255), random(255));
+    return new Color(Math.random(255), random(255), random(255));
   }
 
   get intR() {
