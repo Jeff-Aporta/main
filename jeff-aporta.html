@@ -34,8 +34,8 @@
           }
 
           .youtube-frame {
-               max-width: 300px;
-               height: 180px;
+               width: 100%;
+               height: 200px;
           }
 
           .img-link-lightbox {
@@ -81,7 +81,7 @@
           #programas .item {
                color: black;
                position: relative;
-               background: rgba(255, 255, 255, 0.85);
+               background: white;
                text-align: left;
                padding: 10px;
                display: inline-block;
@@ -89,27 +89,15 @@
                width: 350px;
                vertical-align: top;
                font-size: 90%;
-               border-radius: 10px;
-               border: 2px solid white;
+               border: 2px solid lightgray;
           }
 
           #programas .items {
+               background-color: black;
                display: flex;
                justify-content: center;
                flex-wrap: wrap;
                padding: 20px;
-          }
-
-          .fondo1 {
-               background: url(https://i.ibb.co/sjFtsgt/output-onlinegiftools.gif);
-               background-position: 50%;
-               background-size: cover;
-               background-attachment: fixed;
-          }
-
-          .vidrio-borroso {
-               background: url(https://i.ibb.co/gmRqdsd/glass.png);
-               backdrop-filter: blur(4px);
           }
 
           @media (min-width:1px) and (max-width: 500px) {
@@ -146,8 +134,7 @@
 
           function insertarEjecuciónDeApp(url, retornar = false) {
                let html = `
-                         <div style="padding:10px;margin:10px">
-     
+                         <div>
                               <i class="fas fa-code"></i>
      
                               &nbsp;
@@ -229,7 +216,7 @@
                               <br>
                               <br>
 
-                              <span class="btn btn-warning" id="mostrar-apps-sección-${i_sección}" onclick="
+                              <span class="btn btn-warning" style="display:none;" id="mostrar-apps-sección-${i_sección}" onclick="
                               document.getElementById('apps-sección-${i_sección}').style.display = 'table';
                               document.getElementById('apps-sección-${i_sección}').style.width = '100%';
      
@@ -247,7 +234,7 @@
                               </span>
 
      
-                              <span class="btn btn-danger" style="display:none;" id="ocultar-apps-sección-${i_sección}" onclick="
+                              <span class="btn btn-danger" id="ocultar-apps-sección-${i_sección}" onclick="
                               element = document.getElementById('apps-sección-${i_sección}');
                               
                               this.style.display = 'none';
@@ -273,15 +260,17 @@
 
 
                          </div>
-                         <div class="fondo1" id="apps-sección-${i_sección}" >
-                         <div class="items vidrio-borroso">
+                         <div id="apps-sección-${i_sección}" >
+                         <div class="items">
                          `
                for (let j = 0; j < main.CHILDS.length; j++) {
                     const secundary = main.CHILDS[j];
                     html += `
                          <div class="item" id="app-container-${i_app}">
-
-                                   <h5>
+                                   ${secundary.VIDEO ?? `<img src="${secundary.IMG ?? "https://i.ibb.co/KKRVHYZ/no-banner.gif"}" style="object-fit:${secundary.IMG ? secundary.FIT ?? "contain" : "cover"};background:white;width:100%;height:200px;border:lightgray solid 2px;">`}
+                                   <br>
+                                   <br>
+                                   <h5 style="font-weight:bolder;height:60px">
                                         <i class="fas fa-file-code"></i> ${secundary.LABEL}
                                    </h5>`
                     html += insertarEjecuciónDeApp(secundary.URL, true)

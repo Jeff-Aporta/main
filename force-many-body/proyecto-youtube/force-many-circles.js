@@ -1,5 +1,5 @@
 function forceManyCircles(circulos) {
-  let retorno = false
+  let retorno = false;
   for (let i = 0; i < circulos.length; i++) {
     const circulo1 = circulos[i];
     for (let j = i + 1; j < circulos.length; j++) {
@@ -7,7 +7,7 @@ function forceManyCircles(circulos) {
       retorno |= forceCircle(circulo1, circulo2);
     }
   }
-  return retorno
+  return retorno;
 }
 
 function forceCircle(body1, body2) {
@@ -30,9 +30,9 @@ function forceCircle(body1, body2) {
   if (d < dmin) {
     body1.move(vd1.x, vd1.y);
     body2.move(vd2.x, vd2.y);
-    return true
+    return true;
   }
-  return false
+  return false;
 }
 
 function distanceEuclidean(p1, p2 = { x: 0, y: 0 }) {

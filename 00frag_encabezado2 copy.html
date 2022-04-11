@@ -1,0 +1,37 @@
+<style>
+     .fondo1 {
+          background: url(#FONDO);
+          background-position: 50%;
+          background-size: cover;
+     }
+
+     .vidrio-borroso {
+          background: rgba(0, 0, 0, 0.6);
+          backdrop-filter: blur(2px);
+     }
+
+     #encabezado a {
+          padding: 10px;
+          color: inherit;
+          text-decoration: none;
+          border-bottom: 2px solid rgba(255, 255, 255, 0.5);
+     }
+
+     #encabezado a:hover {
+          background: rgba(255, 255, 255, 0.25);
+          border-bottom: 2px solid white;
+     }
+</style>
+
+<div class="fondo1" id="encabezado">
+     <div class="vidrio-borroso"
+          style="padding-top: 20px;display: flex;flex-wrap: wrap;justify-content: center;align-items: center;color: white;height: 90vh;">
+          
+          <div style="text-align: center;color: white;">
+               <h1 style="font-size: calc(max(6vw,50px));color: white;">
+                    #TITULO
+               </h1>
+               #DESCRIPCIÓN
+          </div>
+     </div>
+</div>
