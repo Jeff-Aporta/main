@@ -44,10 +44,3 @@ class Circulo {
     return distanceEuclidean(this, circulo);
   }
 }
-
-function distanceEuclidean(p1, p2 = { x: 0, y: 0 }) {
-  let x = (p1.x - p2.x) ** 2;
-  let y = (p1.y - p2.y) ** 2;
-  let d = Math.sqrt(x + y);
-  return d;
-}
