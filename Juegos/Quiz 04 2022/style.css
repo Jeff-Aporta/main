@@ -1,0 +1,42 @@
+* {
+  transition: all 0.25s;
+}
+
+body {
+  margin: 0;
+  padding: 0;
+  text-align: center;
+}
+
+.portada {
+  text-align: left;
+  background: black;
+  color: white;
+  padding: 20px;
+}
+
+#encabezado-pregunta {
+  background-color: white;
+  width: 80vw;
+  min-height: 200px;
+  padding: 10px;
+  margin: auto;
+  border: 3px solid lightgray;
+}
+
+input[type="radio"]{
+     display: none;
+}
+
+input[type="radio"]:checked + label{
+     background-color: dodgerblue;
+     color: white;
+}
+
+label{
+     padding: 10px;
+     margin: 10px;
+     width: 70vw;
+     background-color: white;
+     border: 3px solid lightgray;
+}

@@ -1,0 +1,123 @@
+<!DOCTYPE html>
+<html lang="es">
+
+<head>
+     <title>SVG Creator</title>
+
+     <meta charset="UTF-8">
+     <meta http-equiv="X-UA-Compatible" content="IE=edge">
+     <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+     <script src="https://d3js.org/d3.v7.min.js"></script>
+
+     <meta property="og:site_name" content="SVG Creator">
+     <meta property="og:title" content="SVG Creator">
+     <meta property="og:description" content="Prueba">
+     <meta property="og:image" content="https://i.ibb.co/3vg4KNb/softyo-001.png">
+     <link rel="icon" type="image/png" href="https://i.ibb.co/3vg4KNb/softyo-001.png">
+</head>
+
+<body>
+     <style>
+          * {
+               transition: all 0.25s;
+          }
+
+          body {
+               margin: 0;
+               padding: 0;
+          }
+     </style>
+
+     <script>
+          let width = 500;
+          let height = 500;
+
+          let svg = d3.select("body")
+               .append("svg")
+               .attr("width", width)
+               .attr("height", height)
+               .style("border", "red solid 1px")
+               .style("text-rendering", " geometricPrecision")
+
+          let hora = svg.append("line")
+               .attr("x1", width / 2)
+               .attr("y1", height / 2)
+               .attr("x2", width / 2)
+               .attr("y2", height / 2 + 130)
+               .attr("stroke", "black")
+               .attr("stroke-width", "5px")
+               .attr("stroke-linecap", "round")
+
+          let minuto = svg.append("line")
+               .attr("x1", width / 2)
+               .attr("y1", height / 2)
+               .attr("x2", width / 2)
+               .attr("y2", height / 2 + 200)
+               .attr("stroke", "black")
+               .attr("stroke-width", "2px")
+               .attr("stroke-linecap", "round")
+
+          let segundo = svg.append("line")
+               .attr("x1", width / 2)
+               .attr("y1", height / 2)
+               .attr("x2", width / 2)
+               .attr("y2", height / 2 + 200)
+               .attr("stroke", "red")
+               .attr("stroke-linecap", "round")
+
+          svg.append("circle")
+               .attr("cx", width / 2)
+               .attr("cy", height / 2)
+               .attr("r", 5)
+
+          svg.append("circle")
+               .attr("cx", width / 2)
+               .attr("cy", height / 2)
+               .attr("r", 210)
+               .attr("fill", "none")
+               .attr("stroke", "black")
+               .attr("stroke-width", "3px")
+
+          let texto = svg.append("text")
+               .attr("x", width / 2)
+               .attr("y", height / 2 + 100)
+               .attr("text-anchor", "middle")
+               .attr("dominant-baseline", "middle")
+               .text("00:00:00")
+
+          rotarManecillas()
+
+          setInterval(() => {
+               rotarManecillas()
+          }, 1000);
+
+          function rotarManecillas() {
+               let seconds = new Date().getSeconds()
+               let minutes = new Date().getMinutes()
+               let hours = new Date().getHours() % 12
+               let txt = (hours + "").padStart(2, 0) + ":"
+                    + (minutes + "").padStart(2, 0) + ":"
+                    + (seconds + "").padStart(2, 0)
+               let a = 2 * Math.PI * seconds / 60 + Math.PI / 2
+               let a2 = 2 * Math.PI * minutes / 60 + Math.PI / 2
+               let a3 = 2 * Math.PI * hours / 12 + Math.PI / 2
+
+               hora
+                    .attr("x2", width / 2 - 130 * Math.cos(a3))
+                    .attr("y2", height / 2 - 130 * Math.sin(a3))
+
+               minuto
+                    .attr("x2", width / 2 - 200 * Math.cos(a2))
+                    .attr("y2", height / 2 - 200 * Math.sin(a2))
+               segundo
+                    .attr("x2", width / 2 - 200 * Math.cos(a))
+                    .attr("y2", height / 2 - 200 * Math.sin(a))
+
+               texto.text(txt)
+          }
+     </script>
+
+</body>
+
+</html>

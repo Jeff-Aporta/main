@@ -17,7 +17,7 @@ let baseDePreguntas = [
     pregunta: "¿Quién pintó la Mona lisa?",
     ayuda: "Tabién pintó la última cena",
     ayudaImg: "https://i.ibb.co/jw3cRLM/ultima-dena.jpg",
-    imagen: "https://i.ibb.co/VMcQ65S/mona-lisa.jpg",
+    imagen: "https://i.blogs.es/716ce3/leonardo_da_vinci_-_mona_lisa/450_1000.jpg",
     respuesta: "Leonardo Da Vinci",
     distractores: ["Picasso", "Beethoven", "Miguel Ángel"],
   },
