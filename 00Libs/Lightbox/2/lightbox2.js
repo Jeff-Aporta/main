@@ -1,6 +1,4 @@
-window.addEventListener("load", () => {
-  lightbox_load();
-});
+console.log("lightbox v2 load")
 
 let style = document.createElement("style");
 
