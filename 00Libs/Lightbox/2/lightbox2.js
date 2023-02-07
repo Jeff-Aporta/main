@@ -1,4 +1,4 @@
-console.log("lightbox v2 load")
+console.log("lightbox v2 load 2023/02/07")
 
 let style = document.createElement("style");
 
@@ -26,7 +26,7 @@ function lightbox_update_style(obj) {
                   left: 50%;
                   top: 50%;
                   transform: translateY(-50%) translateX(-50%);
-                  object-fit: contain;
+                  object-fit: scale-down;
                   border: 3px solid ${
                     obj.colorBorder ?? "rgba(255, 255, 255, 1)"
                   };
